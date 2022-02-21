@@ -1,1 +1,9 @@
-/* You can add global styles to this file, and also import other style files */
+// custom styles
+@use 'assets/styles/abstracts/variables';
+@use 'assets/styles/base/base-bundle';
+
+// packages' styles
+@use 'node_modules/primeicons/primeicons';
+@use 'node_modules/primeng/resources/themes/lara-light-indigo/theme';
+@use 'node_modules/primeng/resources/primeng.min';
+
