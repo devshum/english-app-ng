@@ -1,7 +1,10 @@
-import { NgModule } from '@angular/core';
+// Modules
+import { VerbsModuleModule } from './core/verbs-module/verbs-module.module';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
+import { NgModule } from '@angular/core';
+
+// Components
 import { AppComponent } from './app.component';
 
 @NgModule({
@@ -10,7 +13,8 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    VerbsModuleModule
   ],
   providers: [],
   bootstrap: [AppComponent]
