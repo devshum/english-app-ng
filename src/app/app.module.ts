@@ -1,21 +1,14 @@
 // Modules
-import { VerbsModuleModule } from './core/verbs-module/verbs-module.module';
-import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
+import { CoreModule } from './core-module/core.module';
 import { NgModule } from '@angular/core';
 
 // Components
 import { AppComponent } from './app.component';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    VerbsModuleModule
-  ],
+  declarations: [AppComponent],
+  imports: [CoreModule, AppRoutingModule],
   providers: [],
   bootstrap: [AppComponent]
 })

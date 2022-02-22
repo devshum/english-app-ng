@@ -1,0 +1,71 @@
+@use '../../../../assets/styles/abstracts/variables' as styles;
+
+:host {
+  display: block;
+}
+
+.header {
+  background-color: styles.$gray;
+
+  &__container {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+  }
+
+  &__logo {
+    &,
+    &:link,
+    &:visited {
+      display: inline-block;
+      padding: 0.8rem 0;
+
+      img {
+        height: 3.2rem;
+      }
+    }
+  }
+
+  &__nav {
+    & > *  {
+      height: 100%;
+    }
+  }
+
+  &__nav-list {
+    display: flex;
+    align-items: center;
+
+    li {
+      display: inherit;
+      align-items: inherit;
+
+      height: 100%;
+      padding: 0.8rem;
+      cursor: pointer;
+      transition: styles.$transition;
+
+      &.active,
+      &:hover,
+      &:active {
+        background-color: styles.$gray-10;
+      }
+
+      &:not(:last-child) {
+        margin-right: 0.8rem;
+      }
+
+      a {
+        &,
+        &:link,
+        &:visited {
+          text-decoration: none;
+          color: styles.$white;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}
+
+
