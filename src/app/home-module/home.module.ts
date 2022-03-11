@@ -6,7 +6,6 @@ import { SharedModuleModule } from './../shared-module/shared-module.module';
 // Components
 import { HomeComponent } from './components/home/home.component';
 
-
 @NgModule({
   declarations: [
     HomeComponent
