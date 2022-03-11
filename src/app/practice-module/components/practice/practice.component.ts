@@ -12,12 +12,12 @@ import { takeUntil } from 'rxjs/operators';
 import { Verb } from 'src/app/core-module/interfaces/verb.interface';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: 'app-practice',
+  templateUrl: './practice.component.html',
+  styleUrls: ['./practice.component.scss']
 })
 
-export class HomeComponent implements OnInit, OnDestroy {
+export class PracticeComponent implements OnInit, OnDestroy {
   public randomVerb: Verb;
   private _unsubscribe = new Subject();
 
@@ -26,7 +26,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this._httpService.getRandomVerb()
                      .pipe(takeUntil(this._unsubscribe))
-                     .subscribe(data => this.randomVerb = data.data);
+                     .subscribe(data => {
+                        this.randomVerb = data.data;
+                        console.log(this.randomVerb);
+                     });
   }
 
   ngOnDestroy(): void {
