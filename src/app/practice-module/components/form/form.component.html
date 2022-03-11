@@ -1,0 +1,30 @@
+<form class="form"
+      [formGroup]="form"
+      (ngSubmit)="onSubmit()">
+  <div class="form__group">
+    <label class="form__label"
+           for="past">
+           2nd form of verb
+    </label>
+    
+    <input formControlName="past"
+           class="form__input"
+           id="past" 
+           type="text">
+  </div>
+  
+  <div class="form__group">
+    <label for="pastParticiple">
+           3rd form of the verb
+    </label>
+
+    <input formControlName="pastParticiple"
+           class="form__input"
+           id="pastParticiple" 
+           type="text">
+  </div>
+
+  <button class="form__button">
+    Check
+  </button>
+</form>
