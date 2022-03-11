@@ -1,8 +1,16 @@
+// environment
 import { environment } from './../../../environments/environment';
+
+// common
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+
+// rxjs
 import { Observable } from 'rxjs';
-import { VerbsResponse } from '../interfaces/verbs-response.interface';
+
+// interfaces
+import { VerbsResponse } from '../interfaces/verbsResponse.interface';
+import { RandomVerbResponse } from '../interfaces/randomVerbResponse.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -15,5 +23,9 @@ export class HttpService {
 
   getVerbs(): Observable<VerbsResponse> {
     return this._http.get<VerbsResponse>(`${this._apiUrl}/all`);
+  }
+
+  getRandomVerb(): Observable<RandomVerbResponse> {
+    return this._http.get<RandomVerbResponse>(`${this._apiUrl}/random`);
   }
 }
