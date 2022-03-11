@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 // interfaces
-import { VerbsResponse } from '../interfaces/verbsResponse.interface';
+import { VerbsResponse } from '../interfaces/verbs-response.interface';
 import { RandomVerbResponse } from '../interfaces/randomVerbResponse.interface';
 
 @Injectable({
