@@ -1,3 +1,4 @@
+import { HttpService } from './../../../core-module/services/http.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-
-  constructor() { }
+  constructor(private _httpService: HttpService) { }
 
   ngOnInit(): void {
+    this._httpService.getVerbs().subscribe(data => console.log(data.data));
   }
-
 }
