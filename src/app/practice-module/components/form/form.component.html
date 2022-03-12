@@ -3,28 +3,40 @@
       (ngSubmit)="onSubmit()"
       autocomplete="off">
   <div class="form__group">
-    <!-- <label class="form__label"
+    <label class="form__label"
            for="past">
-           2nd form of verb
-    </label> -->
+           Past
+    </label>
     
     <input formControlName="past"
            class="form__input"
            id="past" 
            type="text"
            placeholder="2nd form">
+
+    <span [class.shown]="valid(past, 'required')"
+          class="form__error">
+      field is required
+    </span>
+
   </div>
   
   <div class="form__group">
-    <!-- <label for="pastParticiple">
-           3rd form of the verb
-    </label> -->
+    <label class="form__label"
+           for="pastParticiple">
+           Past participle
+    </label>
 
     <input formControlName="pastParticiple"
            class="form__input"
            id="pastParticiple" 
            type="text"
            placeholder="3rd form">
+
+    <span [class.shown]="valid(pastParticiple, 'required')"
+           class="form__error">
+          field is required
+    </span>
   </div>
 
   <button class="form__button">Check</button>
