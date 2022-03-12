@@ -24,12 +24,12 @@ export class PracticeComponent implements OnInit, OnDestroy {
   constructor(private _httpService: HttpService) { }
 
   ngOnInit(): void {
-    this._httpService.getRandomVerb()
-                     .pipe(takeUntil(this._unsubscribe))
-                     .subscribe(data => {
-                        this.randomVerb = data.data;
-                        console.log(this.randomVerb);
-                     });
+    // this._httpService.getRandomVerb()
+    //                  .pipe(takeUntil(this._unsubscribe))
+    //                  .subscribe(data => {
+    //                     this.randomVerb = data.data;
+    //                     console.log(this.randomVerb);
+    //                  });
   }
 
   ngOnDestroy(): void {
