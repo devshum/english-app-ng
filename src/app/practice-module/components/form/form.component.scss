@@ -1,3 +1,62 @@
+@use '../../../../assets/styles/abstracts/variables.scss' as styles;
+
 :host {
   display: block;
 }
+
+.form {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+
+  &__group {
+    margin-bottom: 2.4rem;
+  }
+
+  &__label {
+  }
+
+  &__input {
+    width: 20rem;
+    border: none;
+    color: inherit;
+    font-size: 1.8rem;
+    font-family: inherit;
+    padding: 1.2rem 1.8rem;
+    border-radius: 0.2rem;
+    border-bottom: 0.3rem solid transparent;
+    text-align: center;
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 1rem 2rem rgba(styles.$black, 0.1);
+    }
+  }
+
+  &__button {
+    background-color: styles.$gray;
+    color: styles.$white;
+    padding: 1.5rem 4rem;
+    border-radius: 10rem;
+    border: unset;
+    cursor: pointer;
+    font-size: 1.6rem;
+    transition: all 0.2s;
+
+    span {
+      position: absolute;
+    }
+
+    &:hover {
+      transform: translateY(-0.3rem);
+      box-shadow: 0 1rem 2rem rgba(styles.$black, 0.2);
+    }
+
+    &:active {
+      outline: none;
+      transform: translateY(-0.1rem);
+      box-shadow: 0 0.5rem 1rem rgba(styles.$black, 0.2);
+    }
+  }
+}
+

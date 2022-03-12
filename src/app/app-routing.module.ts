@@ -5,13 +5,13 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'home'
+    redirectTo: 'practice'
   },
-  { path: 'home', loadChildren: () => import('./practice-module/practice.module').then(m => m.PracticeModule) },
+  { path: 'practice', loadChildren: () => import('./practice-module/practice.module').then(m => m.PracticeModule) },
   { path: 'verbs', loadChildren: () => import('./verbs-module/verbs.module').then(m => m.VerbsModule) },
   {
     path: '**',
-    redirectTo: 'home'
+    redirectTo: 'practice'
   }
 ];
 
