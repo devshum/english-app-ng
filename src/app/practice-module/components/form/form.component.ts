@@ -1,6 +1,6 @@
 // common
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 // interfaces
 import { Verb } from 'src/app/core-module/interfaces/verb.interface';
@@ -16,12 +16,24 @@ export class FormComponent implements OnInit {
 
   constructor(private _formBuilder: FormBuilder) { }
 
+  get past(): AbstractControl {
+    return this.form.get('past') as AbstractControl;
+  }
+
+  get pastParticiple(): AbstractControl {
+    return this.form.get('pastParticiple') as AbstractControl;
+  }
+
   ngOnInit(): void {
     this._initForm();
   }
 
   onSubmit(): void {
     console.log(this.form);
+  }
+
+  valid(control: AbstractControl, type: string): boolean {
+    return control.hasError(type) && control.invalid && (control.dirty || control.touched);
   }
 
   private _initForm(): void {
