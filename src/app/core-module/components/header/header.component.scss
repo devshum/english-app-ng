@@ -6,23 +6,25 @@
 
 .header {
   background-color: styles.$gray;
+  height: 5.6rem;
 
   &__container {
     display: flex;
     align-items: stretch;
     justify-content: space-between;
+
+    height: 100%;
   }
 
   &__logo {
-    &,
     &:link,
     &:visited {
-      display: inline-block;
-      padding: 0.8rem 0;
-
-      img {
-        height: 3.2rem;
-      }
+      display: flex;
+      align-items: center;
+      
+      text-decoration: none;
+      font-size: 2.4rem;
+      color: styles.$white;
     }
   }
 

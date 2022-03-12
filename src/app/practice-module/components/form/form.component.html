@@ -14,9 +14,14 @@
            type="text"
            placeholder="2nd form">
 
-    <span [class.shown]="valid(past, 'required')"
+    <span [class.shown]="hasError(past, 'required') && hasError(past, 'pastIsCorrect')"
           class="form__error">
       field is required
+    </span>
+
+    <span [class.shown]="hasError(past, 'pastIsCorrect') && !hasError(past, 'required')"
+          class="form__error">
+      2nd form isn't correct
     </span>
 
   </div>
@@ -33,11 +38,16 @@
            type="text"
            placeholder="3rd form">
 
-    <span [class.shown]="valid(pastParticiple, 'required')"
+    <span [class.shown]="hasError(pastParticiple, 'required') && hasError(pastParticiple, 'participleIsCorrect')"
            class="form__error">
           field is required
     </span>
+
+    <span [class.shown]="hasError(pastParticiple, 'participleIsCorrect') && !hasError(pastParticiple, 'required')"
+          class="form__error">
+          3rd form isn't correct
+    </span>
   </div>
 
-  <button class="form__button">Check</button>
+  <!-- <button class="form__button">Check</button> -->
 </form>

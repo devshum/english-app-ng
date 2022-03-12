@@ -8,6 +8,7 @@
   display: grid;
   justify-items: center;
   align-items: center;
+  max-width: 40rem;
 
   &__group {
     margin-bottom: 2.4rem;
@@ -22,7 +23,6 @@
   }
 
   &__input {
-    width: 20rem;
     border: none;
     color: inherit;
     font-size: 1.8rem;
@@ -59,6 +59,7 @@
     display: block;
     font-size: 1.2rem;
     margin-top: 0.2rem;
+    position: absolute;
     transform: translateY(-1.4rem);
     transition: styles.$transition-slow;
     opacity: 0;
