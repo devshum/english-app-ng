@@ -1,0 +1,19 @@
+@keyframes checkmark {
+  0% {
+    stroke-dashoffset: 5rem;
+  }
+
+  100% {
+    stroke-dashoffset: 0
+  }
+}
+
+@keyframes checkmark-circle {
+  0% {
+    stroke-dashoffset: 24rem;
+  }
+
+  100% {
+    stroke-dashoffset: 48rem;
+  }
+}

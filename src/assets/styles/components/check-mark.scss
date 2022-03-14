@@ -1,0 +1,14 @@
+.form {
+  &__icon {
+    svg {
+      path {
+        animation: checkmark 0.25s ease-in-out 0.7s backwards;
+        animation-delay: 0.6s;
+      }
+
+      circle {
+        animation: checkmark-circle 0.6s ease-in-out backwards;
+      }
+    }
+  }
+}
