@@ -25,6 +25,12 @@
       text-decoration: none;
       font-size: 2.4rem;
       color: styles.$white;
+      transition: styles.$transition;
+    }
+
+    &:hover span {
+      transition: styles.$transition;
+      transform: rotate(360deg);
     }
   }
 
@@ -32,39 +38,24 @@
     & > *  {
       height: 100%;
     }
-  }
 
-  &__nav-list {
-    display: flex;
-    align-items: center;
-
-    li {
-      display: inherit;
-      align-items: inherit;
-
-      height: 100%;
+    button {
       padding: 0.8rem 2rem;
       cursor: pointer;
       transition: styles.$transition;
+      border: unset;
+      font-size: inherit;
+      color: styles.$white;
+      background: unset;
 
       &.active,
-      &:hover,
-      &:active {
+      &:active,
+      &:hover {
         background-color: styles.$gray-10;
       }
 
       &:not(:last-child) {
         margin-right: 0.8rem;
-      }
-
-      a {
-        &,
-        &:link,
-        &:visited {
-          text-decoration: none;
-          color: styles.$white;
-          font-weight: 500;
-        }
       }
     }
   }
