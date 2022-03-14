@@ -1,7 +1,13 @@
 <form class="form"
       [formGroup]="form"
-      (ngSubmit)="onSubmit()"
       autocomplete="off">
+  <span class="form__title h1" 
+        [ngClass]="{
+          'form__title--green': form.valid
+        }">Forget
+  </span>
+  <!-- <span>{{ randomVerb?.infinitive }}</span> -->
+
   <div class="form__group">
     <label class="form__label"
            for="past">
@@ -12,11 +18,13 @@
            class="form__input"
            id="past" 
            type="text"
-           placeholder="2nd form">
+           placeholder="2nd form"
+           [class.disabled]="past.valid"
+           #pastInput>
 
     <span [class.shown]="hasError(past, 'required') && hasError(past, 'pastIsCorrect')"
           class="form__error">
-      field is required
+      the field is required
     </span>
 
     <span [class.shown]="hasError(past, 'pastIsCorrect') && !hasError(past, 'required')"
@@ -36,11 +44,13 @@
            class="form__input"
            id="pastParticiple" 
            type="text"
-           placeholder="3rd form">
+           placeholder="3rd form"
+           [class.disabled]="pastParticiple.valid"
+           #participleInput>
 
     <span [class.shown]="hasError(pastParticiple, 'required') && hasError(pastParticiple, 'participleIsCorrect')"
            class="form__error">
-          field is required
+          the field is required
     </span>
 
     <span [class.shown]="hasError(pastParticiple, 'participleIsCorrect') && !hasError(pastParticiple, 'required')"
@@ -49,5 +59,12 @@
     </span>
   </div>
 
-  <!-- <button class="form__button">Check</button> -->
+  <button class="form__button" #pickBtn>
+    <i *ngIf="allowNext" 
+        class="form__icon" 
+        [inlineSVG]="'check-mark.svg'">
+    </i>
+
+    <span>{{ !allowNext ? 'Pick another verb' : 'Next verb'}}</span>
+  </button>
 </form>

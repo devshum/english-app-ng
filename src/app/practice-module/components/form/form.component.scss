@@ -9,6 +9,17 @@
   justify-items: center;
   align-items: center;
   max-width: 40rem;
+  background-color: styles.$gray-1;
+  padding: 6rem;
+  border-radius: 0.2rem;
+
+  &__title {
+    color: styles.$gray;
+
+    &--green {
+      color: styles.$green;
+    }
+  }
 
   &__group {
     margin-bottom: 2.4rem;
@@ -19,7 +30,7 @@
 
     margin-bottom: 0.5rem;
     font-size: 1.2rem;
-    color: #aaaaab;
+    color: styles.$gray-8;
   }
 
   &__input {
@@ -31,6 +42,16 @@
     border-radius: 0.2rem;
     border-bottom: 0.3rem solid transparent;
     text-align: center;
+
+    &.disabled {
+      color: styles.$gray-8;
+      pointer-events: none;
+      background-color: styles.$gray-5;
+
+      &:focus {
+        box-shadow: unset;
+      }
+    }
 
     &:focus {
       outline: none;
@@ -75,29 +96,39 @@
   }
 
   &__button {
+    display: flex;
+    align-items: center;
     background-color: styles.$gray;
+    height: 4.8rem;
     color: styles.$white;
-    padding: 1.5rem 4rem;
+    padding: 0 4rem;
     border-radius: 10rem;
     border: unset;
     cursor: pointer;
     font-size: 1.6rem;
     transition: styles.$transition-slow;
 
-    span {
-      position: absolute;
+    &:focus-visible {
+      box-shadow: 0 0 0 0.4rem styles.$green;
     }
 
     &:hover {
-      transform: translateY(-0.3rem);
-      box-shadow: 0 1rem 2rem rgba(styles.$black, 0.2);
+      background-color: styles.$gray-10;
     }
 
     &:active {
       outline: none;
       transform: translateY(-0.1rem);
-      box-shadow: 0 0.5rem 1rem rgba(styles.$black, 0.2);
+      background-color: styles.$gray-10;
     }
+  }
+
+  &__icon {
+    display: flex;
+    transform: translateY(-0.1rem);
+    margin-right: 0.8rem;
+    height: 2.5rem;
+    width: 2.5rem;
   }
 }
 
