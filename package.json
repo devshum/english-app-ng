@@ -21,6 +21,7 @@
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-jsdoc": "^37.9.4",
     "eslint-plugin-prefer-arrow": "^1.2.3",
+    "ng-inline-svg-2": "^14.0.1",
     "primeicons": "^5.0.0",
     "primeng": "^13.2.0",
     "rxjs": "~6.6.0",
