@@ -28,6 +28,7 @@ export class VerbsComponent implements OnInit, OnDestroy {
                      .pipe(takeUntil(this._unsubscribe))
                      .subscribe(data => this.verbs = data.data);
   }
+
   ngOnDestroy(): void {
     this._unsubscribe.next();
   }
