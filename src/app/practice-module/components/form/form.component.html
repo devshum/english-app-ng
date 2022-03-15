@@ -4,9 +4,8 @@
   <span class="form__title h1" 
         [ngClass]="{
           'form__title--green': form.valid
-        }">Forget
+        }">{{ randomVerb?.infinitive }}
   </span>
-  <!-- <span>{{ randomVerb?.infinitive }}</span> -->
 
   <div class="form__group">
     <label class="form__label"
@@ -22,14 +21,9 @@
            [class.disabled]="past.valid"
            #pastInput>
 
-    <span [class.shown]="hasError(past, 'required') && hasError(past, 'pastIsCorrect')"
+    <span [class.shown]="hasError(past, 'pastIsCorrect')"
           class="form__error">
-      the field is required
-    </span>
-
-    <span [class.shown]="hasError(past, 'pastIsCorrect') && !hasError(past, 'required')"
-          class="form__error">
-      2nd form isn't correct
+          2nd form isn't correct
     </span>
 
   </div>
@@ -48,23 +42,21 @@
            [class.disabled]="pastParticiple.valid"
            #participleInput>
 
-    <span [class.shown]="hasError(pastParticiple, 'required') && hasError(pastParticiple, 'participleIsCorrect')"
-           class="form__error">
-          the field is required
-    </span>
-
-    <span [class.shown]="hasError(pastParticiple, 'participleIsCorrect') && !hasError(pastParticiple, 'required')"
+    <span [class.shown]="hasError(pastParticiple, 'participleIsCorrect')"
           class="form__error">
           3rd form isn't correct
     </span>
   </div>
 
-  <button class="form__button" #pickBtn>
+  <button class="form__button"
+          #pickBtn 
+          type="button"
+          (click)="pickVerb()">
     <i *ngIf="allowNext" 
         class="form__icon" 
         [inlineSVG]="'check-mark.svg'">
     </i>
 
-    <span>{{ !allowNext ? 'Pick another verb' : 'Next verb'}}</span>
+    <span>{{ !allowNext ? 'Pick another verb' : 'Pick another verb'}}</span>
   </button>
 </form>

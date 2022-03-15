@@ -1,9 +1,14 @@
+// service
+import { HttpService } from './../../../core-module/services/http.service';
+
 // common
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
 
 // interfaces
 import { Verb } from 'src/app/core-module/interfaces/verb.interface';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-form',
@@ -11,20 +16,23 @@ import { Verb } from 'src/app/core-module/interfaces/verb.interface';
   styleUrls: ['./form.component.scss']
 })
 
-export class FormComponent implements OnInit {
+export class FormComponent implements OnInit, OnDestroy {
   @ViewChild('pastInput', { static: false }) pastInput: ElementRef;
   @ViewChild('participleInput', { static: false }) participleInput: ElementRef;
   @ViewChild('pickBtn', { static: false }) pickBtn: ElementRef;
-  @Input() randomVerb: Verb;
-  public form: FormGroup;
-  public allowNext = false;
-  private _isPastValid = false;
-  private _isParticipleValid = false;
-  //test
-  private _validPast = 'forgot';
-  private _validParticiple = 'forgotten';
 
-  constructor(private _formBuilder: FormBuilder) { }
+  public randomVerb: Verb;
+  public form: FormGroup;
+  public allowNext: boolean;
+
+  private _isPastValid: boolean;
+  private _isParticipleValid: boolean;
+  private _unsubscribe = new Subject();
+
+  constructor(
+    private _formBuilder: FormBuilder,
+    private _httpService: HttpService
+  ) { }
 
   get past(): AbstractControl {
     return this.form.get('past') as AbstractControl;
@@ -36,16 +44,39 @@ export class FormComponent implements OnInit {
 
   ngOnInit(): void {
     this._initForm();
+    this.pickVerb();
   }
 
-  hasError(control: AbstractControl, type: string): boolean {
+  ngOnDestroy(): void {
+    this._unsubscribe.next();
+  }
+
+  public pickVerb(): void {
+    this._httpService.getRandomVerb()
+                     .pipe(takeUntil(this._unsubscribe))
+                     .subscribe(data => {
+                        this.randomVerb = data.data;
+                        console.log(this.randomVerb);
+                     });
+
+    if(this.pickBtn) {
+      this.allowNext = false;
+      this._isPastValid = false;
+      this._isParticipleValid = false;
+      this.form.reset({ past: '', pastParticiple: '' });
+
+      this.pickBtn.nativeElement.blur();
+    }
+  }
+
+  public hasError(control: AbstractControl, type: string): boolean {
     return control.hasError(type) && control.invalid && (control.dirty || control.touched);
   }
 
   private _initForm(): void {
     this.form = this._formBuilder.group({
-      past: ['', [Validators.required, this._checkPast.bind(this)]],
-      pastParticiple: ['', [Validators.required, this._checkParticiple.bind(this)]]
+      past: ['', this._checkPast.bind(this)],
+      pastParticiple: ['', this._checkParticiple.bind(this)]
     });
   }
 
@@ -53,11 +84,11 @@ export class FormComponent implements OnInit {
     const enteredValue = control.value.toLowerCase();
 
     switch (true) {
-      case this._validPast === enteredValue:
+      case this.randomVerb?.past === enteredValue:
         this._changePastInputState();
         break;
 
-      case this._validPast !== enteredValue:
+      case this.randomVerb?.past !== enteredValue:
         return { pastIsCorrect: true };
     }
 
@@ -68,10 +99,10 @@ export class FormComponent implements OnInit {
     const enteredValue = control.value.toLowerCase();
 
     switch (true) {
-      case this._validParticiple === enteredValue:
+      case this.randomVerb?.pastParticiple === enteredValue:
         this._changeParticipleInputFocus();
         break;
-      case this._validParticiple !== enteredValue:
+      case this.randomVerb?.pastParticiple !== enteredValue:
         return { participleIsCorrect: true };
     }
 
@@ -113,5 +144,7 @@ export class FormComponent implements OnInit {
   private _allowNext(): void {
     this.allowNext = true;
     this._changeFocus(this.pickBtn);
+    this.pastInput.nativeElement.blur();
+    this.participleInput.nativeElement.blur();
   }
 }
