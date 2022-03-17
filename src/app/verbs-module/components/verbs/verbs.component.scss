@@ -1,3 +1,15 @@
 :host {
   display: block;
 }
+
+.verbs {
+  &__wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 3.2rem;
+  }
+
+  &__title {
+    grid-column: 1 / -1;
+  }
+}

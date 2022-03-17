@@ -1,3 +1,51 @@
-<section>
-  verbs
+<section class="verbs">
+  <div class="verbs__wrapper wrapper">
+    <h1 class="verbs__title h1">Irregular Verbs</h1>
+
+    <div class="table">
+
+      <div class="table__head">
+        <span>Infinitive</span>
+        <span>Past simple</span>
+        <span>Past participle</span>
+      </div>
+
+      <div class="table__body">
+        <div class="table__body-row" *ngFor="let verb of verbs?.slice(0, 100)">
+          <span class="table__item">
+            <span>{{ verb.infinitive }}</span>
+          </span>
+          <span class="table__item">
+            <span>{{ verb.past }}</span>
+          </span>
+          <span class="table__item">
+            <span>{{ verb.pastParticiple }}</span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="table">
+
+      <div class="table__head">
+        <span>Infinitive</span>
+        <span>Past simple</span>
+        <span>Past participle</span>
+      </div>
+
+      <div class="table__body">
+        <div class="table__body-row" *ngFor="let verb of verbs?.slice(100, 200)">
+          <span class="table__item">
+            <span>{{ verb.infinitive }}</span>
+          </span>
+          <span class="table__item">
+            <span>{{ verb.past }}</span>
+          </span>
+          <span class="table__item">
+            <span>{{ verb.pastParticiple }}</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
