@@ -1,4 +1,4 @@
-@use '../../../../assets/styles/abstracts/variables.scss' as styles;
+@use '../../../../assets/styles/abstracts/variables' as styles;
 
 :host {
   display: block;
@@ -6,19 +6,41 @@
 
 .form {
   display: grid;
-  justify-items: center;
-  align-items: center;
-  max-width: 40rem;
+  min-width: 42rem;
   background-color: styles.$gray-1;
-  padding: 6rem;
+  padding: 5rem;
   border-radius: 0.2rem;
+
+  &__text-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 4rem;
+    width: 100%;
+    position: relative;
+    margin-bottom: 1.6rem;
+  }
 
   &__title {
     color: styles.$gray;
 
+    &--stub {
+      transform: translateY(-0.5rem);
+    }
+
     &--green {
       color: styles.$green;
     }
+  }
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    height: 23.2rem;
   }
 
   &__group {
@@ -129,6 +151,12 @@
     margin-right: 0.8rem;
     height: 2.5rem;
     width: 2.5rem;
+  }
+
+  &__loading {
+    border: 0.5rem solid styles.$blue;
+    border-top-color: styles.$gray-1;
+    margin-top: -5rem;
   }
 }
 

@@ -1,62 +1,75 @@
 <form class="form"
       [formGroup]="form"
       autocomplete="off">
-  <span class="form__title h1" 
+
+  <h1 class="form__text-box" [ngSwitch]="isLoading">
+    <span class="form__title h1" 
+        *ngSwitchCase="false"
         [ngClass]="{
           'form__title--green': form.valid
-        }">{{ randomVerb?.infinitive }}
-  </span>
+        }">
+        
+        {{ randomVerb?.infinitive }}
+    </span>
 
-  <div class="form__group">
-    <label class="form__label"
-           for="past">
-           Past
-    </label>
+    <span *ngSwitchDefault class="form__title--stub h1">...</span>
+  </h1>
+
+  <div class="form__wrapper" [ngSwitch]="isLoading">
+    <ng-container *ngSwitchCase="false">
+      <div class="form__group">
+        <label class="form__label"
+               for="past">
+               Past
+        </label>
+        
+        <input formControlName="past"
+               class="form__input"
+               id="past" 
+               type="text"
+               placeholder="2nd form"
+               [class.disabled]="past.valid"
+               #pastInput>
     
-    <input formControlName="past"
-           class="form__input"
-           id="past" 
-           type="text"
-           placeholder="2nd form"
-           [class.disabled]="past.valid"
-           #pastInput>
+        <span [class.shown]="hasError(past, 'pastIsCorrect')"
+              class="form__error">
+              2nd form isn't correct
+        </span>
+      </div>
+      
+      <div class="form__group">
+        <label class="form__label"
+               for="pastParticiple">
+               Past participle
+        </label>
+    
+        <input formControlName="pastParticiple"
+               class="form__input"
+               id="pastParticiple" 
+               type="text"
+               placeholder="3rd form"
+               [class.disabled]="pastParticiple.valid"
+               #participleInput>
+    
+        <span [class.shown]="hasError(pastParticiple, 'participleIsCorrect')"
+              class="form__error">
+              3rd form isn't correct
+        </span>
+      </div>
+    
+      <button class="form__button"
+              #pickBtn 
+              type="button"
+              (click)="pickVerb()">
+        <i *ngIf="allowNext" 
+            class="form__icon" 
+            [inlineSVG]="'check-mark.svg'">
+        </i>
+    
+        <span>{{ !allowNext ? 'Pick another verb' : 'Pick another verb'}}</span>
+      </button>
+    </ng-container>
 
-    <span [class.shown]="hasError(past, 'pastIsCorrect')"
-          class="form__error">
-          2nd form isn't correct
-    </span>
-
+    <div class="form__loading loading" *ngSwitchDefault>&nbsp;</div>
   </div>
-  
-  <div class="form__group">
-    <label class="form__label"
-           for="pastParticiple">
-           Past participle
-    </label>
-
-    <input formControlName="pastParticiple"
-           class="form__input"
-           id="pastParticiple" 
-           type="text"
-           placeholder="3rd form"
-           [class.disabled]="pastParticiple.valid"
-           #participleInput>
-
-    <span [class.shown]="hasError(pastParticiple, 'participleIsCorrect')"
-          class="form__error">
-          3rd form isn't correct
-    </span>
-  </div>
-
-  <button class="form__button"
-          #pickBtn 
-          type="button"
-          (click)="pickVerb()">
-    <i *ngIf="allowNext" 
-        class="form__icon" 
-        [inlineSVG]="'check-mark.svg'">
-    </i>
-
-    <span>{{ !allowNext ? 'Pick another verb' : 'Pick another verb'}}</span>
-  </button>
 </form>

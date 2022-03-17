@@ -1,3 +1,4 @@
+import { LoaderService } from './../../../core-module/services/loader.service';
 // service
 import { HttpService } from './../../../core-module/services/http.service';
 
@@ -7,8 +8,8 @@ import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
 
 // interfaces
 import { Verb } from 'src/app/core-module/interfaces/verb.interface';
-import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { debounce, takeUntil } from 'rxjs/operators';
+import { Subject, timer } from 'rxjs';
 
 @Component({
   selector: 'app-form',
@@ -22,6 +23,7 @@ export class FormComponent implements OnInit, OnDestroy {
   @ViewChild('pickBtn', { static: false }) pickBtn: ElementRef;
 
   public randomVerb: Verb;
+  public isLoading = false;
   public form: FormGroup;
   public allowNext: boolean;
 
@@ -31,7 +33,8 @@ export class FormComponent implements OnInit, OnDestroy {
 
   constructor(
     private _formBuilder: FormBuilder,
-    private _httpService: HttpService
+    private _httpService: HttpService,
+    private _loaderService: LoaderService
   ) { }
 
   get past(): AbstractControl {
@@ -43,6 +46,12 @@ export class FormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this._loaderService.loadingStatus.pipe(
+                                      takeUntil(this._unsubscribe),
+                                      debounce(load => load ? timer(0) : timer(1000))
+                                     )
+                                     .subscribe((isLoading: boolean) => this.isLoading = isLoading);
+
     this._initForm();
     this.pickVerb();
   }
@@ -52,11 +61,12 @@ export class FormComponent implements OnInit, OnDestroy {
   }
 
   public pickVerb(): void {
+    this._loaderService.start();
     this._httpService.getRandomVerb()
                      .pipe(takeUntil(this._unsubscribe))
                      .subscribe(data => {
                         this.randomVerb = data.data;
-                        console.log(this.randomVerb);
+                        this._loaderService.end();
                      });
 
     if(this.pickBtn) {
