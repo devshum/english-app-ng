@@ -1,16 +1,18 @@
-import { LoaderService } from './../../../core-module/services/loader.service';
 // service
 import { HttpService } from './../../../core-module/services/http.service';
+import { LoaderService } from './../../../core-module/services/loader.service';
 
 // common
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
 
 // interfaces
-import { Verb } from 'src/app/core-module/interfaces/verb.interface';
-import { debounce, takeUntil } from 'rxjs/operators';
+import { newVerb } from './../../../core-module/interfaces/newVerb.interface';
+import { debounce, map, takeUntil } from 'rxjs/operators';
 import { Subject, timer } from 'rxjs';
 
+// functions
+import { checkSlash } from 'src/app/core-module/functions/checkSlash';
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
@@ -22,7 +24,7 @@ export class FormComponent implements OnInit, OnDestroy {
   @ViewChild('participleInput', { static: false }) participleInput: ElementRef;
   @ViewChild('pickBtn', { static: false }) pickBtn: ElementRef;
 
-  public randomVerb: Verb;
+  public randomVerb: newVerb;
   public isLoading = false;
   public form: FormGroup;
   public allowNext: boolean;
@@ -63,9 +65,19 @@ export class FormComponent implements OnInit, OnDestroy {
   public pickVerb(): void {
     this._loaderService.start();
     this._httpService.getRandomVerb()
-                     .pipe(takeUntil(this._unsubscribe))
-                     .subscribe(data => {
-                        this.randomVerb = data.data;
+                     .pipe(
+                       takeUntil(this._unsubscribe),
+                       map((randomVerb: any) => {
+                          const newRandomVerb = {
+                            id: randomVerb.data._id,
+                            infinitive: checkSlash(randomVerb.data.infinitive),
+                            past: checkSlash(randomVerb.data.past),
+                            pastParticiple: checkSlash(randomVerb.data.pastParticiple)
+                          };
+                          return newRandomVerb;
+                        })
+                      ).subscribe(newRandomVerb => {
+                        this.randomVerb = newRandomVerb;
                         this._loaderService.end();
                      });
 
