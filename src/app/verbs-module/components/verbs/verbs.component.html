@@ -1,8 +1,9 @@
-<section class="verbs">
+<section class="verbs container">
   <div class="verbs__wrapper wrapper">
     <h1 class="verbs__title h1">Irregular Verbs</h1>
+    <div *ngIf="isLoading" class="verbs__loading loading">&nbsp;</div>
 
-    <div class="table">
+    <div *ngIf="!isLoading" class="table">
 
       <div class="table__head">
         <span>Infinitive</span>
@@ -11,7 +12,7 @@
       </div>
 
       <div class="table__body">
-        <div class="table__body-row" *ngFor="let verb of verbs?.slice(0, 100)">
+        <div class="table__body-row" *ngFor="let verb of verbs?.slice(0, 6)">
           <span class="table__item">
             <span>{{ verb.infinitive }}</span>
           </span>
@@ -25,7 +26,7 @@
       </div>
     </div>
 
-    <div class="table">
+    <div *ngIf="!isLoading" class="table">
 
       <div class="table__head">
         <span>Infinitive</span>
@@ -34,7 +35,7 @@
       </div>
 
       <div class="table__body">
-        <div class="table__body-row" *ngFor="let verb of verbs?.slice(100, 200)">
+        <div class="table__body-row" *ngFor="let verb of verbs?.slice(6, 12)">
           <span class="table__item">
             <span>{{ verb.infinitive }}</span>
           </span>
