@@ -6,10 +6,13 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 
 // rxjs
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { map, takeUntil } from 'rxjs/operators';
 
 // interfaces
-import { Verb } from 'src/app/core-module/interfaces/verb.interface';
+import { newVerb } from 'src/app/core-module/interfaces/newVerb.interface';
+
+// functions
+import { checkSlash } from 'src/app/core-module/functions/checkSlash';
 
 @Component({
   selector: 'app-verbs',
@@ -18,16 +21,31 @@ import { Verb } from 'src/app/core-module/interfaces/verb.interface';
 })
 
 export class VerbsComponent implements OnInit, OnDestroy {
-  public verbs: Verb[];
+  public verbs: newVerb[];
   private _unsubscribe = new Subject();
 
   constructor(private _httpService: HttpService) { }
 
   ngOnInit(): void {
     this._httpService.getVerbs()
-                     .pipe(takeUntil(this._unsubscribe))
-                     .subscribe(data => this.verbs = data.data);
-  }
+                     .pipe(
+                       takeUntil(this._unsubscribe),
+                       map((verbs: any) => {
+                        const newVerbs: newVerb[] = [];
+
+                        verbs.data.map((verb: any) => {
+                          newVerbs.push({
+                            id: verb._id,
+                            infinitive: checkSlash(verb.infinitive),
+                            past: checkSlash(verb.past),
+                            pastParticiple: checkSlash(verb.pastParticiple)
+                          });
+                        });
+
+                        return newVerbs;
+                      })
+                     ).subscribe(newVerbs => this.verbs = newVerbs);
+                    }
 
   ngOnDestroy(): void {
     this._unsubscribe.next();
