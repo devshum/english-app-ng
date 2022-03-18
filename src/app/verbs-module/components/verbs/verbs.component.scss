@@ -1,15 +1,32 @@
+@use '../../../../assets/styles/abstracts/variables' as styles;
+
 :host {
   display: block;
+  height: 100%;
+
+  & > * {
+    height: 100%;
+  }
 }
 
 .verbs {
   &__wrapper {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: max-content;
     grid-gap: 3.2rem;
+    height: inherit;
   }
 
   &__title {
     grid-column: 1 / -1;
+  }
+
+  &__loading {
+    border: 0.5rem solid styles.$blue;
+    border-top-color: styles.$white;
+    grid-column: 1 / -1;
+    justify-self: center;
+    margin-top: 12rem;
   }
 }

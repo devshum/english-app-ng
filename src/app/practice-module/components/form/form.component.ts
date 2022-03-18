@@ -50,9 +50,8 @@ export class FormComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this._loaderService.loadingStatus.pipe(
                                       takeUntil(this._unsubscribe),
-                                      debounce(load => load ? timer(0) : timer(1000))
-                                     )
-                                     .subscribe((isLoading: boolean) => this.isLoading = isLoading);
+                                      debounce((loaded: boolean) => loaded ? timer(0) : timer(1000))
+                                     ).subscribe((isLoading: boolean) => this.isLoading = isLoading);
 
     this._initForm();
     this.pickVerb();

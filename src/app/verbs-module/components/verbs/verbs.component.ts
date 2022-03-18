@@ -1,3 +1,4 @@
+import { LoaderService } from './../../../core-module/services/loader.service';
 // services
 import { HttpService } from 'src/app/core-module/services/http.service';
 
@@ -5,8 +6,8 @@ import { HttpService } from 'src/app/core-module/services/http.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 // rxjs
-import { Subject } from 'rxjs';
-import { map, takeUntil } from 'rxjs/operators';
+import { Subject, timer } from 'rxjs';
+import { debounce, map, takeUntil } from 'rxjs/operators';
 
 // interfaces
 import { newVerb } from 'src/app/core-module/interfaces/newVerb.interface';
@@ -22,11 +23,20 @@ import { checkSlash } from 'src/app/core-module/functions/checkSlash';
 
 export class VerbsComponent implements OnInit, OnDestroy {
   public verbs: newVerb[];
+  public isLoading = false;
   private _unsubscribe = new Subject();
 
-  constructor(private _httpService: HttpService) { }
+  constructor(
+    private _httpService: HttpService,
+    private _loaderService: LoaderService
+  ) { }
 
   ngOnInit(): void {
+    this._loaderService.loadingStatus.pipe(
+                                        takeUntil(this._unsubscribe),
+                                        debounce((loaded: boolean) => loaded ? timer(0) : timer(1000))
+                                      ).subscribe((isLoading: boolean) => this.isLoading = isLoading);
+    this._loaderService.start();
     this._httpService.getVerbs()
                      .pipe(
                        takeUntil(this._unsubscribe),
@@ -44,7 +54,10 @@ export class VerbsComponent implements OnInit, OnDestroy {
 
                         return newVerbs;
                       })
-                     ).subscribe(newVerbs => this.verbs = newVerbs);
+                     ).subscribe(newVerbs => {
+                        this.verbs = newVerbs;
+                        this._loaderService.end();
+                     });
                     }
 
   ngOnDestroy(): void {
