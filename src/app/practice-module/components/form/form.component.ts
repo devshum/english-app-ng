@@ -49,8 +49,10 @@ export class FormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this._loaderService.loadingStatus.pipe(
-                                      takeUntil(this._unsubscribe)
-                                     ).subscribe((isLoading: boolean) => this.isLoading = isLoading);
+      takeUntil(this._unsubscribe)
+    ).subscribe((isLoading: boolean) => {
+      this.isLoading = isLoading;
+    });
 
     this._initForm();
     this.pickVerb();
@@ -62,20 +64,21 @@ export class FormComponent implements OnInit, OnDestroy {
 
   public pickVerb(): void {
     this._loaderService.start();
-    this._httpService.getRandomVerb()
-                     .pipe(takeUntil(this._unsubscribe))
-                     .subscribe(newRandomVerb => {
-                        this.randomVerb = newRandomVerb;
-                        this._loaderService.end();
-                     });
 
     if(this.pickBtn) {
+      this._httpService.loadRandomVerb();
+
       this.allowNext = false;
       this._isPastValid = false;
       this._isParticipleValid = false;
       this.form.reset({ past: '', pastParticiple: '' });
 
       this.pickBtn.nativeElement.blur();
+    } else {
+      this._httpService.getRandomVerb().subscribe((verb: newVerb) => {
+        this.randomVerb = verb;
+        this._loaderService.end();
+      });
     }
   }
 
