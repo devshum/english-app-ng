@@ -10,6 +10,7 @@
   background-color: styles.$gray-1;
   padding: 5rem;
   border-radius: 0.2rem;
+  position: relative;
 
   &__text-box {
     display: flex;
@@ -157,6 +158,12 @@
     border: 0.5rem solid styles.$blue;
     border-top-color: styles.$gray-1;
     margin-top: -5rem;
+  }
+
+  &__bookmark {
+    position: absolute;
+    right: 1.6rem;
+    top: 1.6rem;
   }
 }
 

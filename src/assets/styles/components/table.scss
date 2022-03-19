@@ -4,18 +4,18 @@
   &__head,
   &__body-row {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr) 3.2rem;
   }
 
   &__head {
+    border-bottom: 0.1rem solid styles.$gray-5;
     background-color: styles.$gray-1;
+    grid-column: 1 / 3;
 
     span {
       padding: 0.8rem 1.6rem;
 
-      &:not(:last-child) {
-        border-right: 0.1rem solid styles.$gray-5;
-      }
+      border-right: 0.1rem solid styles.$gray-5;
     }
   }
 
@@ -80,5 +80,12 @@
         }
       }
     }
+  }
+
+  &__bookmark {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: styles.$gray-1;
   }
 }
