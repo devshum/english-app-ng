@@ -1,4 +1,4 @@
-export function checkSlash(word: any) {
+export function checkSlash(word: string) {
   if(word.includes('/')) {
     return word.split('/')[0];
   }

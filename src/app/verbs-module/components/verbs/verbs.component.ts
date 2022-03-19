@@ -7,7 +7,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 
 // rxjs
 import { Subject, timer } from 'rxjs';
-import { debounce, map, takeUntil } from 'rxjs/operators';
+import { takeUntil} from 'rxjs/operators';
 
 // interfaces
 import { newVerb } from 'src/app/core-module/interfaces/newVerb.interface';
@@ -33,28 +33,12 @@ export class VerbsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this._loaderService.loadingStatus.pipe(
-                                        takeUntil(this._unsubscribe),
-                                        debounce((loaded: boolean) => loaded ? timer(0) : timer(1000))
+                                        takeUntil(this._unsubscribe)
                                       ).subscribe((isLoading: boolean) => this.isLoading = isLoading);
     this._loaderService.start();
     this._httpService.getVerbs()
-                     .pipe(
-                       takeUntil(this._unsubscribe),
-                       map((verbs: any) => {
-                        const newVerbs: newVerb[] = [];
-
-                        verbs.data.map((verb: any) => {
-                          newVerbs.push({
-                            id: verb._id,
-                            infinitive: checkSlash(verb.infinitive),
-                            past: checkSlash(verb.past),
-                            pastParticiple: checkSlash(verb.pastParticiple)
-                          });
-                        });
-
-                        return newVerbs;
-                      })
-                     ).subscribe(newVerbs => {
+                     .pipe( takeUntil(this._unsubscribe))
+                     .subscribe(newVerbs => {
                         this.verbs = newVerbs;
                         this._loaderService.end();
                      });
