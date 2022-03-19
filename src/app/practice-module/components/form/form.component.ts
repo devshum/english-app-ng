@@ -8,7 +8,7 @@ import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
 
 // interfaces
 import { newVerb } from './../../../core-module/interfaces/newVerb.interface';
-import { debounce, map, takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { Subject, timer } from 'rxjs';
 
 // functions
@@ -49,8 +49,7 @@ export class FormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this._loaderService.loadingStatus.pipe(
-                                      takeUntil(this._unsubscribe),
-                                      debounce((loaded: boolean) => loaded ? timer(0) : timer(1000))
+                                      takeUntil(this._unsubscribe)
                                      ).subscribe((isLoading: boolean) => this.isLoading = isLoading);
 
     this._initForm();
@@ -64,18 +63,8 @@ export class FormComponent implements OnInit, OnDestroy {
   public pickVerb(): void {
     this._loaderService.start();
     this._httpService.getRandomVerb()
-                     .pipe(
-                       takeUntil(this._unsubscribe),
-                       map((randomVerb: any) => {
-                          const newRandomVerb = {
-                            id: randomVerb.data._id,
-                            infinitive: checkSlash(randomVerb.data.infinitive),
-                            past: checkSlash(randomVerb.data.past),
-                            pastParticiple: checkSlash(randomVerb.data.pastParticiple)
-                          };
-                          return newRandomVerb;
-                        })
-                      ).subscribe(newRandomVerb => {
+                     .pipe(takeUntil(this._unsubscribe))
+                     .subscribe(newRandomVerb => {
                         this.randomVerb = newRandomVerb;
                         this._loaderService.end();
                      });
