@@ -9,6 +9,16 @@
   transition: styles.$transition;
   cursor: pointer;
 
+  &--outline {
+    &::before {
+      background: url(../../icons/bookmark-outline.svg) no-repeat 50%;
+    }
+  }
+
+  &--solid {
+    background: url(../../icons/bookmark-solid.svg) no-repeat 50%;
+  }
+
   &--regular {
     height: 3.2rem;
     width: 3.2rem;
@@ -35,7 +45,6 @@
 
   &::before {
     content: '';
-    background: url(../../icons/bookmark-outline.svg) no-repeat 50%;
     display: inline-block;
   }
 }
