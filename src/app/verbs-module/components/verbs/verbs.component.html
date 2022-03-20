@@ -12,7 +12,7 @@
       </div>
 
       <div class="table__body">
-        <div class="table__body-row" *ngFor="let verb of verbs">
+        <div class="table__body-row" *ngFor="let verb of verbs.slice(0, 100)">
           <span class="table__item">
             <span>{{ verb.infinitive }}</span>
           </span>
@@ -22,8 +22,19 @@
           <span class="table__item">
             <span>{{ verb.pastParticiple }}</span>
           </span>
+
           <span class="table__bookmark">
-            <i class="bookmark bookmark--small"></i>
+            <span [ngSwitch]="isBookmark(verb)">
+
+              <i class="table__bookmark bookmark bookmark--solid bookmark--small" 
+                 *ngSwitchCase="true"
+                 (click)="deleteBookmark(verb.id)">
+              </i>
+              <i class="table__bookmark bookmark bookmark--outline bookmark--small" 
+                *ngSwitchDefault
+                  (click)="addBookmark(verb)">
+              </i>
+            </span>
           </span>
         </div>
       </div>
@@ -38,7 +49,7 @@
       </div>
 
       <div class="table__body">
-        <div class="table__body-row" *ngFor="let verb of verbs">
+        <div class="table__body-row" *ngFor="let verb of verbs.slice(100, 200)">
           <span class="table__item">
             <span>{{ verb.infinitive }}</span>
           </span>
@@ -48,8 +59,19 @@
           <span class="table__item">
             <span>{{ verb.pastParticiple }}</span>
           </span>
-          <span class="table__bookmark">
-            <i class="bookmark bookmark--small"></i>
+
+           <span class="table__bookmark">
+            <span [ngSwitch]="isBookmark(verb)">
+
+              <i class="table__bookmark bookmark bookmark--solid bookmark--small" 
+                 *ngSwitchCase="true"
+                 (click)="deleteBookmark(verb.id)">
+              </i>
+              <i class="table__bookmark bookmark bookmark--outline bookmark--small" 
+                *ngSwitchDefault
+                  (click)="addBookmark(verb)">
+              </i>
+            </span>
           </span>
         </div>
       </div>
