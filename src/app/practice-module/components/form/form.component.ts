@@ -1,6 +1,7 @@
-// service
+// services
 import { HttpService } from './../../../core-module/services/http.service';
 import { LoaderService } from './../../../core-module/services/loader.service';
+import { BookmarksService } from './../../../core-module/services/bookmarks.service';
 
 // common
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
@@ -10,9 +11,6 @@ import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
 import { newVerb } from './../../../core-module/interfaces/newVerb.interface';
 import { takeUntil } from 'rxjs/operators';
 import { Subject, timer } from 'rxjs';
-
-// functions
-import { checkSlash } from 'src/app/core-module/functions/checkSlash';
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
@@ -28,6 +26,7 @@ export class FormComponent implements OnInit, OnDestroy {
   public isLoading = false;
   public form: FormGroup;
   public allowNext: boolean;
+  public bookmarks: newVerb[] = [];
 
   private _isPastValid: boolean;
   private _isParticipleValid: boolean;
@@ -36,7 +35,8 @@ export class FormComponent implements OnInit, OnDestroy {
   constructor(
     private _formBuilder: FormBuilder,
     private _httpService: HttpService,
-    private _loaderService: LoaderService
+    private _loaderService: LoaderService,
+    private _bookmarksService: BookmarksService
   ) { }
 
   get past(): AbstractControl {
@@ -48,6 +48,11 @@ export class FormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.bookmarks = this._bookmarksService.getBookmarks();
+    this._bookmarksService.bookmarksUpdate.pipe(
+                                            takeUntil(this._unsubscribe)
+                                          ).subscribe((bookmarks: newVerb[]) => this.bookmarks = bookmarks);
+
     this._loaderService.loadingStatus.pipe(
       takeUntil(this._unsubscribe)
     ).subscribe((isLoading: boolean) => {
@@ -62,6 +67,18 @@ export class FormComponent implements OnInit, OnDestroy {
     this._unsubscribe.next();
   }
 
+  public isBookmark(verb: newVerb): boolean {
+    return this.bookmarks.some(bookmark => JSON.stringify(bookmark) === JSON.stringify(verb));
+  }
+
+  public addBookmark(verb: newVerb) {
+    this._bookmarksService.addBookmark(verb);
+  }
+
+  public deleteBookmark(verbID: string) {
+    this._bookmarksService.deleteBookmark(verbID);
+  }
+
   public pickVerb(): void {
     this._loaderService.start();
 
@@ -72,7 +89,6 @@ export class FormComponent implements OnInit, OnDestroy {
       this._isPastValid = false;
       this._isParticipleValid = false;
       this.form.reset({ past: '', pastParticiple: '' });
-
       this.pickBtn.nativeElement.blur();
     } else {
       this._httpService.getRandomVerb().subscribe((verb: newVerb) => {

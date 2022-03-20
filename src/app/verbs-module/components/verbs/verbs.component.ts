@@ -1,6 +1,7 @@
-import { LoaderService } from './../../../core-module/services/loader.service';
 // services
 import { HttpService } from 'src/app/core-module/services/http.service';
+import { BookmarksService } from './../../../core-module/services/bookmarks.service';
+import { LoaderService } from './../../../core-module/services/loader.service';
 
 // common
 import { Component, OnInit, OnDestroy } from '@angular/core';
@@ -11,10 +12,6 @@ import { takeUntil} from 'rxjs/operators';
 
 // interfaces
 import { newVerb } from 'src/app/core-module/interfaces/newVerb.interface';
-
-// functions
-import { checkSlash } from 'src/app/core-module/functions/checkSlash';
-
 @Component({
   selector: 'app-verbs',
   templateUrl: './verbs.component.html',
@@ -23,19 +20,27 @@ import { checkSlash } from 'src/app/core-module/functions/checkSlash';
 
 export class VerbsComponent implements OnInit, OnDestroy {
   public verbs: newVerb[];
+  public bookmarks: newVerb[] = [];
   public isLoading = false;
   private _unsubscribe = new Subject();
 
   constructor(
     private _httpService: HttpService,
-    private _loaderService: LoaderService
+    private _loaderService: LoaderService,
+    private _bookmarksService: BookmarksService
   ) { }
 
   ngOnInit(): void {
+    this.bookmarks = this._bookmarksService.getBookmarks();
+    this._bookmarksService.bookmarksUpdate.pipe(
+                                            takeUntil(this._unsubscribe)
+                                        ).subscribe((bookmarks: newVerb[]) => this.bookmarks = bookmarks);
+
     this._loaderService.loadingStatus.pipe(
                                         takeUntil(this._unsubscribe)
                                       ).subscribe((isLoading: boolean) => this.isLoading = isLoading);
     this._loaderService.start();
+
     this._httpService.getVerbs()
                      .pipe( takeUntil(this._unsubscribe))
                      .subscribe(newVerbs => {
@@ -43,6 +48,18 @@ export class VerbsComponent implements OnInit, OnDestroy {
                         this._loaderService.end();
                      });
                     }
+
+  public isBookmark(verb: newVerb): boolean {
+    return this.bookmarks.some(bookmark => JSON.stringify(bookmark) === JSON.stringify(verb));
+  }
+
+  public addBookmark(verb: newVerb) {
+    this._bookmarksService.addBookmark(verb);
+  }
+
+  public deleteBookmark(verbID: string) {
+    this._bookmarksService.deleteBookmark(verbID);
+  }
 
   ngOnDestroy(): void {
     this._unsubscribe.next();
