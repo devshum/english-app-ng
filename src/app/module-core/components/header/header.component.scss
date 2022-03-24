@@ -35,6 +35,7 @@
   }
 
   &__nav {
+    transition: styles.$transition;
     & > *  {
       height: 100%;
     }
@@ -58,6 +59,21 @@
         margin-right: 0.8rem;
       }
     }
+
+    &--bookmarks {
+      transform: translateX(-10rem);
+
+      .header__bookmarks-tab {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+  }
+
+  &__bookmarks-tab {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
   }
 }
 
