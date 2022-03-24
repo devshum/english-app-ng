@@ -1,3 +1,5 @@
+@use '../../../../assets/styles/abstracts/variables' as styles;
+
 :host {
   display: block;
 }
@@ -13,6 +15,39 @@
 
   &__bookmark {
     display: flex;
+    align-items: center;
+    position: relative;
+    padding: 1.6rem;
     flex-direction: column;
+    border-radius: 0.2rem;
+    border: 0.1rem solid styles.$gray-1;
+
+    span {
+      font-size: 3.2rem;
+      font-weight: 700;
+
+      &:not(:last-child) {
+        margin-bottom: 0.6rem;
+      }
+
+      &:nth-child(1) {
+        color: styles.$orange;
+      }
+
+      &:nth-child(2) {
+        color: styles.$green;
+      }
+
+      &:nth-child(3) {
+        color: styles.$blue;
+      }
+    }
+  }
+
+  &__star {
+    position: absolute;
+    right: 0;
+    top: 0;
+    transform: translate(50%, -50%);
   }
 }
