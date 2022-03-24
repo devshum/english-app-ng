@@ -1,14 +1,14 @@
 // services
-import { HttpService } from './../../../core-module/services/http.service';
-import { LoaderService } from './../../../core-module/services/loader.service';
-import { BookmarksService } from './../../../core-module/services/bookmarks.service';
+import { HttpService } from '../../../services/http.service';
+import { LoaderService } from '../../../services/loader.service';
+import { BookmarksService } from '../../../services/bookmarks.service';
 
 // common
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
 
 // interfaces
-import { newVerb } from './../../../core-module/interfaces/newVerb.interface';
+import { newVerb } from '../../../interfaces/newVerb.interface';
 import { takeUntil } from 'rxjs/operators';
 import { Subject, timer } from 'rxjs';
 @Component({

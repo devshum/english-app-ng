@@ -1,17 +1,18 @@
-// services
-import { HttpService } from 'src/app/core-module/services/http.service';
-import { BookmarksService } from './../../../core-module/services/bookmarks.service';
-import { LoaderService } from './../../../core-module/services/loader.service';
+// Services
+import { HttpService } from 'src/app/services/http.service';
+import { BookmarksService } from '../../../services/bookmarks.service';
+import { LoaderService } from '../../../services/loader.service';
 
-// common
+// Common
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
-// rxjs
+// Rxjs
 import { Subject, timer } from 'rxjs';
 import { takeUntil} from 'rxjs/operators';
 
-// interfaces
-import { newVerb } from 'src/app/core-module/interfaces/newVerb.interface';
+// Interfaces
+import { newVerb } from 'src/app/interfaces/newVerb.interface';
+
 @Component({
   selector: 'app-verbs',
   templateUrl: './verbs.component.html',

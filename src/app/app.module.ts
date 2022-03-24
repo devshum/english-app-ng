@@ -1,6 +1,6 @@
 // Modules
 import { AppRoutingModule } from './app-routing.module';
-import { CoreModule } from './core-module/core.module';
+import { CoreModule } from './module-core/core.module';
 import { NgModule } from '@angular/core';
 
 // Components

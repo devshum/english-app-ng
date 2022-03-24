@@ -1,4 +1,4 @@
-// common
+// Common
 import { Component } from '@angular/core';
 
 @Component({

@@ -1,15 +1,15 @@
-// environment
-import { environment } from './../../../environments/environment';
+// Environment
+import { environment } from '../../environments/environment';
 
-// common
+// Common
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-// rxjs
+// Rxjs
 import { Observable, BehaviorSubject, Subject } from 'rxjs';
 
-// interfaces
-import { VerbsResponse } from '../interfaces/verbs-response.interface';
+// Interfaces
+import { VerbsResponse } from '../interfaces/verbsResponse.interface';
 import { map, shareReplay, switchMap } from 'rxjs/operators';
 import { newVerb } from '../interfaces/newVerb.interface';
 import { checkSlash } from '../functions/checkSlash';
