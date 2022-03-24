@@ -9,6 +9,7 @@ const routes: Routes = [
   },
   { path: 'practice', loadChildren: () => import('./module-practice/practice.module').then(m => m.PracticeModule) },
   { path: 'verbs', loadChildren: () => import('./module-verbs/verbs.module').then(m => m.VerbsModule) },
+  { path: 'bookmarks', loadChildren: () => import('./module-bookmarks/bookmarks.module').then(m => m.BookmarksModule) },
   {
     path: '**',
     redirectTo: 'practice'
