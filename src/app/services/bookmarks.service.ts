@@ -5,6 +5,7 @@ import { newVerb } from '../interfaces/newVerb.interface';
 @Injectable({
   providedIn: 'root'
 })
+
 export class BookmarksService {
   public bookmarksUpdate: Subject<newVerb[]> = new Subject<newVerb[]>();
   private _bookmarks: newVerb[] = [];

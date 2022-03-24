@@ -1,7 +1,7 @@
 // Modules
 import { NgModule } from '@angular/core';
 import { PracticeRoutingModule } from './practice-routing.module';
-import { SharedModuleModule } from './../shared-module/shared-module.module';
+import { SharedModule } from './../module-shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { InlineSVGModule } from 'ng-inline-svg-2';
 
@@ -16,7 +16,7 @@ import { FormComponent } from './components/form/form.component';
   ],
   imports: [
     PracticeRoutingModule,
-    SharedModuleModule,
+    SharedModule,
     ReactiveFormsModule,
     InlineSVGModule.forRoot({ baseUrl: '/assets/icons/', bypassHttpClientInterceptorChain: true })
   ]
