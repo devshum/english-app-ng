@@ -1,6 +1,9 @@
 @use '../abstracts/variables' as styles;
 
 .table {
+  border-radius: 0.2rem;
+  overflow: hidden;
+  
   &__head,
   &__body-row {
     display: grid;
