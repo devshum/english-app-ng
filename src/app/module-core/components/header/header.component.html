@@ -4,13 +4,13 @@
       <span>🎓</span> iVerb 
     </a>
 
-    <nav class="header__nav">
+    <nav class="header__nav" [class.header__nav--bookmarks]="bookmarks.length">
       <button routerLinkActive="active" routerLink="/practice">Practice</button>
       <button routerLinkActive="active" routerLink="/verbs">Verbs</button>
-      
-      <button routerLinkActive="active" 
-              routerLink="/bookmarks" 
-              *ngIf="bookmarks.length">
+
+      <button class="header__bookmarks-tab"
+              routerLinkActive="active" 
+              routerLink="/bookmarks">
               Bookmarks
       </button>
     </nav>
