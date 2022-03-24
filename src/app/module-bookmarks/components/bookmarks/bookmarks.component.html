@@ -1,5 +1,13 @@
 <section class="bookmarks container">
   <div class="bookmarks__wrapper wrapper">
-    <p>bookmarks works!</p>
+    <h1 class="h1">Bookmarks</h1>
+    <ng-container *ngFor="let bookmark of bookmarks">
+      <figure class="bookmarks__bookmark">
+        <span>{{ bookmark.infinitive }}</span>
+        <span>{{ bookmark.past }}</span>
+        <span>{{ bookmark.pastParticiple }}</span>
+        <span></span>
+      </figure>
+    </ng-container>
   </div>
 </section>
