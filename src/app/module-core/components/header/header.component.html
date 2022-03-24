@@ -7,7 +7,12 @@
     <nav class="header__nav">
       <button routerLinkActive="active" routerLink="/practice">Practice</button>
       <button routerLinkActive="active" routerLink="/verbs">Verbs</button>
-      <button routerLinkActive="active" routerLink="/bookmarks">Bookmarks</button>
+      
+      <button routerLinkActive="active" 
+              routerLink="/bookmarks" 
+              *ngIf="bookmarks.length">
+              Bookmarks
+      </button>
     </nav>
   </div>
 </header>

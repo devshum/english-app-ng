@@ -1,5 +1,5 @@
-
 // Modules
+import { SharedModule } from './../module-shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 
@@ -13,7 +13,8 @@ import { HeaderComponent } from './components/header/header.component';
     HeaderComponent
   ],
   imports: [
-    RouterModule
+    RouterModule,
+    SharedModule
   ],
   exports: [
     MainLayoutComponent
