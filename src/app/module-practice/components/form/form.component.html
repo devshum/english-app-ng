@@ -74,11 +74,11 @@
   </div>
 
   <div [ngSwitch]="isBookmark(randomVerb)" *ngIf="allowNext">
-    <i class="form__bookmark bookmark bookmark--solid bookmark--small" 
+    <i class="form__bookmark star star--solid star--small" 
        *ngSwitchCase="true"
        (click)="deleteBookmark(randomVerb.id)">
     </i>
-    <i class="form__bookmark bookmark bookmark--outline bookmark--small" 
+    <i class="form__bookmark star star--outline star--small" 
        *ngSwitchDefault
        (click)="addBookmark(randomVerb)">
     </i>

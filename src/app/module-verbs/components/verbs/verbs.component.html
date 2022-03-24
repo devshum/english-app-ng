@@ -26,11 +26,11 @@
           <span class="table__bookmark">
             <span [ngSwitch]="isBookmark(verb)">
 
-              <i class="table__bookmark bookmark bookmark--solid bookmark--small" 
+              <i class="table__bookmark star star--solid star--small" 
                  *ngSwitchCase="true"
                  (click)="deleteBookmark(verb.id)">
               </i>
-              <i class="table__bookmark bookmark bookmark--outline bookmark--small" 
+              <i class="table__bookmark star star--outline star--small" 
                 *ngSwitchDefault
                   (click)="addBookmark(verb)">
               </i>
@@ -63,11 +63,11 @@
            <span class="table__bookmark">
             <span [ngSwitch]="isBookmark(verb)">
 
-              <i class="table__bookmark bookmark bookmark--solid bookmark--small" 
+              <i class="table__bookmark star star--solid star--small" 
                  *ngSwitchCase="true"
                  (click)="deleteBookmark(verb.id)">
               </i>
-              <i class="table__bookmark bookmark bookmark--outline bookmark--small" 
+              <i class="table__bookmark star star--outline star--small" 
                 *ngSwitchDefault
                   (click)="addBookmark(verb)">
               </i>
