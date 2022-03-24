@@ -6,7 +6,9 @@
         <span>{{ bookmark.infinitive }}</span>
         <span>{{ bookmark.past }}</span>
         <span>{{ bookmark.pastParticiple }}</span>
-        <span></span>
+        <i class="bookmarks__star star star--solid star--small" 
+           (click)="deleteBookmark(bookmark.id)">
+        </i>
       </figure>
     </ng-container>
   </div>
