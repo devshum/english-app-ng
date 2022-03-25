@@ -6,7 +6,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
 // Services
-import { BookmarksService } from './../../../services/bookmarks.service';
+import { BookmarksStorageService } from '../../../services/bookmarksStorage.service';
 
 // Interfaces
 import { newVerb } from './../../../interfaces/newVerb.interface';
@@ -21,13 +21,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public bookmarks: newVerb[] = [];
   private _unsubscribe = new Subject();
 
-  constructor(private _bookmarksService: BookmarksService) { }
+  constructor(private _bookmarksStorageService: BookmarksStorageService) { }
 
   ngOnInit(): void {
-    this.bookmarks = this._bookmarksService.getBookmarks();
-    this._bookmarksService.bookmarksUpdate.pipe(
-                                            takeUntil(this._unsubscribe)
-                                        ).subscribe((bookmarks: newVerb[]) => this.bookmarks = bookmarks);
+    this.bookmarks = this._bookmarksStorageService.getBookmarks();
+    this._bookmarksStorageService.bookmarksUpdate.pipe(
+        takeUntil(this._unsubscribe)
+    ).subscribe((bookmarks: newVerb[]) => this.bookmarks = bookmarks);
   }
 
   ngOnDestroy(): void {
