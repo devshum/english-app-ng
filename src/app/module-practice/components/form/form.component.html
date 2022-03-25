@@ -62,7 +62,8 @@
       <button class="form__button"
               #pickBtn 
               type="button"
-              (click)="pickVerb()">
+              (click)="pickVerb()"
+              [class.focus]="allowNext">
         <i *ngIf="allowNext" 
             class="form__icon" 
             [inlineSVG]="'check-mark.svg'">
