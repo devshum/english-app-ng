@@ -131,7 +131,8 @@
     font-size: 1.6rem;
     transition: styles.$transition-slow;
 
-    &:focus-visible {
+    &:focus-visible,
+    &.focus {
       box-shadow: 0 0 0 0.4rem styles.$green;
     }
 

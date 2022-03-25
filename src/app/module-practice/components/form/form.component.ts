@@ -98,20 +98,18 @@ export class FormComponent implements OnInit, OnDestroy {
   public pickVerb(): void {
     this._loaderService.start();
 
-    if(this.pickBtn) {
-      this._httpService.getRandomVerb().subscribe((verb: newVerb) => {
-        this._verbStorage.storeVerb(verb);
-        this._getVerb();
-        this._loaderService.end();
-      });
+    this._httpService.getRandomVerb().subscribe((verb: newVerb) => {
+      this._verbStorage.storeVerb(verb);
+      this._getVerb();
+      this._loaderService.end();
+    });
 
-      this.allowNext = false;
-      this._isPastValid = false;
-      this._isParticipleValid = false;
-      this.form.reset({ past: '', pastParticiple: '' });
-      this._answersStorage.clearAnswers();
-      this.pickBtn.nativeElement.blur();
-    };
+    this.allowNext = false;
+    this._isPastValid = false;
+    this._isParticipleValid = false;
+    this.form.reset({ past: '', pastParticiple: '' });
+    this._answersStorage.clearAnswers();
+    this.pickBtn.nativeElement.blur();
   }
 
   public hasError(control: AbstractControl, type: string): boolean {
