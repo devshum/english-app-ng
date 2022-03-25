@@ -21,28 +21,10 @@ import { RandomVerbResponse } from '../interfaces/randomVerbResponse.interface';
 })
 
 export class HttpService {
-  private _verbUpdate: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private _apiUrl = environment.apiUrl;
   private _newVerbs: Observable<newVerb[]>;
-  private _newVerb: Observable<newVerb>;
 
   constructor(private _http: HttpClient) {
-    this._newVerb = this._verbUpdate.pipe(
-      switchMap(() => this._http.get<RandomVerbResponse>(`${this._apiUrl}/random`).pipe(
-        map((randomVerb: RandomVerbResponse) => {
-          const newRandomVerb = {
-            id: randomVerb.data._id,
-            infinitive: checkSlash(randomVerb.data.infinitive),
-            past: checkSlash(randomVerb.data.past),
-            pastParticiple: checkSlash(randomVerb.data.pastParticiple)
-          };
-
-          return newRandomVerb;
-        })
-      )),
-      shareReplay(1)
-    );
-
     this._newVerbs = this._http.get<VerbsResponse>(`${this._apiUrl}/all`).pipe(
       map((verbs: VerbsResponse) => {
        const newVerbs: newVerb[] = [];
@@ -61,15 +43,23 @@ export class HttpService {
     );
   }
 
-  getVerbs(): Observable<newVerb[]> {
+  public getVerbs(): Observable<newVerb[]> {
     return this._newVerbs;
   }
 
-  getRandomVerb(): Observable<newVerb> {
-    return this._newVerb;
-  }
+  public getRandomVerb(): Observable<newVerb> {
+    return this._http.get<RandomVerbResponse>(`${this._apiUrl}/random`)
+    .pipe(
+      map((randomVerb: RandomVerbResponse) => {
+        const newRandomVerb = {
+          id: randomVerb.data._id,
+          infinitive: checkSlash(randomVerb.data.infinitive),
+          past: checkSlash(randomVerb.data.past),
+          pastParticiple: checkSlash(randomVerb.data.pastParticiple)
+        };
 
-  loadRandomVerb(): void {
-    this._verbUpdate.next(true);
+        return newRandomVerb;
+      })
+    );
   }
 }
