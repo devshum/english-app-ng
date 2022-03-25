@@ -29,7 +29,8 @@
                type="text"
                placeholder="2nd form"
                [class.disabled]="past.valid"
-               #pastInput>
+               #pastInput
+               (input)="onStoreAnswer({ past, pastParticiple })">
     
         <span [class.shown]="hasError(past, 'pastIsCorrect')"
               class="form__error">
@@ -49,7 +50,8 @@
                type="text"
                placeholder="3rd form"
                [class.disabled]="pastParticiple.valid"
-               #participleInput>
+               #participleInput
+               (input)="onStoreAnswer({ past, pastParticiple })">
     
         <span [class.shown]="hasError(pastParticiple, 'participleIsCorrect')"
               class="form__error">
