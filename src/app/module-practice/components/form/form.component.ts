@@ -1,16 +1,18 @@
-// services
+// Services
 import { HttpService } from '../../../services/http.service';
 import { LoaderService } from '../../../services/loader.service';
-import { BookmarksService } from '../../../services/bookmarks.service';
+import { BookmarksStorageService } from '../../../services/bookmarksStorage.service';
+import { AnswersStorageService } from './../../../services/answersStorage.service';
+import { VerbStorageService } from './../../../services/verbStorage.service';
 
-// common
+// Common
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
 
-// interfaces
+// Interfaces
 import { newVerb } from '../../../interfaces/newVerb.interface';
 import { takeUntil } from 'rxjs/operators';
-import { Subject, timer } from 'rxjs';
+import { Subject } from 'rxjs';
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
@@ -28,6 +30,7 @@ export class FormComponent implements OnInit, OnDestroy {
   public allowNext: boolean;
   public bookmarks: newVerb[] = [];
 
+  private _answers: { past: string; pastParticiple: string };
   private _isPastValid: boolean;
   private _isParticipleValid: boolean;
   private _unsubscribe = new Subject();
@@ -36,7 +39,9 @@ export class FormComponent implements OnInit, OnDestroy {
     private _formBuilder: FormBuilder,
     private _httpService: HttpService,
     private _loaderService: LoaderService,
-    private _bookmarksService: BookmarksService
+    private _bookmarksStorageService: BookmarksStorageService,
+    private _answersStorage: AnswersStorageService,
+    private _verbStorage: VerbStorageService
   ) { }
 
   get past(): AbstractControl {
@@ -48,10 +53,15 @@ export class FormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.bookmarks = this._bookmarksService.getBookmarks();
-    this._bookmarksService.bookmarksUpdate.pipe(
-                                            takeUntil(this._unsubscribe)
-                                          ).subscribe((bookmarks: newVerb[]) => this.bookmarks = bookmarks);
+    this._answers = this._answersStorage.getAnswers();
+    this.bookmarks = this._bookmarksStorageService.getBookmarks();
+
+    this._getVerb();
+    this._initForm();
+
+    this._bookmarksStorageService.bookmarksUpdate.pipe(
+      takeUntil(this._unsubscribe)
+    ).subscribe((bookmarks: newVerb[]) => this.bookmarks = bookmarks);
 
     this._loaderService.loadingStatus.pipe(
       takeUntil(this._unsubscribe)
@@ -59,8 +69,14 @@ export class FormComponent implements OnInit, OnDestroy {
       this.isLoading = isLoading;
     });
 
-    this._initForm();
-    this.pickVerb();
+    if(!this.randomVerb) {
+      this._loaderService.start();
+      this._httpService.getRandomVerb().subscribe((verb: newVerb) => {
+        this._verbStorage.storeVerb(verb);
+        this._getVerb();
+        this._loaderService.end();
+      });
+    }
   }
 
   ngOnDestroy(): void {
@@ -72,41 +88,58 @@ export class FormComponent implements OnInit, OnDestroy {
   }
 
   public addBookmark(verb: newVerb) {
-    this._bookmarksService.addBookmark(verb);
+    this._bookmarksStorageService.addBookmark(verb);
   }
 
   public deleteBookmark(verbID: string) {
-    this._bookmarksService.deleteBookmark(verbID);
+    this._bookmarksStorageService.deleteBookmark(verbID);
   }
 
   public pickVerb(): void {
     this._loaderService.start();
 
     if(this.pickBtn) {
-      this._httpService.loadRandomVerb();
+      this._httpService.getRandomVerb().subscribe((verb: newVerb) => {
+        this._verbStorage.storeVerb(verb);
+        this._getVerb();
+        this._loaderService.end();
+      });
 
       this.allowNext = false;
       this._isPastValid = false;
       this._isParticipleValid = false;
       this.form.reset({ past: '', pastParticiple: '' });
+      this._answersStorage.clearAnswers();
       this.pickBtn.nativeElement.blur();
-    } else {
-      this._httpService.getRandomVerb().subscribe((verb: newVerb) => {
-        this.randomVerb = verb;
-        this._loaderService.end();
-      });
-    }
+    };
   }
 
   public hasError(control: AbstractControl, type: string): boolean {
     return control.hasError(type) && control.invalid && (control.dirty || control.touched);
   }
 
+  public onStoreAnswer(answers: { past: AbstractControl; pastParticiple: AbstractControl } ): void {
+    this._answersStorage.storeAnswers(answers);
+  }
+
   private _initForm(): void {
     this.form = this._formBuilder.group({
-      past: ['', this._checkPast.bind(this)],
-      pastParticiple: ['', this._checkParticiple.bind(this)]
+      past: [this._answers?.past ?
+             this._answers?.past : '',
+             this._checkPast.bind(this)],
+
+      pastParticiple: [this._answers?.pastParticiple ?
+                       this._answers?.pastParticiple : '',
+                       this._checkParticiple.bind(this)]
     });
+
+    if(this.form.controls.past.value) {
+      this.form.controls.past.markAllAsTouched();
+    }
+
+    if(this.form.controls.pastParticiple.value) {
+      this.form.controls.pastParticiple.markAllAsTouched();
+    }
   }
 
   private _checkPast(control: AbstractControl): {[s: string]: boolean} | null {
@@ -167,13 +200,24 @@ export class FormComponent implements OnInit, OnDestroy {
   }
 
   private _changeFocus(htmlEl: ElementRef): void {
+   if(htmlEl) {
     htmlEl.nativeElement.focus();
+   }
   }
 
   private _allowNext(): void {
     this.allowNext = true;
-    this._changeFocus(this.pickBtn);
-    this.pastInput.nativeElement.blur();
-    this.participleInput.nativeElement.blur();
+
+    if(this.pastInput) {
+      this.pastInput.nativeElement.blur();
+    }
+
+    if(this.participleInput) {
+      this.participleInput .nativeElement.blur();
+    }
+  }
+
+  private _getVerb() {
+    this.randomVerb = this._verbStorage.getVerb();
   }
 }
