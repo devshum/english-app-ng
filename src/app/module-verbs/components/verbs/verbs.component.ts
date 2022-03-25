@@ -1,6 +1,6 @@
 // Services
 import { HttpService } from 'src/app/services/http.service';
-import { BookmarksService } from '../../../services/bookmarks.service';
+import { BookmarksStorageService } from '../../../services/bookmarksStorage.service';
 import { LoaderService } from '../../../services/loader.service';
 
 // Common
@@ -28,38 +28,38 @@ export class VerbsComponent implements OnInit, OnDestroy {
   constructor(
     private _httpService: HttpService,
     private _loaderService: LoaderService,
-    private _bookmarksService: BookmarksService
+    private _bookmarksStorageService: BookmarksStorageService
   ) { }
 
   ngOnInit(): void {
-    this.bookmarks = this._bookmarksService.getBookmarks();
-    this._bookmarksService.bookmarksUpdate.pipe(
-                                            takeUntil(this._unsubscribe)
-                                        ).subscribe((bookmarks: newVerb[]) => this.bookmarks = bookmarks);
+    this.bookmarks = this._bookmarksStorageService.getBookmarks();
+    this._bookmarksStorageService.bookmarksUpdate.pipe(
+        takeUntil(this._unsubscribe)
+    ).subscribe((bookmarks: newVerb[]) => this.bookmarks = bookmarks);
 
     this._loaderService.loadingStatus.pipe(
-                                        takeUntil(this._unsubscribe)
-                                      ).subscribe((isLoading: boolean) => this.isLoading = isLoading);
+      takeUntil(this._unsubscribe)
+    ).subscribe((isLoading: boolean) => this.isLoading = isLoading);
     this._loaderService.start();
 
     this._httpService.getVerbs()
-                     .pipe( takeUntil(this._unsubscribe))
-                     .subscribe(newVerbs => {
-                        this.verbs = newVerbs;
-                        this._loaderService.end();
-                     });
-                    }
+      .pipe(takeUntil(this._unsubscribe))
+      .subscribe(newVerbs => {
+        this.verbs = newVerbs;
+        this._loaderService.end();
+      });
+    }
 
   public isBookmark(verb: newVerb): boolean {
     return this.bookmarks.some(bookmark => JSON.stringify(bookmark) === JSON.stringify(verb));
   }
 
   public addBookmark(verb: newVerb) {
-    this._bookmarksService.addBookmark(verb);
+    this._bookmarksStorageService.addBookmark(verb);
   }
 
   public deleteBookmark(verbID: string) {
-    this._bookmarksService.deleteBookmark(verbID);
+    this._bookmarksStorageService.deleteBookmark(verbID);
   }
 
   ngOnDestroy(): void {
