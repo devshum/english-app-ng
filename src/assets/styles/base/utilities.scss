@@ -1,0 +1,19 @@
+@use '../../../assets/styles/abstracts/variables' as styles;
+
+.block {
+  min-width: 42rem;
+  min-height: 38rem;
+  padding: 5rem;
+  border-radius: 0.2rem;
+
+  &--default {
+    background-color: styles.$gray-1;
+    border: 0.1rem solid lighten(styles.$gray-5, 6%);
+  }
+
+  &--error {
+    background-color: styles.$alert-bg;
+    border: 0.1rem solid styles.$alert-border;
+    color: styles.$alert-text;
+  }
+}

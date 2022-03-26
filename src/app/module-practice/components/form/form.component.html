@@ -1,7 +1,7 @@
-<form class="form"
-      [formGroup]="form"
-      autocomplete="off">
-
+<form [formGroup]="form"
+      autocomplete="off"
+      class="form block block--default"
+      *ngIf="!loadingError">
   <h1 class="form__text-box" [ngSwitch]="isLoading">
     <span class="form__title h1" 
         *ngSwitchCase="false"
@@ -19,18 +19,18 @@
     <ng-container *ngSwitchCase="false">
       <div class="form__group">
         <label class="form__label"
-               for="past">
-               Past
+              for="past">
+              Past
         </label>
         
         <input formControlName="past"
-               class="form__input"
-               id="past" 
-               type="text"
-               placeholder="2nd form"
-               [class.disabled]="past.valid"
-               #pastInput
-               (input)="onStoreAnswer({ past, pastParticiple })">
+              class="form__input"
+              id="past" 
+              type="text"
+              placeholder="2nd form"
+              [class.disabled]="past.valid"
+              #pastInput
+              (input)="onStoreAnswer({ past, pastParticiple })">
     
         <span [class.shown]="hasError(past, 'pastIsCorrect')"
               class="form__error">
@@ -40,18 +40,18 @@
       
       <div class="form__group">
         <label class="form__label"
-               for="pastParticiple">
-               Past participle
+              for="pastParticiple">
+              Past participle
         </label>
     
         <input formControlName="pastParticiple"
-               class="form__input"
-               id="pastParticiple" 
-               type="text"
-               placeholder="3rd form"
-               [class.disabled]="pastParticiple.valid"
-               #participleInput
-               (input)="onStoreAnswer({ past, pastParticiple })">
+              class="form__input"
+              id="pastParticiple" 
+              type="text"
+              placeholder="3rd form"
+              [class.disabled]="pastParticiple.valid"
+              #participleInput
+              (input)="onStoreAnswer({ past, pastParticiple })">
     
         <span [class.shown]="hasError(pastParticiple, 'participleIsCorrect')"
               class="form__error">
@@ -59,7 +59,7 @@
         </span>
       </div>
     
-      <button class="form__button"
+      <button class="btn btn--default"
               #pickBtn 
               type="button"
               (click)="pickVerb()"
@@ -78,12 +78,14 @@
 
   <div [ngSwitch]="isBookmark(randomVerb)" *ngIf="allowNext">
     <i class="form__bookmark star star--solid star--small" 
-       *ngSwitchCase="true"
-       (click)="deleteBookmark(randomVerb.id)">
+      *ngSwitchCase="true"
+      (click)="deleteBookmark(randomVerb.id)">
     </i>
     <i class="form__bookmark star star--outline star--small" 
-       *ngSwitchDefault
-       (click)="addBookmark(randomVerb)">
+      *ngSwitchDefault
+      (click)="addBookmark(randomVerb)">
     </i>
   </div>
 </form>
+
+<app-error class="verbs__error" *ngIf="loadingError"></app-error>
