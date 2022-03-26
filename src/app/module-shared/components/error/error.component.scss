@@ -1,0 +1,38 @@
+:host {
+  display: block;
+}
+
+.error {
+  display: grid;
+  grid-template-rows: repeat(2, max-content);
+  justify-items: center;
+
+  &__icon {
+    font-size: 5rem;
+  }
+
+  &__paragraph {
+    font-size: 3.2rem;
+    font-weight: 700;
+    margin-top: 0.8rem;
+  }
+
+  &__title {
+    text-align: center;
+    font-size: 1.6rem;
+    font-weight: 500;
+    margin-top: 1.6rem;
+
+    span {
+      display: block;
+
+      &:not(:last-child) {
+        margin-bottom: 0.4rem;
+      }
+    }
+  }
+
+  .btn {
+    align-self: end;
+  }
+}
