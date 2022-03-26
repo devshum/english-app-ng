@@ -20,6 +20,8 @@ import { newVerb } from 'src/app/interfaces/newVerb.interface';
 })
 
 export class VerbsComponent implements OnInit, OnDestroy {
+  public loadingError = false;
+
   public verbs: newVerb[];
   public bookmarks: newVerb[] = [];
   public isLoading = false;
@@ -47,8 +49,10 @@ export class VerbsComponent implements OnInit, OnDestroy {
       .subscribe(newVerbs => {
         this.verbs = newVerbs;
         this._loaderService.end();
+      }, error => {
+        this.loadingError = error;
       });
-    }
+  }
 
   public isBookmark(verb: newVerb): boolean {
     return this.bookmarks.some(bookmark => JSON.stringify(bookmark) === JSON.stringify(verb));
@@ -64,5 +68,6 @@ export class VerbsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this._unsubscribe.next();
+    this._loaderService.end();
   }
 }
