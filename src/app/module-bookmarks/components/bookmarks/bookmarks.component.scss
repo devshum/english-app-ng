@@ -20,8 +20,8 @@
     padding: 1.6rem;
     flex-direction: column;
     border-radius: 0.2rem;
-    border: 0.1rem solid styles.$gray-1;
     background-color: styles.$gray-1;
+    border: 0.1rem solid lighten(styles.$gray-5, 6%);
 
     span {
       font-size: 3.2rem;
