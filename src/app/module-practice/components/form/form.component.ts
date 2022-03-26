@@ -29,6 +29,7 @@ export class FormComponent implements OnInit, OnDestroy {
   public form: FormGroup;
   public allowNext: boolean;
   public bookmarks: newVerb[] = [];
+  public loadingError = false;
 
   private _answers: { past: string; pastParticiple: string };
   private _isPastValid: boolean;
@@ -56,7 +57,7 @@ export class FormComponent implements OnInit, OnDestroy {
     this._answers = this._answersStorage.getAnswers();
     this.bookmarks = this._bookmarksStorageService.getBookmarks();
 
-    this._getVerb();
+    this._getLocalVerb();
     this._initForm();
 
     this._bookmarksStorageService.bookmarksUpdate.pipe(
@@ -71,11 +72,7 @@ export class FormComponent implements OnInit, OnDestroy {
 
     if(!this.randomVerb) {
       this._loaderService.start();
-      this._httpService.getRandomVerb().subscribe((verb: newVerb) => {
-        this._verbStorage.storeVerb(verb);
-        this._getVerb();
-        this._loaderService.end();
-      });
+      this._getRandomVerb();
     }
   }
 
@@ -97,12 +94,7 @@ export class FormComponent implements OnInit, OnDestroy {
 
   public pickVerb(): void {
     this._loaderService.start();
-
-    this._httpService.getRandomVerb().subscribe((verb: newVerb) => {
-      this._verbStorage.storeVerb(verb);
-      this._getVerb();
-      this._loaderService.end();
-    });
+    this._getRandomVerb();
 
     this.allowNext = false;
     this._isPastValid = false;
@@ -118,6 +110,10 @@ export class FormComponent implements OnInit, OnDestroy {
 
   public onStoreAnswer(answers: { past: AbstractControl; pastParticiple: AbstractControl } ): void {
     this._answersStorage.storeAnswers(answers);
+  }
+
+  public reloadCurrentPage() {
+    window.location.reload();
   }
 
   private _initForm(): void {
@@ -215,7 +211,17 @@ export class FormComponent implements OnInit, OnDestroy {
     }
   }
 
-  private _getVerb() {
+  private _getLocalVerb(): void {
     this.randomVerb = this._verbStorage.getVerb();
+  }
+
+  private _getRandomVerb(): void {
+    this._httpService.getRandomVerb().subscribe((verb: newVerb) => {
+      this._verbStorage.storeVerb(verb);
+      this._getLocalVerb();
+      this._loaderService.end();
+    }, error => {
+      this.loadingError = true;
+    });
   }
 }
