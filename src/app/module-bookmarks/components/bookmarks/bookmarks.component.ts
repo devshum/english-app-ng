@@ -20,6 +20,7 @@ import { newVerb } from 'src/app/interfaces/newVerb.interface';
 
 export class BookmarksComponent implements OnInit, OnDestroy {
   public bookmarks: newVerb[] = [];
+  public searchValue: string;
   private _unsubscribe = new Subject();
 
   constructor(
