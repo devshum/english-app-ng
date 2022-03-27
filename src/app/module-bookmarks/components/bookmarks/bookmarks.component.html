@@ -1,15 +1,16 @@
 <section class="bookmarks container">
   <div class="bookmarks__wrapper wrapper">
+    <input type="text" [(ngModel)]="searchValue">
     <h1 class="h1">Bookmarks</h1>
-    <ng-container *ngFor="let bookmark of bookmarks">
-      <figure class="bookmarks__bookmark">
+    <ul *ngFor="let bookmark of bookmarks | searchVerb:searchValue">
+      <li class="bookmarks__bookmark">
         <span>{{ bookmark.infinitive }}</span>
         <span>{{ bookmark.past }}</span>
         <span>{{ bookmark.pastParticiple }}</span>
         <i class="bookmarks__star star star--solid star--small" 
            (click)="deleteBookmark(bookmark.id)">
         </i>
-      </figure>
-    </ng-container>
+      </li>
+    </ul>
   </div>
 </section>
