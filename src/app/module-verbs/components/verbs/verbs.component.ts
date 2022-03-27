@@ -2,6 +2,7 @@
 import { HttpService } from 'src/app/services/http.service';
 import { BookmarksStorageService } from '../../../services/bookmarksStorage.service';
 import { LoaderService } from '../../../services/loader.service';
+import { ErrorService } from './../../../services/error.service';
 
 // Common
 import { Component, OnInit, OnDestroy } from '@angular/core';
@@ -30,18 +31,25 @@ export class VerbsComponent implements OnInit, OnDestroy {
   constructor(
     private _httpService: HttpService,
     private _loaderService: LoaderService,
-    private _bookmarksStorageService: BookmarksStorageService
+    private _bookmarksStorageService: BookmarksStorageService,
+    private _errorService: ErrorService
   ) { }
 
   ngOnInit(): void {
     this.bookmarks = this._bookmarksStorageService.getBookmarks();
+
+    this._errorService.loadingErrorStatus.pipe(
+      takeUntil(this._unsubscribe)
+    ).subscribe(loadingError => this.loadingError = loadingError);
+
     this._bookmarksStorageService.bookmarksUpdate.pipe(
-        takeUntil(this._unsubscribe)
+      takeUntil(this._unsubscribe)
     ).subscribe((bookmarks: newVerb[]) => this.bookmarks = bookmarks);
 
     this._loaderService.loadingStatus.pipe(
       takeUntil(this._unsubscribe)
     ).subscribe((isLoading: boolean) => this.isLoading = isLoading);
+
     this._loaderService.start();
 
     this._httpService.getVerbs()
@@ -50,7 +58,7 @@ export class VerbsComponent implements OnInit, OnDestroy {
         this.verbs = newVerbs;
         this._loaderService.end();
       }, error => {
-        this.loadingError = error;
+        this._errorService.hasError();
       });
   }
 
@@ -58,11 +66,11 @@ export class VerbsComponent implements OnInit, OnDestroy {
     return this.bookmarks.some(bookmark => JSON.stringify(bookmark) === JSON.stringify(verb));
   }
 
-  public addBookmark(verb: newVerb) {
+  public addBookmark(verb: newVerb): void {
     this._bookmarksStorageService.addBookmark(verb);
   }
 
-  public deleteBookmark(verbID: string) {
+  public deleteBookmark(verbID: string): void {
     this._bookmarksStorageService.deleteBookmark(verbID);
   }
 

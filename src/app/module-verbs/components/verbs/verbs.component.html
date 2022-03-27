@@ -4,7 +4,10 @@
     <h1 class="h1">Irregular Verbs</h1>
     <div *ngIf="!loadingError && isLoading" class="verbs__loading loading">&nbsp;</div>
 
-    <app-error class="verbs__error" *ngIf="loadingError"></app-error>
+    <app-error class="verbs__error" 
+               mode="verbs" 
+               (hookVerbsAfterError)="verbs = $event">
+    </app-error>
 
     <ng-container *ngIf="!loadingError">
       <div *ngIf="!isLoading" class="table">
