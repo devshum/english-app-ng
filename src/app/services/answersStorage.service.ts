@@ -10,18 +10,18 @@ export class AnswersStorageService {
 
   constructor() { }
 
-  public storeAnswers(answers: { past: AbstractControl; pastParticiple: AbstractControl } ) {
+  public storeAnswers(answers: { past: AbstractControl; pastParticiple: AbstractControl }): void {
     this.answers = { past: answers.past.value, pastParticiple: answers.pastParticiple.value };
     localStorage.setItem('Answers', JSON.stringify(this.answers));
   }
 
-  public getAnswers() {
+  public getAnswers(): any {
     if(localStorage.getItem('Answers')) {
       return JSON.parse(localStorage.getItem('Answers') || '');
     }
   }
 
-  public clearAnswers() {
+  public clearAnswers(): void {
     return localStorage.removeItem('Answers');
   }
 }

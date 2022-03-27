@@ -1,21 +1,26 @@
-import { newVerb } from './../interfaces/newVerb.interface';
 import { Injectable } from '@angular/core';
+
+interface localVerb {
+  infinitive: string;
+  past: string;
+  pastParticiple: string;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class VerbStorageService {
-  public currentVerb: newVerb;
+  public currentVerb: localVerb;
 
   constructor() {}
 
-  storeVerb(verb: newVerb) {
-    this.currentVerb = verb;
+  public storeVerb(verb: localVerb): void {
+    this.currentVerb = { infinitive: verb.infinitive, past: verb.past, pastParticiple: verb.pastParticiple };
     localStorage.setItem('CurrentVerb', JSON.stringify(this.currentVerb));
   }
 
-  getVerb() {
+  public getVerb(): any {
     if(localStorage.getItem('CurrentVerb')) {
       return JSON.parse(localStorage.getItem('CurrentVerb') || '');
     }
