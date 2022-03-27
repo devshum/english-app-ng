@@ -21,7 +21,7 @@ import { newVerb } from 'src/app/interfaces/newVerb.interface';
 
 export class VerbsComponent implements OnInit, OnDestroy {
   public loadingError = false;
-
+  public searchValue: string;
   public verbs: newVerb[];
   public bookmarks: newVerb[] = [];
   public isLoading = false;
