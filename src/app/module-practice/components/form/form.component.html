@@ -88,4 +88,7 @@
   </div>
 </form>
 
-<app-error class="verbs__error" *ngIf="loadingError"></app-error>
+<app-error class="verbs__error" 
+           mode="randomVerb" 
+           (hookRandomVerbAfterError)="randomVerb = $event">
+</app-error>

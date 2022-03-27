@@ -20,6 +20,7 @@ import { newVerb } from 'src/app/interfaces/newVerb.interface';
 
 export class BookmarksComponent implements OnInit, OnDestroy {
   public bookmarks: newVerb[] = [];
+  public searchValue: string;
   private _unsubscribe = new Subject();
 
   constructor(
@@ -40,7 +41,7 @@ export class BookmarksComponent implements OnInit, OnDestroy {
     return this.bookmarks.some(bookmark => JSON.stringify(bookmark) === JSON.stringify(verb));
   }
 
-  public deleteBookmark(verbID: string) {
+  public deleteBookmark(verbID: string): void {
     this._bookmarksStorageService.deleteBookmark(verbID);
 
     if(!this.bookmarks.length) {
