@@ -1,4 +1,4 @@
-<figure class="error block block--error">
+<figure class="error block block--error" *ngIf="loadingError">
   <span class="error__icon">🙁</span>
   <figcaption class="error__paragraph">Error 404</figcaption>
   <h2 class="error__title">
@@ -7,5 +7,5 @@
   </h2>
   <button class="btn btn--error" 
           type="button" 
-          (click)="reloadCurrentPage()">Retry</button>
+          (click)="updateDataAfterError()">Retry</button>
 </figure>

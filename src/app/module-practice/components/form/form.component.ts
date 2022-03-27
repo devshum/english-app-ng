@@ -4,6 +4,7 @@ import { LoaderService } from '../../../services/loader.service';
 import { BookmarksStorageService } from '../../../services/bookmarksStorage.service';
 import { AnswersStorageService } from './../../../services/answersStorage.service';
 import { VerbStorageService } from './../../../services/verbStorage.service';
+import { ErrorService } from './../../../services/error.service';
 
 // Common
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
@@ -13,6 +14,11 @@ import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
 import { newVerb } from '../../../interfaces/newVerb.interface';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+
+interface answers {
+  past: string;
+  pastParticiple: string;
+}
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
@@ -31,7 +37,7 @@ export class FormComponent implements OnInit, OnDestroy {
   public bookmarks: newVerb[] = [];
   public loadingError = false;
 
-  private _answers: { past: string; pastParticiple: string };
+  private _answers: answers;
   private _isPastValid: boolean;
   private _isParticipleValid: boolean;
   private _unsubscribe = new Subject();
@@ -42,7 +48,8 @@ export class FormComponent implements OnInit, OnDestroy {
     private _loaderService: LoaderService,
     private _bookmarksStorageService: BookmarksStorageService,
     private _answersStorage: AnswersStorageService,
-    private _verbStorage: VerbStorageService
+    private _verbStorage: VerbStorageService,
+    private _errorService: ErrorService
   ) { }
 
   get past(): AbstractControl {
@@ -60,15 +67,17 @@ export class FormComponent implements OnInit, OnDestroy {
     this._getLocalVerb();
     this._initForm();
 
+    this._errorService.loadingErrorStatus.pipe(
+      takeUntil(this._unsubscribe)
+    ).subscribe(loadingError => this.loadingError = loadingError);
+
     this._bookmarksStorageService.bookmarksUpdate.pipe(
       takeUntil(this._unsubscribe)
     ).subscribe((bookmarks: newVerb[]) => this.bookmarks = bookmarks);
 
     this._loaderService.loadingStatus.pipe(
       takeUntil(this._unsubscribe)
-    ).subscribe((isLoading: boolean) => {
-      this.isLoading = isLoading;
-    });
+    ).subscribe((isLoading: boolean) => this.isLoading = isLoading);
 
     if(!this.randomVerb) {
       this._loaderService.start();
@@ -84,11 +93,11 @@ export class FormComponent implements OnInit, OnDestroy {
     return this.bookmarks.some(bookmark => JSON.stringify(bookmark) === JSON.stringify(verb));
   }
 
-  public addBookmark(verb: newVerb) {
+  public addBookmark(verb: newVerb): void {
     this._bookmarksStorageService.addBookmark(verb);
   }
 
-  public deleteBookmark(verbID: string) {
+  public deleteBookmark(verbID: string): void {
     this._bookmarksStorageService.deleteBookmark(verbID);
   }
 
@@ -110,10 +119,6 @@ export class FormComponent implements OnInit, OnDestroy {
 
   public onStoreAnswer(answers: { past: AbstractControl; pastParticiple: AbstractControl } ): void {
     this._answersStorage.storeAnswers(answers);
-  }
-
-  public reloadCurrentPage() {
-    window.location.reload();
   }
 
   private _initForm(): void {
@@ -194,9 +199,7 @@ export class FormComponent implements OnInit, OnDestroy {
   }
 
   private _changeFocus(htmlEl: ElementRef): void {
-   if(htmlEl) {
-    htmlEl.nativeElement.focus();
-   }
+   if(htmlEl) { htmlEl.nativeElement.focus(); }
   }
 
   private _allowNext(): void {
@@ -221,7 +224,7 @@ export class FormComponent implements OnInit, OnDestroy {
       this._getLocalVerb();
       this._loaderService.end();
     }, error => {
-      this.loadingError = true;
+      this._errorService.hasError();
     });
   }
 }
