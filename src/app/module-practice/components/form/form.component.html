@@ -2,7 +2,7 @@
       autocomplete="off"
       class="form block block--default"
       *ngIf="!loadingError">
-  <h1 class="form__text-box" [ngSwitch]="isLoading">
+  <h1 class="form__text-box h1" [ngSwitch]="isLoading">
     <span class="form__title h1" 
         *ngSwitchCase="false"
         [ngClass]="{
@@ -73,7 +73,9 @@
       </button>
     </ng-container>
 
-    <div class="form__loading loading" *ngSwitchDefault>&nbsp;</div>
+    <app-loader [modificator]="'loader__circle--gray'" 
+                *ngSwitchDefault>
+    </app-loader>
   </div>
 
   <div [ngSwitch]="isBookmark(randomVerb)" *ngIf="allowNext">
