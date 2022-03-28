@@ -1,0 +1,31 @@
+@use '../../../../assets/styles/abstracts/variables' as styles;
+
+:host {
+  display: block;
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__circle {
+    display: inline-block;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    animation: spin 1s ease-in-out infinite;
+
+    &--white {
+      border: 0.5rem solid styles.$blue;
+      border-top-color: styles.$white;
+      margin-top: 12rem;
+    }
+
+    &--gray {
+      border: 0.5rem solid styles.$blue;
+      border-top-color: styles.$gray-1;
+      margin-top: -5rem;
+    }
+  }
+}
