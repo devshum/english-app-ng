@@ -1,16 +1,25 @@
-<section class="bookmarks container">
-  <div class="bookmarks__wrapper wrapper">
+<section class="section">
+ <div class="container">
+ 
+  <h1 class="h1">Bookmarks</h1>
+
+  <!-- todo component  -->
+  <div>
+    <p>Search for an irregular verb
+      among the 200 most used English irregular verbs</p>
     <input type="text" [(ngModel)]="searchValue">
-    <h1 class="h1">Bookmarks</h1>
-    <ul *ngFor="let bookmark of bookmarks | searchVerb:searchValue">
-      <li class="bookmarks__bookmark">
-        <span>{{ bookmark.infinitive }}</span>
-        <span>{{ bookmark.past }}</span>
-        <span>{{ bookmark.pastParticiple }}</span>
-        <i class="bookmarks__star star star--solid star--small" 
-           (click)="deleteBookmark(bookmark.id)">
-        </i>
-      </li>
-    </ul>
   </div>
+  
+  <ul class="bookmarks__wrapper">
+    <li class="bookmarks__bookmark" *ngFor="let bookmark of bookmarks | searchVerb:searchValue">
+      <span>{{ bookmark.infinitive }}</span>
+      <span>{{ bookmark.past }}</span>
+      <span>{{ bookmark.pastParticiple }}</span>
+      <i class="bookmarks__star star star--solid star--small" 
+          (click)="deleteBookmark(bookmark.id)">
+      </i>
+    </li>
+  </ul>
+
+ </div>
 </section>
