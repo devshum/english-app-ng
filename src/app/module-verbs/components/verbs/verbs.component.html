@@ -1,14 +1,24 @@
-<section class="verbs container">
-  <div class="verbs__wrapper wrapper">
+<section class="verbs section">
+ <div class="container">
+  <h1 class="h1">Irregular Verbs</h1>
+
+  <app-loader *ngIf="!loadingError && isLoading" 
+              [modificator]="'loader__circle--white'">
+  </app-loader>
+ 
+  <app-error class="verbs__error" 
+             mode="verbs" 
+             (hookVerbsAfterError)="verbs = $event">
+  </app-error>
+
+  <!-- todo component  -->
+  <div *ngIf="!loadingError && !isLoading">
+    <p>Search for an irregular verb
+      among the 200 most used English irregular verbs</p>
     <input type="text" [(ngModel)]="searchValue">
-    <h1 class="h1">Irregular Verbs</h1>
-    <div *ngIf="!loadingError && isLoading" class="verbs__loading loading">&nbsp;</div>
+  </div>
 
-    <app-error class="verbs__error" 
-               mode="verbs" 
-               (hookVerbsAfterError)="verbs = $event">
-    </app-error>
-
+  <div class="verbs__wrapper">
     <ng-container *ngIf="!loadingError">
       <div *ngIf="!isLoading" class="table">
 
@@ -84,4 +94,5 @@
       </div>
     </ng-container>
   </div>
+ </div>
 </section>

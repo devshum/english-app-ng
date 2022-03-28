@@ -18,16 +18,5 @@
     height: inherit;
   }
 
-  &__loading {
-    border: 0.5rem solid styles.$blue;
-    border-top-color: styles.$white;
-    grid-column: 1 / -1;
-    justify-self: center;
-    margin-top: 12rem;
-  }
 
-  &__error {
-    grid-column: 1 / -1;
-    justify-self: center;
-  }
 }
