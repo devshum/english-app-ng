@@ -3,9 +3,14 @@
 }
 
 .error {
-  display: grid;
-  grid-template-rows: repeat(2, max-content);
-  justify-items: center;
+  display: flex;
+  justify-content: center;
+
+  &__wrapper {
+    display: grid;
+    justify-items: center;
+    grid-template-rows: repeat(2, max-content);
+  }
 
   &__icon {
     font-size: 5rem;
