@@ -48,7 +48,7 @@ export class ErrorComponent implements OnInit, OnDestroy {
         });
         break;
 
-      case this.mode === 'verb':
+      case this.mode === 'verbs':
         this._errorService.hasNoError();
 
         this._httpService.getVerbs().subscribe((verbs: newVerb[]) => {
