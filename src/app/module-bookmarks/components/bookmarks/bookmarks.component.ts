@@ -31,10 +31,9 @@ export class BookmarksComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.bookmarks = this._bookmarksStorageService.getBookmarks();
 
-    this._bookmarksStorageService.bookmarksUpdate
-        .pipe(
-          takeUntil(this._unsubscribe)
-        ).subscribe((bookmarks: newVerb[]) => this.bookmarks = bookmarks);
+    this._bookmarksStorageService.bookmarksUpdate.pipe(
+      takeUntil(this._unsubscribe)
+    ).subscribe((bookmarks: newVerb[]) => this.bookmarks = bookmarks);
   }
 
   public isBookmark(verb: newVerb): boolean {
