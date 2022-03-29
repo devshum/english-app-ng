@@ -1,0 +1,17 @@
+<div class="search" [class]="modificator">
+  <ng-content></ng-content>
+  <input *ngIf="mode === 'verbs'"
+         class="search__input" 
+         type="text" 
+         placeholder="... search for an example"
+         [(ngModel)]="searchVerbValue" 
+         (input)="inputVerbValue()">
+
+  <input *ngIf="mode === 'bookmarks'"
+         class="search__input" 
+         type="text" 
+         placeholder="... search for a bookmark"
+         [(ngModel)]="searchBookmarkValue" 
+         (input)="inputBookmarkValue()">
+</div>
+

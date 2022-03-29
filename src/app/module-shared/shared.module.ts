@@ -5,12 +5,14 @@ import { ErrorComponent } from './components/error/error.component';
 import { SearchVerbkPipe } from '../pipes/search-bookmark.pipe';
 import { FormsModule } from '@angular/forms';
 import { LoaderComponent } from './components/loader/loader.component';
+import { SearchComponent } from './components/search/search.component';
 
 @NgModule({
   declarations: [
     ErrorComponent,
     SearchVerbkPipe,
-    LoaderComponent
+    LoaderComponent,
+    SearchComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +25,8 @@ import { LoaderComponent } from './components/loader/loader.component';
     ErrorComponent,
     SearchVerbkPipe,
     FormsModule,
-    LoaderComponent
+    LoaderComponent,
+    SearchComponent
   ]
 })
 export class SharedModule { }
