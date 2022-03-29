@@ -1,23 +1,30 @@
+// Core
+import { Component, OnInit, Output, EventEmitter, Input, OnDestroy } from '@angular/core';
+
+// Services
+import { HttpService } from 'src/app/services/http.service';
 import { ErrorService } from './../../../services/error.service';
 import { LoaderService } from './../../../services/loader.service';
 import { VerbStorageService } from './../../../services/verbStorage.service';
-import { Component, OnInit, Output, EventEmitter, Input, OnDestroy } from '@angular/core';
-import { newVerb } from 'src/app/interfaces/newVerb.interface';
-import { HttpService } from 'src/app/services/http.service';
+
+// Rxjs
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+
+// Interfaces
+import { newVerb } from 'src/app/interfaces/newVerb.interface';
 
 @Component({
   selector: 'app-error',
   templateUrl: './error.component.html',
   styleUrls: ['./error.component.scss']
 })
-export class ErrorComponent implements OnInit, OnDestroy {
+export class ErrorComponent implements OnDestroy, OnInit {
   @Output() hookVerbsAfterError: EventEmitter<newVerb[]> = new EventEmitter<newVerb[]>();
   @Output() hookRandomVerbAfterError: EventEmitter<newVerb> = new EventEmitter<newVerb>();
 
   @Input() mode: string;
-
+  @Input() modificator: string;
   public loadingError = false;
   private _unsubscribe = new Subject();
 
@@ -35,8 +42,8 @@ export class ErrorComponent implements OnInit, OnDestroy {
   }
 
   public updateDataAfterError(): void {
-    switch (true) {
-      case this.mode === 'randomVerb':
+    switch (this.mode) {
+      case 'randomVerb':
         this._errorService.hasNoError();
 
         this._httpService.getRandomVerb().subscribe((verb: newVerb) => {
@@ -48,9 +55,8 @@ export class ErrorComponent implements OnInit, OnDestroy {
         });
         break;
 
-      case this.mode === 'verbs':
+      case 'verbs':
         this._errorService.hasNoError();
-
         this._httpService.getVerbs().subscribe((verbs: newVerb[]) => {
           this.hookVerbsAfterError.emit(verbs);
           this._loaderService.end();

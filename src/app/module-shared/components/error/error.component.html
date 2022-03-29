@@ -1,4 +1,4 @@
-<figure class="error" *ngIf="loadingError">
+<figure class="error" [class]="modificator" *ngIf="loadingError">
   <div class="error__wrapper block block--error">
     <span class="error__icon">🙁</span>
     <figcaption class="error__paragraph">Error 404</figcaption>
