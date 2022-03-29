@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { newVerb } from '../interfaces/newVerb.interface';
 
 @Injectable({
@@ -8,9 +8,14 @@ import { newVerb } from '../interfaces/newVerb.interface';
 
 export class BookmarksStorageService {
   public bookmarksUpdate: Subject<newVerb[]> = new Subject<newVerb[]>();
+  private _isFlashClass: Subject<boolean> = new Subject<boolean>();
   private _bookmarks: newVerb[] = [];
 
   constructor() { }
+
+  get getFlashClass(): Observable<any> {
+    return this._isFlashClass.asObservable();
+  }
 
   public getBookmarks(): newVerb[] {
     if(localStorage.getItem('Bookmarks')) {
@@ -29,6 +34,7 @@ export class BookmarksStorageService {
       this._bookmarks = [verb];
     }
 
+    this._setFlashClass();
     localStorage.setItem('Bookmarks', JSON.stringify([...this._bookmarks]));
   }
 
@@ -38,6 +44,12 @@ export class BookmarksStorageService {
     this._bookmarks = this._bookmarks.filter(bookmark => bookmark.id !== verbID);
     this.bookmarksUpdate.next([...this._bookmarks]);
 
+    this._setFlashClass();
     localStorage.setItem('Bookmarks', JSON.stringify([...this._bookmarks]));
+  }
+
+  private _setFlashClass(): void {
+    this._isFlashClass.next(true);
+    setTimeout(() => this._isFlashClass.next(false), 400);
   }
 }
