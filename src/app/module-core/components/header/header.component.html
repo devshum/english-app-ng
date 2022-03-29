@@ -8,7 +8,8 @@
       <button routerLinkActive="active" routerLink="/practice">Practice</button>
       <button routerLinkActive="active" routerLink="/verbs">Verbs</button>
 
-      <button class="header__bookmarks-tab"
+      <button [class.active]="flashClass"
+              class="header__bookmarks-tab"
               routerLinkActive="active" 
               routerLink="/bookmarks">
               Bookmarks

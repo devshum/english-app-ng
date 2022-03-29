@@ -19,15 +19,25 @@ import { newVerb } from './../../../interfaces/newVerb.interface';
 
 export class HeaderComponent implements OnInit, OnDestroy {
   public bookmarks: newVerb[] = [];
+  public flashClass = false;
+
   private _unsubscribe = new Subject();
 
   constructor(private _bookmarksStorageService: BookmarksStorageService) { }
 
   ngOnInit(): void {
     this.bookmarks = this._bookmarksStorageService.getBookmarks();
+
     this._bookmarksStorageService.bookmarksUpdate.pipe(
       takeUntil(this._unsubscribe)
     ).subscribe((bookmarks: newVerb[]) => this.bookmarks = bookmarks);
+
+    this._bookmarksStorageService.getFlashClass.pipe(
+      takeUntil(this._unsubscribe)
+    ).subscribe(flashClass => {
+      console.log(this.flashClass);
+      this.flashClass = flashClass;
+    });
   }
 
   ngOnDestroy(): void {

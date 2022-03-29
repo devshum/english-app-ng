@@ -30,7 +30,7 @@
       </div>
 
       <ul class="table__body">
-        <li class="table__body-row" *ngFor="let verb of verbs">
+        <li class="table__body-row" *ngFor="let verb of verbs | searchVerb:searchValue">
           <span class="table__item">
             <span>{{ verb.infinitive }}</span>
           </span>
