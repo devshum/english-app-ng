@@ -3,12 +3,13 @@ import { HttpService } from 'src/app/services/http.service';
 import { BookmarksStorageService } from '../../../services/bookmarksStorage.service';
 import { LoaderService } from '../../../services/loader.service';
 import { ErrorService } from './../../../services/error.service';
+import { SearchStorageService } from './../../../services/searchStorage.service';
 
 // Common
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 // Rxjs
-import { Subject, timer } from 'rxjs';
+import { Subject } from 'rxjs';
 import { takeUntil} from 'rxjs/operators';
 
 // Interfaces
@@ -32,12 +33,11 @@ export class VerbsComponent implements OnInit, OnDestroy {
     private _httpService: HttpService,
     private _loaderService: LoaderService,
     private _bookmarksStorageService: BookmarksStorageService,
-    private _errorService: ErrorService
+    private _errorService: ErrorService,
+    private _searchStorageService: SearchStorageService
   ) { }
 
   ngOnInit(): void {
-    this.bookmarks = this._bookmarksStorageService.getBookmarks();
-
     this._errorService.loadingErrorStatus.pipe(
       takeUntil(this._unsubscribe)
     ).subscribe(loadingError => this.loadingError = loadingError);
@@ -56,6 +56,8 @@ export class VerbsComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this._unsubscribe))
       .subscribe(newVerbs => {
         this.verbs = newVerbs;
+        this.bookmarks = this._bookmarksStorageService.getBookmarks();
+        this._getVerbSearch();
         this._loaderService.end();
       }, error => {
         this._errorService.hasError();
@@ -74,8 +76,17 @@ export class VerbsComponent implements OnInit, OnDestroy {
     this._bookmarksStorageService.deleteBookmark(verbID);
   }
 
+  public onSearchVerbValue(searchVerbValue: string): void {
+    this._searchStorageService.storeVerbSearch(searchVerbValue);
+    this._getVerbSearch();
+  }
+
   ngOnDestroy(): void {
     this._unsubscribe.next();
     this._loaderService.end();
+  }
+
+  private _getVerbSearch(): void {
+    this.searchValue = this._searchStorageService.getSearchVerbValue();
   }
 }

@@ -10,13 +10,7 @@
 }
 
 .verbs {
-  &__wrapper {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: max-content;
-    grid-gap: 3.2rem;
-    height: inherit;
+  &__error {
+    margin-top: 2.4rem;
   }
-
-
 }

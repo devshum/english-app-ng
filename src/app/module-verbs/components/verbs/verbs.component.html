@@ -5,94 +5,60 @@
   <app-loader *ngIf="!loadingError && isLoading" 
               [modificator]="'loader__circle--white'">
   </app-loader>
- 
-  <app-error class="verbs__error" 
-             mode="verbs" 
+
+  <app-error [modificator]="'error--verbs'"
+             [mode]="'verbs'" 
              (hookVerbsAfterError)="verbs = $event">
-  </app-error>
+  </app-error>  
+ 
 
-  <!-- todo component  -->
-  <div *ngIf="!loadingError && !isLoading">
-    <p>Search for an irregular verb
-      among the 200 most used English irregular verbs</p>
-    <input type="text" [(ngModel)]="searchValue">
-  </div>
+  <app-search *ngIf="!loadingError && !isLoading"
+              (verbValue)="onSearchVerbValue($event)"
+              [modificator]="'search--verbs'"
+              [mode]="'verbs'">
 
-  <div class="verbs__wrapper">
-    <ng-container *ngIf="!loadingError">
-      <div *ngIf="!isLoading" class="table">
+              <span>Search for an irregular verb</span>
+              <span>among the 200 most used English irregular verbs</span>
 
-        <div class="table__head">
-          <span>Infinitive</span>
-          <span>Past simple</span>
-          <span>Past participle</span>
-        </div>
-  
-        <ul class="table__body">
-          <li class="table__body-row" *ngFor="let verb of verbs.slice(0, 100) | searchVerb:searchValue">
-            <span class="table__item">
-              <span>{{ verb.infinitive }}</span>
-            </span>
-            <span class="table__item">
-              <span>{{ verb.past }}</span>
-            </span>
-            <span class="table__item">
-              <span>{{ verb.pastParticiple }}</span>
-            </span>
-  
-            <span class="table__bookmark">
-              <span [ngSwitch]="isBookmark(verb)">
-  
-                <i class="table__bookmark star star--solid star--small" 
-                   *ngSwitchCase="true"
-                   (click)="deleteBookmark(verb.id)">
-                </i>
-                <i class="table__bookmark star star--outline star--small" 
-                  *ngSwitchDefault
-                    (click)="addBookmark(verb)">
-                </i>
-              </span>
-            </span>
-          </li>
-        </ul>
+  </app-search>
+
+  <ng-container *ngIf="!loadingError && !isLoading">
+    <div class="table">
+
+      <div class="table__head">
+        <span>Infinitive</span>
+        <span>Past simple</span>
+        <span>Past participle</span>
       </div>
-  
-      <div *ngIf="!isLoading" class="table">
-  
-        <div class="table__head">
-          <span>Infinitive</span>
-          <span>Past simple</span>
-          <span>Past participle</span>
-        </div>
-  
-        <ul class="table__body">
-          <li class="table__body-row" *ngFor="let verb of verbs.slice(100, 200) | searchVerb:searchValue">
-            <span class="table__item">
-              <span>{{ verb.infinitive }}</span>
+
+      <ul class="table__body">
+        <li class="table__body-row" *ngFor="let verb of verbs">
+          <span class="table__item">
+            <span>{{ verb.infinitive }}</span>
+          </span>
+          <span class="table__item">
+            <span>{{ verb.past }}</span>
+          </span>
+          <span class="table__item">
+            <span>{{ verb.pastParticiple }}</span>
+          </span>
+
+          <span class="table__bookmark">
+            <span [ngSwitch]="isBookmark(verb)">
+
+              <i class="table__bookmark star star--solid star--small" 
+                  *ngSwitchCase="true"
+                  (click)="deleteBookmark(verb.id)">
+              </i>
+              <i class="table__bookmark star star--outline star--small" 
+                *ngSwitchDefault
+                  (click)="addBookmark(verb)">
+              </i>
             </span>
-            <span class="table__item">
-              <span>{{ verb.past }}</span>
-            </span>
-            <span class="table__item">
-              <span>{{ verb.pastParticiple }}</span>
-            </span>
-             <span class="table__bookmark">
-              <span [ngSwitch]="isBookmark(verb)">
-  
-                <i class="table__bookmark star star--solid star--small" 
-                   *ngSwitchCase="true"
-                   (click)="deleteBookmark(verb.id)">
-                </i>
-                <i class="table__bookmark star star--outline star--small" 
-                  *ngSwitchDefault
-                    (click)="addBookmark(verb)">
-                </i>
-              </span>
-            </span>
-          </li>
-        </ul>
-      </div>
-    </ng-container>
-  </div>
+          </span>
+        </li>
+      </ul>
+    </div>
+  </ng-container>
  </div>
 </section>
