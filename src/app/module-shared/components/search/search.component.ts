@@ -21,8 +21,6 @@ export class SearchComponent implements OnInit {
   ngOnInit(): void {
     this.searchVerbValue = this._searchStorageService.getSearchVerbValue();
     this.searchBookmarkValue = this._searchStorageService.getSearchBookmarkValue();
-
-    console.log(this.searchBookmarkValue);
   }
 
   public inputVerbValue(): void {

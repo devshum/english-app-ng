@@ -25,6 +25,7 @@ export class ErrorComponent implements OnDestroy, OnInit {
 
   @Input() mode: string;
   @Input() modificator: string;
+
   public loadingError = false;
   private _unsubscribe = new Subject();
 
@@ -46,7 +47,9 @@ export class ErrorComponent implements OnDestroy, OnInit {
       case 'randomVerb':
         this._errorService.hasNoError();
 
-        this._httpService.getRandomVerb().subscribe((verb: newVerb) => {
+        this._httpService.getRandomVerb().pipe(
+          takeUntil(this._unsubscribe)
+        ).subscribe((verb: newVerb) => {
           this._verbStorage.storeVerb(verb);
           this.hookRandomVerbAfterError.emit(this._verbStorage.getVerb());
           this._loaderService.end();
@@ -57,7 +60,9 @@ export class ErrorComponent implements OnDestroy, OnInit {
 
       case 'verbs':
         this._errorService.hasNoError();
-        this._httpService.getVerbs().subscribe((verbs: newVerb[]) => {
+        this._httpService.getVerbs().pipe(
+          takeUntil(this._unsubscribe)
+        ).subscribe((verbs: newVerb[]) => {
           this.hookVerbsAfterError.emit(verbs);
           this._loaderService.end();
         }, error => {

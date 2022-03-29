@@ -33,7 +33,6 @@ export class SearchStorageService {
 
   private _getLocal(localKey: string): string  {
     if(localStorage.getItem(localKey)) {
-      console.log(JSON.parse(localStorage.getItem(localKey) || ''));
       return JSON.parse(localStorage.getItem(localKey) || '');
     }
 
