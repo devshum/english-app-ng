@@ -2,13 +2,11 @@
  <div class="container">
  
   <h1 class="h1">Bookmarks</h1>
-
-  <!-- todo component  -->
-  <div>
-    <p>Search for an irregular verb
-      among the 200 most used English irregular verbs</p>
-    <input type="text" [(ngModel)]="searchValue">
-  </div>
+  
+  <app-search (bookmarkValue)="onSearchBookmarkValue($event)"
+              [modificator]="'search--bookmarks'"
+              [mode]="'bookmarks'">
+  </app-search>
   
   <ul class="bookmarks__wrapper">
     <li class="bookmarks__bookmark" *ngFor="let bookmark of bookmarks | searchVerb:searchValue">

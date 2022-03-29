@@ -11,6 +11,7 @@ import { BookmarksStorageService } from 'src/app/services/bookmarksStorage.servi
 
 // Interfaces
 import { newVerb } from 'src/app/interfaces/newVerb.interface';
+import { SearchStorageService } from 'src/app/services/searchStorage.service';
 
 @Component({
   selector: 'app-bookmarks',
@@ -24,12 +25,14 @@ export class BookmarksComponent implements OnInit, OnDestroy {
   private _unsubscribe = new Subject();
 
   constructor(
+    private _searchStorageService: SearchStorageService,
     private _bookmarksStorageService: BookmarksStorageService,
     private _router: Router
   ) { }
 
   ngOnInit(): void {
     this.bookmarks = this._bookmarksStorageService.getBookmarks();
+    this._getBookmarkSearch();
 
     this._bookmarksStorageService.bookmarksUpdate.pipe(
       takeUntil(this._unsubscribe)
@@ -50,5 +53,14 @@ export class BookmarksComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this._unsubscribe.next();
+  }
+
+  public onSearchBookmarkValue(searchBookmarkValue: string): void {
+    this._searchStorageService.storeBookmarkSearch(searchBookmarkValue);
+    this._getBookmarkSearch();
+  }
+
+  private _getBookmarkSearch(): void {
+    this.searchValue = this._searchStorageService.getSearchBookmarkValue();
   }
 }
