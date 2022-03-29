@@ -13,9 +13,9 @@ export class SearchVerbkPipe implements PipeTransform {
     }
 
     return verbs.filter(verb =>
-      verb.infinitive.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase()) ||
-      verb.past.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase()) ||
-      verb.pastParticiple.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())
+      verb.infinitive.toLocaleLowerCase().startsWith(searchValue.toLocaleLowerCase()) ||
+      verb.past.toLocaleLowerCase().startsWith(searchValue.toLocaleLowerCase()) ||
+      verb.pastParticiple.toLocaleLowerCase().startsWith(searchValue.toLocaleLowerCase())
     );
   }
 }

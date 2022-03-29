@@ -22,7 +22,6 @@
 
   <ng-container *ngIf="!loadingError && !isLoading">
     <div class="table">
-
       <div class="table__head">
         <span>Infinitive</span>
         <span>Past simple</span>
@@ -30,7 +29,8 @@
       </div>
 
       <ul class="table__body">
-        <li class="table__body-row" *ngFor="let verb of verbs | searchVerb:searchValue">
+        <li class="table__body-row" 
+            *ngFor="let verb of verbs | searchVerb:searchValue">
           <span class="table__item">
             <span>{{ verb.infinitive }}</span>
           </span>

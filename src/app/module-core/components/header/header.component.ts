@@ -35,7 +35,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this._bookmarksStorageService.getFlashClass.pipe(
       takeUntil(this._unsubscribe)
     ).subscribe(flashClass => {
-      console.log(this.flashClass);
       this.flashClass = flashClass;
     });
   }
