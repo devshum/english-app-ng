@@ -22,6 +22,7 @@ import { SearchStorageService } from 'src/app/services/searchStorage.service';
 export class BookmarksComponent implements OnInit, OnDestroy {
   public bookmarks: newVerb[] = [];
   public searchValue: string;
+
   private _unsubscribe = new Subject();
 
   constructor(

@@ -52,9 +52,9 @@ export class VerbsComponent implements OnInit, OnDestroy {
 
     this._loaderService.start();
 
-    this._httpService.getVerbs()
-      .pipe(takeUntil(this._unsubscribe))
-      .subscribe(newVerbs => {
+    this._httpService.getVerbs().pipe(
+      takeUntil(this._unsubscribe)
+      ).subscribe(newVerbs => {
         this.verbs = newVerbs;
         this.bookmarks = this._bookmarksStorageService.getBookmarks();
         this._getVerbSearch();
