@@ -91,6 +91,6 @@
 </form>
 
 <app-error class="verbs__error" 
-           mode="randomVerb" 
+           [mode]="'randomVerb'" 
            (hookRandomVerbAfterError)="randomVerb = $event">
 </app-error>

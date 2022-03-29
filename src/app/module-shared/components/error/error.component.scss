@@ -6,6 +6,10 @@
   display: flex;
   justify-content: center;
 
+  &--verbs {
+    margin-top: 2.4rem;
+  }
+
   &__wrapper {
     display: grid;
     justify-items: center;

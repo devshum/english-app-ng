@@ -14,11 +14,8 @@ import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
 import { newVerb } from '../../../interfaces/newVerb.interface';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { answers } from 'src/app/interfaces/answers.interface';
 
-interface answers {
-  past: string;
-  pastParticiple: string;
-}
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
@@ -117,8 +114,8 @@ export class FormComponent implements OnInit, OnDestroy {
     return control.hasError(type) && control.invalid && (control.dirty || control.touched);
   }
 
-  public onStoreAnswer(answers: { past: AbstractControl; pastParticiple: AbstractControl } ): void {
-    this._answersStorage.storeAnswers(answers);
+  public onStoreAnswer(updatedAnswers: { past: AbstractControl; pastParticiple: AbstractControl } ): void {
+    this._answersStorage.storeAnswers(updatedAnswers);
   }
 
   private _initForm(): void {
