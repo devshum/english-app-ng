@@ -53,16 +53,10 @@
   }
 
   &__input {
-    border: none;
-    color: inherit;
-    font-size: 1.8rem;
-    font-family: inherit;
-    padding: 1.2rem 1.8rem;
-    border-radius: 0.2rem;
-    border-bottom: 0.3rem solid transparent;
+
     text-align: center;
 
-    &.disabled {
+    &--disabled {
       color: styles.$gray-8;
       pointer-events: none;
       background-color: styles.$gray-5;
@@ -70,15 +64,6 @@
       &:focus {
         box-shadow: unset;
       }
-    }
-
-    &:focus {
-      outline: none;
-      box-shadow: 0 1rem 2rem rgba(styles.$black, 0.1);
-    }
-
-    &::-webkit-input-placeholder {
-      color: styles.$gray-5;
     }
 
     &.ng-invalid:not(.ng-pristine),
@@ -107,7 +92,7 @@
     color: styles.$red;
     font-weight: 500;
 
-    &.shown {
+    &--shown {
       transform: unset;
       opacity: 1;
       visibility: visible;

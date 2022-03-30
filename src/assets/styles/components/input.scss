@@ -1,0 +1,20 @@
+@use '../../../assets/styles/abstracts/variables' as styles;
+
+.input {
+  border: none;
+  color: inherit;
+  font-size: 1.8rem;
+  font-family: inherit;
+  padding: 1.2rem 1.8rem;
+  border-radius: 0.2rem;
+  border-bottom: 0.3rem solid transparent;
+
+  &::-webkit-input-placeholder {
+    color: styles.$gray-5;
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 1rem 2rem rgba(styles.$black, 0.1);
+  }
+}

@@ -1,15 +1,10 @@
-<section class="section">
+<section class="bookmarks section">
  <div class="container">
  
-  <h1 class="h1">Bookmarks</h1>
-  
-  <app-search (bookmarkValue)="onSearchBookmarkValue($event)"
-              [modificator]="'search--bookmarks'"
-              [mode]="'bookmarks'">
-  </app-search>
+  <h1 class="mb-24 h1">Bookmarks</h1>
   
   <ul class="bookmarks__wrapper">
-    <li class="bookmarks__bookmark" *ngFor="let bookmark of bookmarks | searchVerb:searchValue">
+    <li class="bookmarks__bookmark" *ngFor="let bookmark of bookmarks">
       <span>{{ bookmark.infinitive }}</span>
       <span>{{ bookmark.past }}</span>
       <span>{{ bookmark.pastParticiple }}</span>
