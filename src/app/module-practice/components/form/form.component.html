@@ -24,15 +24,15 @@
         </label>
         
         <input formControlName="past"
-              class="form__input"
+              class="form__input input"
               id="past" 
               type="text"
               placeholder="2nd form"
-              [class.disabled]="past.valid"
+              [class.form__input--disabled]="past.valid"
               #pastInput
               (input)="onStoreAnswer({ past, pastParticiple })">
     
-        <span [class.shown]="hasError(past, 'pastIsCorrect')"
+        <span [class.form__error--shown]="hasError(past, 'pastIsCorrect')"
               class="form__error">
               2nd form isn't correct
         </span>
@@ -45,15 +45,15 @@
         </label>
     
         <input formControlName="pastParticiple"
-              class="form__input"
+              class="form__input input"
               id="pastParticiple" 
               type="text"
               placeholder="3rd form"
-              [class.disabled]="pastParticiple.valid"
+              [class.form__input--disabled]="pastParticiple.valid"
               #participleInput
               (input)="onStoreAnswer({ past, pastParticiple })">
     
-        <span [class.shown]="hasError(pastParticiple, 'participleIsCorrect')"
+        <span [class.form__error--shown]="hasError(pastParticiple, 'participleIsCorrect')"
               class="form__error">
               3rd form isn't correct
         </span>
@@ -73,7 +73,7 @@
       </button>
     </ng-container>
 
-    <app-loader [modificator]="'loader__circle--gray'" 
+    <app-loader [modificator]="'loader__circle--form'" 
                 *ngSwitchDefault>
     </app-loader>
   </div>
