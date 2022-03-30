@@ -1,17 +1,30 @@
-<div class="search" [class]="modificator">
-  <ng-content></ng-content>
-  <input *ngIf="mode === 'verbs'"
-         class="search__input" 
-         type="text" 
-         placeholder="... search for an example"
-         [(ngModel)]="searchVerbValue" 
-         (input)="inputVerbValue()">
+<div class="search">
+  <div class="h2">
+    <span>Search for an irregular verb</span>
+    <span>among the 200 most used English irregular verbs</span>
+  </div>
 
-  <input *ngIf="mode === 'bookmarks'"
-         class="search__input" 
+  <input 
+         class="search__input input" 
          type="text" 
-         placeholder="... search for a bookmark"
-         [(ngModel)]="searchBookmarkValue" 
-         (input)="inputBookmarkValue()">
+         placeholder="... start typing"
+         [(ngModel)]="searchVerb"
+         (input)="inputSearchValue()">
+
+  <perfect-scrollbar class="search__body" 
+                    [class.search__body--visible]="searchVerb"
+                    [config]="config">
+
+    <ul class="search__list">
+      <li class="search__item" *ngFor="let verb of verbs | searchVerb:searchVerb">
+          <span>{{ verb.infinitive }}</span>
+          <span>{{ verb.past }}</span>
+          <span>{{ verb.pastParticiple }}</span>
+      </li>
+
+      <span class="search__no-found" *ngIf="!(verbs | searchVerb:searchVerb).length">No Result</span>  
+    </ul>
+  </perfect-scrollbar>
+
 </div>
 

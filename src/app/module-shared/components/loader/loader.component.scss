@@ -15,16 +15,14 @@
     height: 5rem;
     border-radius: 50%;
     animation: spin 1s ease-in-out infinite;
+    border: 0.5rem solid styles.$blue;
+    border-top-color: styles.$gray-1;
 
-    &--white {
-      border: 0.5rem solid styles.$blue;
-      border-top-color: styles.$white;
+    &--verbs {
       margin-top: 12rem;
     }
 
-    &--gray {
-      border: 0.5rem solid styles.$blue;
-      border-top-color: styles.$gray-1;
+    &--form {
       margin-top: -5rem;
     }
   }
