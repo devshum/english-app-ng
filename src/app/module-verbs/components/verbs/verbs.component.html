@@ -1,27 +1,22 @@
 <section class="verbs section">
  <div class="container">
-  <h1 class="h1">Irregular Verbs</h1>
+  <h1 class="h1 mb-24">Irregular Verbs</h1>
 
   <app-loader *ngIf="!loadingError && isLoading" 
-              [modificator]="'loader__circle--white'">
+              [modificator]="'loader__circle--verbs'">
   </app-loader>
 
   <app-error [modificator]="'error--verbs'"
              [mode]="'verbs'" 
              (hookVerbsAfterError)="verbs = $event">
   </app-error>  
- 
-  <app-search *ngIf="!loadingError && !isLoading"
-              (verbValue)="onSearchVerbValue($event)"
-              [modificator]="'search--verbs'"
-              [mode]="'verbs'">
-
-              <span>Search for an irregular verb</span>
-              <span>among the 200 most used English irregular verbs</span>
-  </app-search>
 
   <ng-container *ngIf="!loadingError && !isLoading">
-    <div class="table">
+    <app-search (searchVerbValue)="onSearchVerbValue($event)" [verbs]="verbs"></app-search>
+  </ng-container>
+
+  <ng-container *ngIf="!loadingError && !isLoading">
+    <!-- <div class="table">
       <div class="table__head">
         <span>Infinitive</span>
         <span>Past simple</span>
@@ -56,7 +51,7 @@
           </span>
         </li>
       </ul>
-    </div>
+    </div> -->
   </ng-container>
  </div>
 </section>

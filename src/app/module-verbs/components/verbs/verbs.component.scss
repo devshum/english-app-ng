@@ -10,6 +10,9 @@
 }
 
 .verbs {
+  display: flex;
+  background-color: styles.$gray-1;
+
   &__error {
     margin-top: 2.4rem;
   }
