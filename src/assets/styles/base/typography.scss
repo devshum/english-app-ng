@@ -9,8 +9,22 @@ body {
   overflow-x: hidden;
 }
 
-.h1 {
-  font-size: 3.2rem;
+.h1,
+.h2 {
   font-weight: 700;
   text-align: center;
+}
+
+.h1 {
+  font-size: 3.2rem;
+}
+
+.h2 {
+  font-size: 1.8rem;  
+
+  span {
+    display: block;
+    font-size: 1.8rem;  
+    font-weight: 700;
+  }
 }
