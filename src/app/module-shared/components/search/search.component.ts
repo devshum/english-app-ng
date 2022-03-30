@@ -1,33 +1,33 @@
-import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
+import { Component, Output, EventEmitter, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { newVerb } from 'src/app/interfaces/newVerb.interface';
 import { SearchStorageService } from 'src/app/services/searchStorage.service';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss']
+  styleUrls: ['./search.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class SearchComponent implements OnInit {
-  @Input() modificator: string;
-  @Input() mode: string;
+  @Input() verbs: newVerb[];
 
-  @Output() verbValue: EventEmitter<string> = new EventEmitter<string>();
-  @Output() bookmarkValue: EventEmitter<string> = new EventEmitter<string>();
+  @Output() searchVerbValue: EventEmitter<string> = new EventEmitter<string>();
 
-  public searchVerbValue: string;
-  public searchBookmarkValue: string;
+  public searchVerb: string;
+
+  public config: PerfectScrollbarConfigInterface = {
+    wheelSpeed: 50,
+    suppressScrollX: true
+  };
 
   constructor(private _searchStorageService: SearchStorageService) { }
 
   ngOnInit(): void {
-    this.searchVerbValue = this._searchStorageService.getSearchVerbValue();
-    this.searchBookmarkValue = this._searchStorageService.getSearchBookmarkValue();
+    this.searchVerb = this._searchStorageService.getVerbSearchValue();
   }
 
-  public inputVerbValue(): void {
-    this.verbValue.emit(this.searchVerbValue);
-  }
-
-  public inputBookmarkValue(): void {
-    this.bookmarkValue.emit(this.searchBookmarkValue);
+  public inputSearchValue(): void {
+    this.searchVerbValue.emit(this.searchVerb);
   }
 }
