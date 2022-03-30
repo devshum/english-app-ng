@@ -77,7 +77,7 @@ export class VerbsComponent implements OnInit, OnDestroy {
   }
 
   public onSearchVerbValue(searchVerbValue: string): void {
-    this._searchStorageService.storeVerbSearch(searchVerbValue);
+    this._searchStorageService.storeVerbSearchValue(searchVerbValue);
     this._getVerbSearch();
   }
 
@@ -87,6 +87,6 @@ export class VerbsComponent implements OnInit, OnDestroy {
   }
 
   private _getVerbSearch(): void {
-    this.searchValue = this._searchStorageService.getSearchVerbValue();
+    this.searchValue = this._searchStorageService.getVerbSearchValue();
   }
 }
