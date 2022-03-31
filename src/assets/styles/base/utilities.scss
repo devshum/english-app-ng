@@ -4,7 +4,6 @@
   min-width: 42rem;
   min-height: 38rem;
   padding: 5rem;
-  border-radius: 0.2rem;
 
   &--default {
     background-color: styles.$gray-1;
@@ -19,3 +18,4 @@
 }
 
 .mb-24 { margin-bottom: 2.4rem; }
+.br { border-radius: 0.2rem; }
