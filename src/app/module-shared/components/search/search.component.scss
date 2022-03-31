@@ -25,25 +25,20 @@
     width: 100%;
     background-color: styles.$white;
     border-top: 0.1rem solid styles.$gray-1;
-    padding: 0.4rem 0.8rem;
     margin-top: -0.1rem;
     opacity: 0;
     visibility: hidden;
+    height: 0;
+    padding: 0;
     line-height: 2rem;
+    border-bottom-left-radius: 0.2rem;
+    border-bottom-right-radius: 0.2rem;
 
     &--visible {
       opacity: 1;
       visibility: visible;
-    }
-
-    .ps-content {
-      margin-right: 0.8rem;
-      max-height: 22rem; 
-    }
-    
-    .ps__rail-y {
-      margin: 0.8rem 0;
-      background-color: unset !important;
+      padding: 0.4rem 0.8rem;
+      height: 100%;
     }
   }
 
@@ -73,6 +68,15 @@
   }
 
   &__no-found {
-    padding: 0 0 0 0.8rem
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 6.4rem;
+    font-weight: 500;
+
+    span {
+      font-size: 2.6rem;
+      margin-bottom: 0.8rem;
+    }
   }
 }
