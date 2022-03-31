@@ -45,7 +45,7 @@ export class BookmarksComponent implements OnInit, OnDestroy {
     this._bookmarksStorageService.deleteBookmark(verbID);
 
     if(!this.bookmarks.length) {
-      this._router.navigate(['/verbs']);
+      this._router.navigate(['verbs']);
     }
   }
 
