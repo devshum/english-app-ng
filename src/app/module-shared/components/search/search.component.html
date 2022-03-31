@@ -4,15 +4,14 @@
     <span>among the 200 most used English irregular verbs</span>
   </div>
 
-  <input 
-         class="search__input input" 
+  <input class="search__input input br" 
          type="text" 
          placeholder="... start typing"
          [(ngModel)]="searchVerb"
          (input)="inputSearchValue()">
 
   <perfect-scrollbar class="search__body" 
-                    [class.search__body--visible]="searchVerb"
+                    [class.search__body--visible]="searchVerb && (verbs | searchVerb:searchVerb).length"
                     [config]="config">
 
     <ul class="search__list">
@@ -21,10 +20,15 @@
           <span>{{ verb.past }}</span>
           <span>{{ verb.pastParticiple }}</span>
       </li>
-
-      <span class="search__no-found" *ngIf="!(verbs | searchVerb:searchVerb).length">No Result</span>  
     </ul>
   </perfect-scrollbar>
 
+  <div class="search__no-found" *ngIf="!(verbs | searchVerb:searchVerb).length">
+    <span>No verbs was found! 🙄</span>
+    <app-btn (click)="showAllVerbs()"
+             [text]="'Show all the verbs'" 
+             [modificator]="'btn btn--default'">
+   </app-btn>
+  </div>
 </div>
 
