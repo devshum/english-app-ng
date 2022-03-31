@@ -24,7 +24,6 @@ export class ErrorComponent implements OnDestroy, OnInit {
   @Output() hookRandomVerbAfterError: EventEmitter<newVerb> = new EventEmitter<newVerb>();
 
   @Input() mode: string;
-  @Input() modificator: string;
 
   public loadingError = false;
   private _unsubscribe = new Subject();

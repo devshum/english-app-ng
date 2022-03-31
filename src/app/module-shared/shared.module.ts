@@ -12,13 +12,15 @@ import { SearchComponent } from './components/search/search.component';
 
 // Pipes
 import { SearchVerbkPipe } from '../pipes/search-bookmark.pipe';
+import { BtnComponent } from './components/btn/btn.component';
 
 @NgModule({
   declarations: [
     ErrorComponent,
     SearchVerbkPipe,
     LoaderComponent,
-    SearchComponent
+    SearchComponent,
+    BtnComponent
   ],
   imports: [
     CommonModule,
@@ -33,7 +35,8 @@ import { SearchVerbkPipe } from '../pipes/search-bookmark.pipe';
     SearchVerbkPipe,
     FormsModule,
     LoaderComponent,
-    SearchComponent
+    SearchComponent,
+    BtnComponent
   ]
 })
 export class SharedModule { }
