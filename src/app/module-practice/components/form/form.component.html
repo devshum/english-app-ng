@@ -1,6 +1,6 @@
 <form [formGroup]="form"
       autocomplete="off"
-      class="form block block--default"
+      class="form block block--default br"
       *ngIf="!loadingError">
   <h1 class="form__text-box h1" [ngSwitch]="isLoading">
     <span class="form__title h1" 
@@ -24,7 +24,7 @@
         </label>
         
         <input formControlName="past"
-              class="form__input input"
+              class="form__input input br"
               id="past" 
               type="text"
               placeholder="2nd form"
@@ -45,7 +45,7 @@
         </label>
     
         <input formControlName="pastParticiple"
-              class="form__input input"
+              class="form__input input br"
               id="pastParticiple" 
               type="text"
               placeholder="3rd form"
@@ -58,19 +58,19 @@
               3rd form isn't correct
         </span>
       </div>
-    
-      <button class="btn btn--default"
-              #pickBtn 
-              type="button"
-              (click)="pickVerb()"
-              [class.focus]="allowNext">
-        <i *ngIf="allowNext" 
-            class="form__icon" 
-            [inlineSVG]="'check-mark.svg'">
-        </i>
-    
-        <span>{{ !allowNext ? 'Pick another verb' : 'Pick another verb'}}</span>
-      </button>
+
+      <app-btn [text]="!correct ? 'Pick another verb' 
+                                : 'Pick another verb'" 
+               [modificator]="'btn--default'"
+               [focus]="correct"
+               (click)="pickVerb()"
+               #pickBtn>
+
+              <i *ngIf="correct" 
+                 class="form__icon" 
+                 [inlineSVG]="'check-mark.svg'">
+              </i>
+      </app-btn>
     </ng-container>
 
     <app-loader [modificator]="'loader__circle--form'" 
@@ -78,7 +78,7 @@
     </app-loader>
   </div>
 
-  <div [ngSwitch]="isBookmark(randomVerb)" *ngIf="allowNext">
+  <div [ngSwitch]="isBookmark(randomVerb)" *ngIf="correct">
     <i class="form__bookmark star star--solid star--small" 
       *ngSwitchCase="true"
       (click)="deleteBookmark(randomVerb.id)">
