@@ -10,7 +10,7 @@ import { VerbsComponent } from './components/verbs/verbs.component';
 const routes: Routes = [
   { path: '', component: VerbsComponent,
     children: [
-      { path: '', redirectTo: 'search', pathMatch: 'full' },
+      { path: '**', redirectTo: 'search', pathMatch: 'full' },
       { path: 'all', component: VerbsAllComponent },
       { path: 'search', component: VerbsSearchComponent },
     ]

@@ -30,7 +30,7 @@ export class FormComponent implements OnInit, OnDestroy {
   public randomVerb: newVerb;
   public isLoading = false;
   public form: FormGroup;
-  public allowNext: boolean;
+  public correct: boolean;
   public bookmarks: newVerb[] = [];
   public loadingError = false;
 
@@ -102,7 +102,7 @@ export class FormComponent implements OnInit, OnDestroy {
     this._loaderService.start();
     this._getRandomVerb();
 
-    this.allowNext = false;
+    this.correct = false;
     this._isPastValid = false;
     this._isParticipleValid = false;
     this.form.reset({ past: '', pastParticiple: '' });
@@ -176,7 +176,7 @@ export class FormComponent implements OnInit, OnDestroy {
         break;
 
       case this._isParticipleValid && this._isPastValid:
-        this._allowNext();
+        this._correct();
         break;
     }
   }
@@ -190,7 +190,7 @@ export class FormComponent implements OnInit, OnDestroy {
         break;
 
       case this._isParticipleValid && this._isPastValid:
-        this._allowNext();
+        this._correct();
         break;
     }
   }
@@ -199,8 +199,8 @@ export class FormComponent implements OnInit, OnDestroy {
    if(htmlEl) { htmlEl.nativeElement.focus(); }
   }
 
-  private _allowNext(): void {
-    this.allowNext = true;
+  private _correct(): void {
+    this.correct = true;
 
     if(this.pastInput) {
       this.pastInput.nativeElement.blur();
