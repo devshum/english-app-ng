@@ -6,10 +6,6 @@
   display: flex;
   justify-content: center;
 
-  &--verbs {
-    margin-top: 2.4rem;
-  }
-
   &__wrapper {
     display: grid;
     justify-items: center;
@@ -39,9 +35,5 @@
         margin-bottom: 0.4rem;
       }
     }
-  }
-
-  .btn {
-    align-self: end;
   }
 }
