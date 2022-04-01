@@ -6,11 +6,13 @@ import { SharedModule } from './../module-shared/shared.module';
 // Components
 import { VerbsComponent } from './components/verbs/verbs.component';
 import { TableComponent } from './components/table/table.component';
+import { TabviewComponent } from './components/tabview/tabview.component';
 
 @NgModule({
   declarations: [
     VerbsComponent,
-    TableComponent
+    TableComponent,
+    TabviewComponent
   ],
   imports: [
     SharedModule,

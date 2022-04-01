@@ -10,8 +10,16 @@
 }
 
 .verbs {
-  display: flex;
-  background-color: styles.$gray-1;
+  transition: styles.$transition;
+
+  &--gray {
+    background-color: styles.$gray-1;
+  }
+
+  &__row{
+    max-width: 42rem;
+    margin: 0 auto;
+  }
 
   &__error {
     margin-top: 2.4rem;
