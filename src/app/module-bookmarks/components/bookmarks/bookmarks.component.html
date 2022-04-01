@@ -8,9 +8,10 @@
       <span>{{ bookmark.infinitive }}</span>
       <span>{{ bookmark.past }}</span>
       <span>{{ bookmark.pastParticiple }}</span>
-      <i class="bookmarks__star star star--solid star--small" 
-         (click)="deleteBookmark(bookmark.id)">
-      </i>
+
+      <app-add-bookmark class="bookmarks__star" 
+                        [verb]="bookmark">
+      </app-add-bookmark>
     </li>
   </ul>
 

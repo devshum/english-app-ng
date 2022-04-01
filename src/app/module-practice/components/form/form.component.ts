@@ -43,7 +43,6 @@ export class FormComponent implements OnInit, OnDestroy {
     private _formBuilder: FormBuilder,
     private _httpService: HttpService,
     private _loaderService: LoaderService,
-    private _bookmarksStorageService: BookmarksStorageService,
     private _answersStorage: AnswersStorageService,
     private _verbStorage: VerbStorageService,
     private _errorService: ErrorService
@@ -59,7 +58,6 @@ export class FormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this._answers = this._answersStorage.getAnswers();
-    this.bookmarks = this._bookmarksStorageService.getBookmarks();
 
     this._getLocalVerb();
     this._initForm();
@@ -68,9 +66,6 @@ export class FormComponent implements OnInit, OnDestroy {
       takeUntil(this._unsubscribe)
     ).subscribe(loadingError => this.loadingError = loadingError);
 
-    this._bookmarksStorageService.bookmarksUpdate.pipe(
-      takeUntil(this._unsubscribe)
-    ).subscribe((bookmarks: newVerb[]) => this.bookmarks = bookmarks);
 
     this._loaderService.loadingStatus.pipe(
       takeUntil(this._unsubscribe)
@@ -86,17 +81,6 @@ export class FormComponent implements OnInit, OnDestroy {
     this._unsubscribe.next();
   }
 
-  public isBookmark(verb: newVerb): boolean {
-    return this.bookmarks.some(bookmark => JSON.stringify(bookmark) === JSON.stringify(verb));
-  }
-
-  public addBookmark(verb: newVerb): void {
-    this._bookmarksStorageService.addBookmark(verb);
-  }
-
-  public deleteBookmark(verbID: string): void {
-    this._bookmarksStorageService.deleteBookmark(verbID);
-  }
 
   public pickVerb(): void {
     this._loaderService.start();
@@ -220,8 +204,6 @@ export class FormComponent implements OnInit, OnDestroy {
       this._verbStorage.storeVerb(verb);
       this._getLocalVerb();
       this._loaderService.end();
-    }, error => {
-      this._errorService.hasError();
-    });
+    }, error => this._errorService.hasError());
   }
 }
