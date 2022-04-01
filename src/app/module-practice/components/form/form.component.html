@@ -2,6 +2,7 @@
       autocomplete="off"
       class="form block block--default br"
       *ngIf="!loadingError">
+  <!-- todo component -->
   <h1 class="form__text-box h1" [ngSwitch]="isLoading">
     <span class="form__title h1" 
         *ngSwitchCase="false"
@@ -78,16 +79,10 @@
     </app-loader>
   </div>
 
-  <div [ngSwitch]="isBookmark(randomVerb)" *ngIf="correct">
-    <i class="form__bookmark star star--solid star--small" 
-      *ngSwitchCase="true"
-      (click)="deleteBookmark(randomVerb.id)">
-    </i>
-    <i class="form__bookmark star star--outline star--small" 
-      *ngSwitchDefault
-      (click)="addBookmark(randomVerb)">
-    </i>
-  </div>
+  <app-add-bookmark *ngIf="correct"
+                    class="form__bookmark"
+                    [verb]="randomVerb">
+  </app-add-bookmark>
 </form>
 
 <app-error class="verbs__error" 

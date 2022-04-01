@@ -10,8 +10,7 @@ import { takeUntil } from 'rxjs/operators';
 import { BookmarksStorageService } from 'src/app/services/bookmarksStorage.service';
 
 // Interfaces
-import { newVerb } from 'src/app/interfaces/newVerb.interface';
-import { SearchStorageService } from 'src/app/services/searchStorage.service';
+import { newVerb } from 'src/app/interfaces/newVerb.interface';;
 
 @Component({
   selector: 'app-bookmarks',
@@ -34,19 +33,12 @@ export class BookmarksComponent implements OnInit, OnDestroy {
 
     this._bookmarksStorageService.bookmarksUpdate.pipe(
       takeUntil(this._unsubscribe)
-    ).subscribe((bookmarks: newVerb[]) => this.bookmarks = bookmarks);
-  }
-
-  public isBookmark(verb: newVerb): boolean {
-    return this.bookmarks.some(bookmark => JSON.stringify(bookmark) === JSON.stringify(verb));
-  }
-
-  public deleteBookmark(verbID: string): void {
-    this._bookmarksStorageService.deleteBookmark(verbID);
-
-    if(!this.bookmarks.length) {
-      this._router.navigate(['verbs']);
-    }
+    ).subscribe((bookmarks: newVerb[]) =>  {
+      this.bookmarks = bookmarks;
+      if(!this.bookmarks.length) {
+        this._router.navigate(['verbs']);
+      };
+    });
   }
 
   ngOnDestroy(): void {

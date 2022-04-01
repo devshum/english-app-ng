@@ -1,0 +1,10 @@
+<div [ngSwitch]="isBookmark(verb)">
+  <i class="star star--solid" 
+    *ngSwitchCase="true"
+    (click)="deleteBookmark(verb.id)">
+  </i>
+  <i class="star star--outline" 
+    *ngSwitchDefault
+    (click)="addBookmark(verb)">
+  </i>
+</div>

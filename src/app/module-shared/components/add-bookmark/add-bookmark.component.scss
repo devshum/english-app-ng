@@ -1,0 +1,39 @@
+@use '../../../../assets/styles/abstracts/variables' as styles;
+
+:host {
+  display: block;
+}
+
+.star {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  transition: styles.$transition;
+  cursor: pointer;
+
+  height: 2.4rem;
+  width: 2.4rem;
+
+  &:hover {
+    background-color: styles.$gray-5;
+  }
+
+  &::before {
+    content: '';
+    height: 2.2rem;
+    width: 2.2rem;
+    display: inline-block;
+  }
+
+  &--outline {
+    &::before {
+      background: url(../../../../assets/icons/bookmark-outline.svg) no-repeat 50%;
+    }
+  }
+
+  &--solid {
+    background: url(../../../../assets/icons/bookmark-solid.svg) no-repeat 50%;
+  }
+}
