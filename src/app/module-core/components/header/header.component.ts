@@ -34,9 +34,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     this._bookmarksStorageService.getFlashClass.pipe(
       takeUntil(this._unsubscribe)
-    ).subscribe(flashClass => {
-      this.flashClass = flashClass;
-    });
+    ).subscribe(flashClass => this.flashClass = flashClass);
   }
 
   ngOnDestroy(): void {

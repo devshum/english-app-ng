@@ -68,15 +68,6 @@
   }
 
   &__no-found {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 6.4rem;
-    font-weight: 500;
-
-    span {
-      font-size: 2.6rem;
-      margin-bottom: 0.8rem;
-    }
+    padding: 0 0 0 0.8rem
   }
 }
