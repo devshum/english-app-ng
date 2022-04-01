@@ -91,7 +91,6 @@ export class FormComponent implements OnInit, OnDestroy {
     this._isParticipleValid = false;
     this.form.reset({ past: '', pastParticiple: '' });
     this._answersStorage.clearAnswers();
-    this.pickBtn.nativeElement.blur();
   }
 
   public hasError(control: AbstractControl, type: string): boolean {

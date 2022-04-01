@@ -2,22 +2,17 @@
       autocomplete="off"
       class="form block block--default br"
       *ngIf="!loadingError">
-  <!-- todo component -->
-  <h1 class="form__text-box h1" [ngSwitch]="isLoading">
-    <span class="form__title h1" 
-        *ngSwitchCase="false"
-        [ngClass]="{
-          'form__title--green': form.valid
-        }">
-        
-        {{ randomVerb?.infinitive }}
-    </span>
 
-    <span *ngSwitchDefault class="form__title--stub h1">...</span>
+  <h1 *ngIf="!isLoading" 
+      class="form__title h1" 
+      [ngClass]="{'form__title--green': form.valid}">
+     {{ randomVerb?.infinitive }}
   </h1>
 
-  <div class="form__wrapper" [ngSwitch]="isLoading">
-    <ng-container *ngSwitchCase="false">
+  <h1 *ngIf="isLoading" class="form__title form__title--stub h1">...</h1>
+
+  <div class="form__wrapper">
+    <ng-container *ngIf="!isLoading">
       <div class="form__group">
         <label class="form__label"
               for="past">
@@ -74,8 +69,8 @@
       </app-btn>
     </ng-container>
 
-    <app-loader [modificator]="'loader__circle--form'" 
-                *ngSwitchDefault>
+    <app-loader *ngIf="isLoading" 
+                [modificator]="'loader__circle--form'">
     </app-loader>
   </div>
 
@@ -85,7 +80,8 @@
   </app-add-bookmark>
 </form>
 
-<app-error class="verbs__error" 
+<app-error class="error-block" 
+           [class.error-block--visible]="loadingError"
            [mode]="'randomVerb'" 
            (hookRandomVerbAfterError)="randomVerb = $event">
 </app-error>
