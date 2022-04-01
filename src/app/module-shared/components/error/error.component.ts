@@ -1,5 +1,5 @@
 // Core
-import { Component, OnInit, Output, EventEmitter, Input, OnDestroy } from '@angular/core';
+import { Component, Output, EventEmitter, Input, OnDestroy } from '@angular/core';
 
 // Services
 import { HttpService } from 'src/app/services/http.service';
@@ -19,13 +19,12 @@ import { newVerb } from 'src/app/interfaces/newVerb.interface';
   templateUrl: './error.component.html',
   styleUrls: ['./error.component.scss']
 })
-export class ErrorComponent implements OnDestroy, OnInit {
+export class ErrorComponent implements OnDestroy {
   @Output() hookVerbsAfterError: EventEmitter<newVerb[]> = new EventEmitter<newVerb[]>();
   @Output() hookRandomVerbAfterError: EventEmitter<newVerb> = new EventEmitter<newVerb>();
 
   @Input() mode: string;
 
-  public loadingError = false;
   private _unsubscribe = new Subject();
 
   constructor(
@@ -34,12 +33,6 @@ export class ErrorComponent implements OnDestroy, OnInit {
     private _loaderService: LoaderService,
     private _errorService: ErrorService
   ) { }
-
-  ngOnInit(): void {
-    this._errorService.loadingErrorStatus.pipe(
-      takeUntil(this._unsubscribe)
-    ).subscribe(loadingError => this.loadingError = loadingError);
-  }
 
   public updateDataAfterError(): void {
     switch (this.mode) {
