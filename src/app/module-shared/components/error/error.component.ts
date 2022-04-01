@@ -52,9 +52,7 @@ export class ErrorComponent implements OnDestroy, OnInit {
           this._verbStorage.storeVerb(verb);
           this.hookRandomVerbAfterError.emit(this._verbStorage.getVerb());
           this._loaderService.end();
-        }, error => {
-          this._errorService.hasError();
-        });
+        }, error => this._errorService.hasError());
         break;
 
       case 'verbs':
@@ -64,9 +62,7 @@ export class ErrorComponent implements OnDestroy, OnInit {
         ).subscribe((verbs: newVerb[]) => {
           this.hookVerbsAfterError.emit(verbs);
           this._loaderService.end();
-        }, error => {
-          this._errorService.hasError();
-        });
+        }, error => this._errorService.hasError());
         break;
     }
   }

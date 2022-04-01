@@ -34,8 +34,4 @@ export class SearchComponent implements OnInit {
   public inputSearchValue(): void {
     this.searchVerbValue.emit(this.searchVerb);
   }
-
-  public showAllVerbs(): void {
-    this._router.navigate(['../all'], { relativeTo: this._activatedRoute });
-  }
 }

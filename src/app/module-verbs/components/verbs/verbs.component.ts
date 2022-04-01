@@ -59,21 +59,7 @@ export class VerbsComponent implements OnInit, OnDestroy {
         this.bookmarks = this._bookmarksStorageService.getBookmarks();
         this._getVerbSearch();
         this._loaderService.end();
-      }, error => {
-        this._errorService.hasError();
-      });
-  }
-
-  public isBookmark(verb: newVerb): boolean {
-    return this.bookmarks.some(bookmark => JSON.stringify(bookmark) === JSON.stringify(verb));
-  }
-
-  public addBookmark(verb: newVerb): void {
-    this._bookmarksStorageService.addBookmark(verb);
-  }
-
-  public deleteBookmark(verbID: string): void {
-    this._bookmarksStorageService.deleteBookmark(verbID);
+      }, error => this._errorService.hasError());
   }
 
   public onSearchVerbValue(searchVerbValue: string): void {
