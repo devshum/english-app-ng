@@ -1,4 +1,4 @@
- <!-- <div class="table br" *ngIf="!loadingError && !isLoading">
+ <div class="table br">
     <div class="table__head">
       <span>Infinitive</span>
       <span>Past simple</span>
@@ -7,7 +7,7 @@
 
     <ul class="table__body">
       <li class="table__body-row" 
-          *ngFor="let verb of verbs | searchVerb:searchValue">
+          *ngFor="let verb of verbs">
         <span class="table__item">
           <span>{{ verb.infinitive }}</span>
         </span>
@@ -18,19 +18,7 @@
           <span>{{ verb.pastParticiple }}</span>
         </span>
 
-        <span class="table__bookmark">
-          <span [ngSwitch]="isBookmark(verb)">
-
-            <i class="table__bookmark star star--solid star--small" 
-                *ngSwitchCase="true"
-                (click)="deleteBookmark(verb.id)">
-            </i>
-            <i class="table__bookmark star star--outline star--small" 
-              *ngSwitchDefault
-                (click)="addBookmark(verb)">
-            </i>
-          </span>
-        </span>
+        <app-add-bookmark class="table__bookmark" [verb]="verb"></app-add-bookmark>
       </li>
     </ul>
-  </div> -->
+  </div>
