@@ -17,5 +17,13 @@
   }
 }
 
+.error-block {
+  display: none;
+
+  &--visible {
+    display: initial;
+  }
+}
+
 .mb-24 { margin-bottom: 2.4rem; }
 .br { border-radius: 0.2rem; }

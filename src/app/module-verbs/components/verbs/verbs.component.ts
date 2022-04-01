@@ -27,6 +27,7 @@ export class VerbsComponent implements OnInit, OnDestroy {
   public verbs: newVerb[];
   public bookmarks: newVerb[] = [];
   public isLoading = false;
+  public activeTab = 'search';
   private _unsubscribe = new Subject();
 
   constructor(
