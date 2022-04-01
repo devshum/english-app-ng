@@ -1,8 +1,24 @@
 <section class="verbs section">
- <div class="container">
+ <div class="verbs__container container">
   <h1 *ngIf="!loadingError && !isLoading" class="h1 mb-24">Irregular Verbs</h1>
 
-  <router-outlet></router-outlet>
-  <app-table></app-table>
+  <div class="verbs-search">
+    <app-loader *ngIf="!loadingError && isLoading" 
+                [modificator]="'loader__circle--verbs'">
+    </app-loader>
+  
+    <app-error class="error-block"
+               [class.error-block--visible]="loadingError"
+               [mode]="'verbs'" 
+               (hookVerbsAfterError)="verbs = $event">
+    </app-error>  
+  
+    <app-search  *ngIf="!loadingError && !isLoading" 
+                (searchVerbValue)="onSearchVerbValue($event)" 
+                [verbs]="verbs">
+    </app-search>
+  </div>
+
+  <app-table *ngIf="!loadingError && !isLoading" [verbs]="verbs"></app-table>
  </div>
 </section>
