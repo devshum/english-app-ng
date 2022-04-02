@@ -1,31 +1,39 @@
-import { ActivatedRoute, Router } from '@angular/router';
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { TabsService } from './../../../services/tabs.service';
+import { Component, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-tabview',
   templateUrl: './tabview.component.html',
   styleUrls: ['./tabview.component.scss']
 })
-export class TabviewComponent implements OnInit {
-  @Output() tab: EventEmitter<string> = new EventEmitter<string>();
+export class TabviewComponent implements OnInit  {
+  public activeTab: string;
 
-  public activeTab = 'search';
+  private _unsubscribe = new Subject();
 
   constructor(
-    private _router: Router,
-    private _activatedRoute: ActivatedRoute
+    private _tabsService: TabsService
   ) { }
 
   ngOnInit(): void {
+    if(!this.activeTab) {
+      this._tabsService.setActiveTab('search');
+    }
+
+    this._tabsService.tabStatus.pipe(
+      takeUntil(this._unsubscribe)
+    ).subscribe(activeTab => {
+      this.activeTab = activeTab;
+    });
   }
 
   public clickSearch() {
-    this.activeTab = 'search';
-    this.tab.emit(this.activeTab);
+    this._tabsService.setActiveTab('search');
   }
 
   public clickList() {
-    this.activeTab = 'list';
-    this.tab.emit(this.activeTab);
+    this._tabsService.setActiveTab('list');
   }
 }
