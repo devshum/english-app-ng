@@ -2,18 +2,27 @@ import { Injectable } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 import { answers } from '../interfaces/answers.interface';
 
+interface updatedAnswers {
+  past: AbstractControl;
+  pastParticiple: AbstractControl;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 
 export class AnswersStorageService {
-  public answers: answers;
+  public _answers: answers;
 
   constructor() { }
 
-  public storeAnswers(updatedAnswers: { past: AbstractControl; pastParticiple: AbstractControl }): void {
-    this.answers = { past: updatedAnswers.past.value, pastParticiple: updatedAnswers.pastParticiple.value };
-    localStorage.setItem('Answers', JSON.stringify(this.answers));
+  public storeAnswers(updatedAnswers: updatedAnswers): void {
+
+    const { past, pastParticiple } = updatedAnswers;
+
+    this._answers = { past: past.value, pastParticiple: pastParticiple.value };
+
+    localStorage.setItem('Answers', JSON.stringify(this._answers));
   }
 
   public getAnswers(): answers {
