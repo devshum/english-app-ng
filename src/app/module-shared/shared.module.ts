@@ -8,7 +8,6 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 // Components
 import { ErrorComponent } from './components/error/error.component';
 import { LoaderComponent } from './components/loader/loader.component';
-import { SearchComponent } from './components/search/search.component';
 
 // Pipes
 import { SearchVerbkPipe } from '../pipes/search-bookmark.pipe';
@@ -20,7 +19,6 @@ import { AddBookmarkComponent } from './components/add-bookmark/add-bookmark.com
     ErrorComponent,
     SearchVerbkPipe,
     LoaderComponent,
-    SearchComponent,
     BtnComponent,
     AddBookmarkComponent
   ],
@@ -37,9 +35,9 @@ import { AddBookmarkComponent } from './components/add-bookmark/add-bookmark.com
     SearchVerbkPipe,
     FormsModule,
     LoaderComponent,
-    SearchComponent,
     BtnComponent,
-    AddBookmarkComponent
+    AddBookmarkComponent,
+    PerfectScrollbarModule
   ]
 })
 export class SharedModule { }

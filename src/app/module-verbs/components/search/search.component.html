@@ -10,7 +10,9 @@
                      [config]="config">
 
     <ul class="search__list">
-      <li class="search__item" *ngFor="let verb of verbs | searchVerb:searchVerb">
+      <li class="search__item" 
+          *ngFor="let verb of verbs | searchVerb:searchVerb"
+          (click)="openVerb(verb)">
           <span>{{ verb.infinitive }}</span>
           <span>{{ verb.past }}</span>
           <span>{{ verb.pastParticiple }}</span>
