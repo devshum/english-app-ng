@@ -103,12 +103,10 @@ export class FormComponent implements OnInit, OnDestroy {
 
   private _initForm(): void {
     this.form = this._formBuilder.group({
-      past: [this._answers?.past ?
-             this._answers?.past : '',
+      past: [this._answers?.past || '',
              this._checkPast.bind(this)],
 
-      pastParticiple: [this._answers?.pastParticiple ?
-                       this._answers?.pastParticiple : '',
+      pastParticiple: [this._answers?.pastParticiple || '',
                        this._checkParticiple.bind(this)]
     });
 
