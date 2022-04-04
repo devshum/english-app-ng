@@ -16,7 +16,12 @@
     padding: 0.8rem;
     cursor: pointer;
     background-color: styles.$gray-5;
-    border: 0.1rem solid transparent;
+    border-bottom: 0.3rem solid transparent;
+    
+    span {
+      display: inline-block;
+      transform: translateY(0.1rem);
+    }
 
     &:not(:last-child) {
       margin-right: 2.4rem;
