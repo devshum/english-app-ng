@@ -1,9 +1,15 @@
 <div class="tabview">
   <button class="tabview__button br" 
           [class.tabview__button--active]="activeTab === 'search'" 
-          (click)="clickSearch()">Search</button>
+          (click)="clickSearch()">
+
+          <span>Search</span>
+  </button>
       
   <button class="tabview__button br" 
           [class.tabview__button--active]="activeTab === 'list'" 
-          (click)="clickList()">List</button>
+          (click)="clickList()">
+
+          <span>List</span>
+  </button>
 </div>

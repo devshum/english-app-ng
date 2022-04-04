@@ -1,7 +1,5 @@
 import { TabsService } from './../../../services/tabs.service';
 import { Component, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-tabview',
@@ -11,29 +9,25 @@ import { takeUntil } from 'rxjs/operators';
 export class TabviewComponent implements OnInit  {
   public activeTab: string;
 
-  private _unsubscribe = new Subject();
-
   constructor(
     private _tabsService: TabsService
   ) { }
 
   ngOnInit(): void {
-    if(!this.activeTab) {
-      this._tabsService.setActiveTab('search');
-    }
-
-    this._tabsService.tabStatus.pipe(
-      takeUntil(this._unsubscribe)
-    ).subscribe(activeTab => {
-      this.activeTab = activeTab;
-    });
+    this.activeTab = this._tabsService.getActiveTab();
   }
 
   public clickSearch() {
-    this._tabsService.setActiveTab('search');
+    this.activeTab = 'search';
+    this._setActiveTab(this.activeTab);
   }
 
   public clickList() {
-    this._tabsService.setActiveTab('list');
+    this.activeTab = 'list';
+    this._setActiveTab(this.activeTab);
+  }
+
+  private _setActiveTab(activeTab: string) {
+    this._tabsService.setActiveTab(activeTab);
   }
 }
