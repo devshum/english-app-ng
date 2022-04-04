@@ -5,13 +5,13 @@ import { Injectable } from '@angular/core';
 })
 
 export class SearchStorageService {
-  public searchVerbValue: string;
+  private _searchVerbValue: string;
 
   constructor() {}
 
   public storeVerbSearchValue(verbSearch: string): void {
-    this.searchVerbValue = verbSearch;
-    localStorage.setItem('SearchValue', JSON.stringify(this.searchVerbValue));
+    this._searchVerbValue = verbSearch;
+    localStorage.setItem('SearchValue', JSON.stringify(this._searchVerbValue));
   }
 
   public getVerbSearchValue(): string {

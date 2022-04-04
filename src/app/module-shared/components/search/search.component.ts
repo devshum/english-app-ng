@@ -1,7 +1,13 @@
-import { Component, Output, EventEmitter, Input, OnInit, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+// Core
+import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
+
+// 3rd package library
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+
+// Interfaces
 import { newVerb } from 'src/app/interfaces/newVerb.interface';
+
+// Services
 import { SearchStorageService } from 'src/app/services/searchStorage.service';
 
 @Component({
@@ -22,9 +28,7 @@ export class SearchComponent implements OnInit {
   };
 
   constructor(
-    private _searchStorageService: SearchStorageService,
-    private _activatedRoute: ActivatedRoute,
-    private _router: Router
+    private _searchStorageService: SearchStorageService
     ) { }
 
   ngOnInit(): void {
