@@ -5,7 +5,7 @@
     <h1 class="h1 mb-24">Irregular Verbs</h1>
 
     <div class="verbs__row">
-      <app-tabview (tab)="activeTab = $event"></app-tabview>
+      <app-tabview></app-tabview>
 
       <app-search *ngIf="activeTab === 'search'"
                   (searchVerbValue)="onSearchVerbValue($event)" 

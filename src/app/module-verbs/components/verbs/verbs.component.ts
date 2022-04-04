@@ -4,6 +4,7 @@ import { BookmarksStorageService } from '../../../services/bookmarksStorage.serv
 import { LoaderService } from '../../../services/loader.service';
 import { ErrorService } from './../../../services/error.service';
 import { SearchStorageService } from './../../../services/searchStorage.service';
+import { TabsService } from './../../../services/tabs.service';
 
 // Common
 import { Component, OnInit, OnDestroy } from '@angular/core';
@@ -27,25 +28,30 @@ export class VerbsComponent implements OnInit, OnDestroy {
   public verbs: newVerb[];
   public bookmarks: newVerb[] = [];
   public isLoading = false;
-  public activeTab = 'search';
+  public activeTab: string;
   private _unsubscribe = new Subject();
 
   constructor(
     private _httpService: HttpService,
     private _loaderService: LoaderService,
-    private _bookmarksStorageService: BookmarksStorageService,
+    // private _bookmarksStorageService: BookmarksStorageService,
     private _errorService: ErrorService,
-    private _searchStorageService: SearchStorageService
+    private _searchStorageService: SearchStorageService,
+    private _tabsService: TabsService
   ) { }
 
   ngOnInit(): void {
+    this._tabsService.tabChanged.pipe(
+      takeUntil(this._unsubscribe)
+    ).subscribe(() => this.activeTab = this._tabsService.getActiveTab());
+
     this._errorService.loadingErrorStatus.pipe(
       takeUntil(this._unsubscribe)
     ).subscribe(loadingError => this.loadingError = loadingError);
 
-    this._bookmarksStorageService.bookmarksUpdate.pipe(
-      takeUntil(this._unsubscribe)
-    ).subscribe((bookmarks: newVerb[]) => this.bookmarks = bookmarks);
+    // this._bookmarksStorageService.bookmarksUpdate.pipe(
+    //   takeUntil(this._unsubscribe)
+    // ).subscribe((bookmarks: newVerb[]) => this.bookmarks = bookmarks);
 
     this._loaderService.loadingStatus.pipe(
       takeUntil(this._unsubscribe)
@@ -57,7 +63,8 @@ export class VerbsComponent implements OnInit, OnDestroy {
       takeUntil(this._unsubscribe)
       ).subscribe(newVerbs => {
         this.verbs = newVerbs;
-        this.bookmarks = this._bookmarksStorageService.getBookmarks();
+        // this.bookmarks = this._bookmarksStorageService.getBookmarks();
+        this.activeTab = this._tabsService.getActiveTab();
         this._getVerbSearch();
         this._loaderService.end();
       }, error => this._errorService.hasError());
