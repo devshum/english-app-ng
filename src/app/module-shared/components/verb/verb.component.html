@@ -1,0 +1,11 @@
+<div class="verb br" [class]="modificator">
+  <span>{{ verb.infinitive }}</span>
+  <span>{{ verb.past }}</span>
+  <span>{{ verb.pastParticiple }}</span>
+
+  <app-add-bookmark class="verb__star" 
+                    [bookmark]="verb">
+  </app-add-bookmark>
+
+  <ng-content></ng-content>
+</div>

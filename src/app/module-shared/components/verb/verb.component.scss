@@ -1,0 +1,80 @@
+@use '../../../../assets/styles/abstracts/variables' as styles;
+
+:host {
+  display: block;
+}
+
+// style ng-content
+::ng-deep {
+  a {
+    display: flex;
+    align-items: center;
+
+    color: styles.$white;
+    background-color: styles.$gray-10;
+    padding: 0.4rem 1.6rem;
+    text-decoration: none;
+    border-radius: 10rem;
+    font-size: 1.6rem;
+    margin-top: 0.8rem;
+  }
+
+  i {
+    transform: translateY(0.1rem);
+    margin-right: 0.5rem;
+  }
+}
+
+.verb {
+  display: flex;
+  align-items: center;
+  position: relative;
+  
+  flex-direction: column;
+  font-weight: 700;
+ 
+  &--chosen {
+    margin-top: 1.6rem;
+    background-color: styles.$white;
+    font-size: 3.6rem;
+    padding: 0.8rem 0 1.3rem 0;
+    
+    .verb__star {
+      margin: 0.8rem 0.8rem 0 0;
+    }
+  }
+
+  &--bookmark {
+    background-color: styles.$gray-1;
+    font-size: 3.2rem;
+    padding: 0.8rem;
+
+    .verb__star {
+      transform: translate(50%, -50%);
+    }
+  }
+
+  &__star {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  span {
+    &:not(:last-child) {
+      margin-bottom: 0.6rem;
+    }
+
+    &:nth-child(1) {
+      color: styles.$orange;
+    }
+
+    &:nth-child(2) {
+      color: styles.$green;
+    }
+
+    &:nth-child(3) {
+      color: styles.$blue;
+    }
+  }
+}

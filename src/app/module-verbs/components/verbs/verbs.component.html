@@ -12,6 +12,16 @@
                   [verbs]="verbs"
                   (chosenVerb)="chosenVerb = $event">
       </app-search>
+
+      <app-verb *ngIf="chosenVerb && activeTab === 'search'" 
+                [verb]="chosenVerb" 
+                [modificator]="'verb--chosen'">
+
+                <a href="{{'https://en.wiktionary.org/wiki/' + chosenVerb.infinitive}}" target="_blank">
+                  <i [inlineSVG]="'wiki.svg'"></i>
+                  <span>Explore</span>
+                </a>
+      </app-verb>
     </div>
 
     <app-table *ngIf="activeTab === 'list'" [verbs]="verbs"></app-table>

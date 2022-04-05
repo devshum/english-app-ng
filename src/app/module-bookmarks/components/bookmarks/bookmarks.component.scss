@@ -10,42 +10,4 @@
     grid-template-columns: repeat(6, 1fr);
     grid-gap: 2.4rem;
   }
-
-  &__bookmark {
-    display: flex;
-    align-items: center;
-    position: relative;
-    padding: 0.8rem;
-    flex-direction: column;
-    background-color: styles.$gray-1;
-    border: 0.1rem solid lighten(styles.$gray-5, 6%);
-
-    span {
-      font-size: 3.2rem;
-      font-weight: 700;
-
-      &:not(:last-child) {
-        margin-bottom: 0.6rem;
-      }
-
-      &:nth-child(1) {
-        color: styles.$orange;
-      }
-
-      &:nth-child(2) {
-        color: styles.$green;
-      }
-
-      &:nth-child(3) {
-        color: styles.$blue;
-      }
-    }
-  }
-
-  &__star {
-    position: absolute;
-    right: 0;
-    top: 0;
-    transform: translate(50%, -50%);
-  }
 }

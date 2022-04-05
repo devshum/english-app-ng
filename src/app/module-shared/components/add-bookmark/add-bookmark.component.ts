@@ -15,7 +15,7 @@ import { BookmarksStorageService } from 'src/app/services/bookmarksStorage.servi
   styleUrls: ['./add-bookmark.component.scss']
 })
 export class AddBookmarkComponent implements OnInit {
-  @Input() verb: newVerb;
+  @Input() bookmark: newVerb;
 
   private _bookmarks: newVerb[];
   private _unsubscribe = new Subject();
