@@ -1,18 +1,14 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class SearchStorageService {
-  private _searchVerbValue: string;
+  public searchChanged = new Subject();
 
   constructor() {}
-
-  public storeVerbSearchValue(verbSearch: string): void {
-    this._searchVerbValue = verbSearch;
-    localStorage.setItem('SearchValue', JSON.stringify(this._searchVerbValue));
-  }
 
   public getVerbSearchValue(): string {
     if(localStorage.getItem('SearchValue')) {
@@ -20,5 +16,18 @@ export class SearchStorageService {
     }
 
     return '';
+  }
+
+  public storeVerbSearchValue(verbSearch: string): void {
+    this.setSearch(verbSearch);
+  }
+
+  public clearSearch(): void {
+    this.setSearch('');
+    this.searchChanged.next();
+  }
+
+  private setSearch(verbSearchValue: string) {
+    localStorage.setItem('SearchValue', JSON.stringify(verbSearchValue));
   }
 }

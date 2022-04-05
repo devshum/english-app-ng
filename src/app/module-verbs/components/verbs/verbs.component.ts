@@ -1,6 +1,6 @@
 // Services
 import { HttpService } from 'src/app/services/http.service';
-import { BookmarksStorageService } from '../../../services/bookmarksStorage.service';
+// import { BookmarksStorageService } from '../../../services/bookmarksStorage.service';
 import { LoaderService } from '../../../services/loader.service';
 import { ErrorService } from './../../../services/error.service';
 import { SearchStorageService } from './../../../services/searchStorage.service';
@@ -29,6 +29,7 @@ export class VerbsComponent implements OnInit, OnDestroy {
   public bookmarks: newVerb[] = [];
   public isLoading = false;
   public activeTab: string;
+  public chosenVerb: newVerb;
   private _unsubscribe = new Subject();
 
   constructor(
