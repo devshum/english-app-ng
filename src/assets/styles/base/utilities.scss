@@ -7,12 +7,10 @@
 
   &--default {
     background-color: styles.$gray-1;
-    border: 0.1rem solid lighten(styles.$gray-5, 6%);
   }
 
   &--error {
     background-color: styles.$alert-bg;
-    border: 0.1rem solid styles.$alert-border;
     color: styles.$alert-text;
   }
 }

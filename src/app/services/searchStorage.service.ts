@@ -19,15 +19,12 @@ export class SearchStorageService {
   }
 
   public storeVerbSearchValue(verbSearch: string): void {
-    this.setSearch(verbSearch);
+    localStorage.setItem('SearchValue', JSON.stringify(verbSearch));
   }
 
   public clearSearch(): void {
-    this.setSearch('');
+    localStorage.removeItem('SearchValue');
     this.searchChanged.next();
   }
 
-  private setSearch(verbSearchValue: string) {
-    localStorage.setItem('SearchValue', JSON.stringify(verbSearchValue));
-  }
 }

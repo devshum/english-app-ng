@@ -1,6 +1,6 @@
 // Services
 import { HttpService } from 'src/app/services/http.service';
-// import { BookmarksStorageService } from '../../../services/bookmarksStorage.service';
+
 import { LoaderService } from '../../../services/loader.service';
 import { ErrorService } from './../../../services/error.service';
 import { SearchStorageService } from './../../../services/searchStorage.service';
@@ -30,18 +30,20 @@ export class VerbsComponent implements OnInit, OnDestroy {
   public isLoading = false;
   public activeTab: string;
   public chosenVerb: newVerb;
+
   private _unsubscribe = new Subject();
 
   constructor(
     private _httpService: HttpService,
     private _loaderService: LoaderService,
-    // private _bookmarksStorageService: BookmarksStorageService,
     private _errorService: ErrorService,
     private _searchStorageService: SearchStorageService,
     private _tabsService: TabsService
   ) { }
 
   ngOnInit(): void {
+    this.activeTab = this._tabsService.getActiveTab();
+
     this._tabsService.tabChanged.pipe(
       takeUntil(this._unsubscribe)
     ).subscribe(() => this.activeTab = this._tabsService.getActiveTab());
@@ -50,9 +52,6 @@ export class VerbsComponent implements OnInit, OnDestroy {
       takeUntil(this._unsubscribe)
     ).subscribe(loadingError => this.loadingError = loadingError);
 
-    // this._bookmarksStorageService.bookmarksUpdate.pipe(
-    //   takeUntil(this._unsubscribe)
-    // ).subscribe((bookmarks: newVerb[]) => this.bookmarks = bookmarks);
 
     this._loaderService.loadingStatus.pipe(
       takeUntil(this._unsubscribe)
@@ -64,7 +63,6 @@ export class VerbsComponent implements OnInit, OnDestroy {
       takeUntil(this._unsubscribe)
       ).subscribe(newVerbs => {
         this.verbs = newVerbs;
-        // this.bookmarks = this._bookmarksStorageService.getBookmarks();
         this.activeTab = this._tabsService.getActiveTab();
         this._getVerbSearch();
         this._loaderService.end();
