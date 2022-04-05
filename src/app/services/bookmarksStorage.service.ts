@@ -8,6 +8,7 @@ import { newVerb } from '../interfaces/newVerb.interface';
 
 export class BookmarksStorageService {
   public bookmarksUpdate: Subject<newVerb[]> = new Subject<newVerb[]>();
+
   private _isFlashClass: Subject<boolean> = new Subject<boolean>();
   private _bookmarks: newVerb[] = [];
 
@@ -32,6 +33,7 @@ export class BookmarksStorageService {
       this.bookmarksUpdate.next([...this._bookmarks]);
     } else {
       this._bookmarks = [verb];
+      this.bookmarksUpdate.next([...this._bookmarks]);
     }
 
     this._setFlashClass();
@@ -45,7 +47,12 @@ export class BookmarksStorageService {
     this.bookmarksUpdate.next([...this._bookmarks]);
 
     this._setFlashClass();
+
     localStorage.setItem('Bookmarks', JSON.stringify([...this._bookmarks]));
+
+    if(!this._bookmarks.length) {
+      localStorage.removeItem('Bookmarks');
+    }
   }
 
   private _setFlashClass(): void {

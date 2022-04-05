@@ -26,7 +26,8 @@
     background-color: styles.$gray;
     color: styles.$white;
 
-    &:hover {
+    &:hover,
+    &:active {
       background-color: styles.$gray-10;
     }
   }
@@ -35,7 +36,8 @@
     background-color: styles.$alert-text;
     color: styles.$alert-bg;
 
-    &:hover {
+    &:hover,
+    &:active {
       background-color: darken(styles.$alert-text, 10%);
     }
   }

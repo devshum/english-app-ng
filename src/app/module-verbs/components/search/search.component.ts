@@ -48,7 +48,6 @@ export class SearchComponent implements OnInit {
   public openVerb(verb: newVerb) {
     this.chosenVerb.emit(verb);
     this._searchStorageService.clearSearch();
-    console.log(this.searchVerb);
   }
 
   private _getVerbSearch(): void {

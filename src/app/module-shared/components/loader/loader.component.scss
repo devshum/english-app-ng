@@ -16,7 +16,7 @@
     border-radius: 50%;
     animation: spin 1s ease-in-out infinite;
     border: 0.5rem solid styles.$blue;
-    border-top-color: styles.$gray-1;
+    border-top-color: transparent;
 
     &--verbs {
       margin-top: 12rem;
