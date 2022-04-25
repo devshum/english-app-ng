@@ -1,9 +1,16 @@
 <div class="search">
-  <input class="search__input input br" 
-         type="text" 
-         placeholder="... start typing"
-         [(ngModel)]="searchVerb"
-         (input)="inputSearchValue()">
+  <div class="search__input-group">
+    <input class="search__input input br" 
+          type="text" 
+          placeholder="... start typing"
+          [(ngModel)]="searchVerb"
+          (input)="inputSearchValue()">
+
+    <button class="search__clear br" 
+            (click)="onClearAll()">Clear</button>
+   
+  </div>
+
 
   <perfect-scrollbar class="search__body br" 
                      [class.search__body--visible]="searchVerb"
@@ -22,7 +29,6 @@
         <span>🙄</span>
         <figcaption>No verbs was found</figcaption>
       </figure>
-
     </ul>
   </perfect-scrollbar>
 </div>

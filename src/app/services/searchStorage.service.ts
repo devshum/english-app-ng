@@ -35,6 +35,13 @@ export class SearchStorageService {
     this.searchChanged.next();
   }
 
+  public clearAll() {
+    localStorage.removeItem('SearchValue');
+    localStorage.removeItem('OpenedVerb');
+    this.searchChanged.next();
+    this.verbStatus.next();
+  }
+
   private _getLocal(description: string): void {
     if(localStorage.getItem(description)) {
       return JSON.parse(localStorage.getItem(description) || '');

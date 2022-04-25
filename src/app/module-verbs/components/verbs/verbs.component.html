@@ -9,7 +9,8 @@
 
       <app-search *ngIf="activeTab === 'search'"
                   (searchVerbValue)="onSearchVerbValue($event)" 
-                  [verbs]="verbs">
+                  [verbs]="verbs"
+                  [openedVerb]="openedVerb">
       </app-search> 
 
       <app-verb *ngIf="openedVerb && activeTab === 'search'" 
