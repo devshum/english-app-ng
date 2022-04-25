@@ -2,26 +2,25 @@
 
 :host {
   display: block;
-}
 
-// style ng-content
-::ng-deep {
-  a {
-    display: flex;
-    align-items: center;
-
-    color: styles.$white;
-    background-color: styles.$gray-10;
-    padding: 0.4rem 1.6rem;
-    text-decoration: none;
-    border-radius: 10rem;
-    font-size: 1.6rem;
-    margin-top: 0.8rem;
-  }
-
-  i {
-    transform: translateY(0.1rem);
-    margin-right: 0.5rem;
+  ::ng-deep {
+    a {
+      display: flex;
+      align-items: center;
+  
+      color: styles.$white;
+      background-color: styles.$gray-10;
+      padding: 0.4rem 1.6rem;
+      text-decoration: none;
+      border-radius: 10rem;
+      font-size: 1.6rem;
+      margin-top: 0.8rem;
+    }
+  
+    i {
+      transform: translateY(0.1rem);
+      margin-right: 0.5rem;
+    }
   }
 }
 
