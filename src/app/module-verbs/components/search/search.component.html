@@ -5,7 +5,7 @@
          [(ngModel)]="searchVerb"
          (input)="inputSearchValue()">
 
-  <perfect-scrollbar class="search__body" 
+  <perfect-scrollbar class="search__body br" 
                      [class.search__body--visible]="searchVerb"
                      [config]="config">
 
@@ -18,7 +18,11 @@
           <span>{{ verb.pastParticiple }}</span>
       </li>
 
-      <span class="search__no-found" *ngIf="!(verbs | searchVerb:searchVerb).length">No verbs was found</span> 
+      <figure class="search__no-found" *ngIf="!(verbs | searchVerb:searchVerb).length">
+        <span>🙄</span>
+        <figcaption>No verbs was found</figcaption>
+      </figure>
+
     </ul>
   </perfect-scrollbar>
 </div>
