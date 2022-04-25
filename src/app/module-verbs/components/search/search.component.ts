@@ -19,6 +19,7 @@ import { SearchStorageService } from 'src/app/services/searchStorage.service';
 })
 export class SearchComponent implements OnInit {
   @Input() verbs: newVerb[];
+  @Input() openedVerb: newVerb;
 
   @Output() searchVerbValue: EventEmitter<string> = new EventEmitter<string>();
 
@@ -47,6 +48,11 @@ export class SearchComponent implements OnInit {
   public openVerb(verb: newVerb) {
     this._searchStorageService.storeOpenedVerb(verb);
     this._searchStorageService.clearSearch();
+  }
+
+
+  public onClearAll() {
+    this._searchStorageService.clearAll();
   }
 
   private _getVerbSearch(): void {

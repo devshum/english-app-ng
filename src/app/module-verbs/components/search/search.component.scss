@@ -87,4 +87,23 @@
       font-weight: 500;
     }
   }
+
+  &__clear {
+    position: absolute;
+    right: 0.8rem;
+    top: 0.8rem;
+    bottom: 0.8rem;
+    border: unset;
+    background-color: unset;
+    background-color: styles.$blue-20;
+    cursor: pointer;
+    color: #3c4764;
+    padding: 0 1.6rem;
+    transition: styles.$transition;
+
+    &:hover {
+      background-color: darken(styles.$blue-20, 5%);
+    }
+
+  }
 }
