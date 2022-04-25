@@ -9,12 +9,11 @@ export class VerbStorageService {
 
   constructor() {}
 
-  storeVerb(verb: newVerb) {
-    this.currentVerb = verb;
-    localStorage.setItem('CurrentVerb', JSON.stringify(this.currentVerb));
+  storeVerb(verb: newVerb): void {
+    localStorage.setItem('CurrentVerb', JSON.stringify(verb));
   }
 
-  getVerb() {
+  getVerb(): any {
     if(localStorage.getItem('CurrentVerb')) {
       return JSON.parse(localStorage.getItem('CurrentVerb') || '');
     }

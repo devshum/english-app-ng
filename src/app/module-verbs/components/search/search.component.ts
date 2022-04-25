@@ -21,7 +21,6 @@ export class SearchComponent implements OnInit {
   @Input() verbs: newVerb[];
 
   @Output() searchVerbValue: EventEmitter<string> = new EventEmitter<string>();
-  @Output() chosenVerb: EventEmitter<newVerb> = new EventEmitter<newVerb>();
 
   public searchVerb: string;
   public config: PerfectScrollbarConfigInterface = {
@@ -46,7 +45,7 @@ export class SearchComponent implements OnInit {
   }
 
   public openVerb(verb: newVerb) {
-    this.chosenVerb.emit(verb);
+    this._searchStorageService.storeOpenedVerb(verb);
     this._searchStorageService.clearSearch();
   }
 

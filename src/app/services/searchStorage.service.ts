@@ -1,3 +1,4 @@
+import { newVerb } from './../interfaces/newVerb.interface';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
@@ -7,19 +8,26 @@ import { Subject } from 'rxjs';
 
 export class SearchStorageService {
   public searchChanged = new Subject();
+  public verbStatus = new Subject();
+  public openedVerb: newVerb;
 
   constructor() {}
 
-  public getVerbSearchValue(): string {
-    if(localStorage.getItem('SearchValue')) {
-      return JSON.parse(localStorage.getItem('SearchValue') || '');
-    }
+  public getVerbSearchValue(): any {
+    return this._getLocal('SearchValue');
+  }
 
-    return '';
+  public getOpenedVerb(): any {
+    return this._getLocal('OpenedVerb');
   }
 
   public storeVerbSearchValue(verbSearch: string): void {
-    localStorage.setItem('SearchValue', JSON.stringify(verbSearch));
+    this._storeLocal(verbSearch, 'SearchValue');
+  }
+
+  public storeOpenedVerb(verb: newVerb): void {
+    this._storeLocal(verb, 'OpenedVerb');
+    this.verbStatus.next();
   }
 
   public clearSearch(): void {
@@ -27,4 +35,13 @@ export class SearchStorageService {
     this.searchChanged.next();
   }
 
+  private _getLocal(description: string): void {
+    if(localStorage.getItem(description)) {
+      return JSON.parse(localStorage.getItem(description) || '');
+    }
+  }
+
+  private _storeLocal(data: any, description: string): void {
+    localStorage.setItem(description, JSON.stringify(data));
+  }
 }
