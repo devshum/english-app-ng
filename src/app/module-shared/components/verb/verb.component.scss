@@ -15,6 +15,10 @@
       border-radius: 10rem;
       font-size: 1.6rem;
       margin-top: 0.8rem;
+      
+      &:hover {
+        background-color: styles.$gray-10;
+      }
     }
   
     i {

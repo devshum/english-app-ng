@@ -9,15 +9,14 @@
 
       <app-search *ngIf="activeTab === 'search'"
                   (searchVerbValue)="onSearchVerbValue($event)" 
-                  [verbs]="verbs"
-                  (chosenVerb)="chosenVerb = $event">
-      </app-search>
+                  [verbs]="verbs">
+      </app-search> 
 
-      <app-verb *ngIf="chosenVerb && activeTab === 'search'" 
-                [verb]="chosenVerb" 
+      <app-verb *ngIf="openedVerb && activeTab === 'search'" 
+                [verb]="openedVerb" 
                 [modificator]="'verb--chosen'">
 
-                <a href="{{'https://en.wiktionary.org/wiki/' + chosenVerb.infinitive}}" target="_blank">
+                <a href="{{'https://en.wiktionary.org/wiki/' + openedVerb.infinitive}}" target="_blank">
                   <i [inlineSVG]="'wiki.svg'"></i>
                   <span>Explore</span>
                 </a>

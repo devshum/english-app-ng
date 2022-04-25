@@ -29,7 +29,7 @@ export class VerbsComponent implements OnInit, OnDestroy {
   public bookmarks: newVerb[] = [];
   public isLoading = false;
   public activeTab: string;
-  public chosenVerb: newVerb;
+  public openedVerb: newVerb;
 
   private _unsubscribe = new Subject();
 
@@ -42,16 +42,20 @@ export class VerbsComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.activeTab = this._tabsService.getActiveTab();
+    this._getActiveTab();
+    this._getOpenedVerb();
 
     this._tabsService.tabChanged.pipe(
       takeUntil(this._unsubscribe)
-    ).subscribe(() => this.activeTab = this._tabsService.getActiveTab());
+    ).subscribe(() => this._getActiveTab());
+
+    this._searchStorageService.verbStatus.pipe(
+      takeUntil(this._unsubscribe)
+    ).subscribe(() => this._getOpenedVerb());
 
     this._errorService.loadingErrorStatus.pipe(
       takeUntil(this._unsubscribe)
     ).subscribe(loadingError => this.loadingError = loadingError);
-
 
     this._loaderService.loadingStatus.pipe(
       takeUntil(this._unsubscribe)
@@ -81,5 +85,13 @@ export class VerbsComponent implements OnInit, OnDestroy {
 
   private _getVerbSearch(): void {
     this.searchValue = this._searchStorageService.getVerbSearchValue();
+  }
+
+  private _getActiveTab(): void {
+    this.activeTab = this._tabsService.getActiveTab();
+  }
+
+  private _getOpenedVerb(): void {
+    this.openedVerb = this._searchStorageService.getOpenedVerb();
   }
 }
