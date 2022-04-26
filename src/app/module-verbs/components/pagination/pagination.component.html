@@ -1,0 +1,11 @@
+<nav class="pagination">
+  <button class="pagination__left" (click)="navigatePage('prevStart')" *ngIf="getPrevAllowed()"><<</button>
+  <button class="pagination__left" (click)="navigatePage('prev')" *ngIf="getPrevAllowed()"><</button>
+
+  <select [(ngModel)]="currentPage" (click)="navigatePage()">
+    <option *ngFor="let page of pages" [value]="page">{{ page }} of {{ pages.length }}</option>
+  </select>
+
+  <button class="pagination__right" (click)="navigatePage('next')" *ngIf="getNextAllowed()">></button>
+  <button class="pagination__right" (click)="navigatePage('nextEnd')" *ngIf="getNextAllowed()">>></button>
+</nav>
