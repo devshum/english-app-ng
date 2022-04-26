@@ -8,13 +8,15 @@ import { VerbsComponent } from './components/verbs/verbs.component';
 import { TableComponent } from './components/table/table.component';
 import { TabviewComponent } from './components/tabview/tabview.component';
 import { SearchComponent } from './components/search/search.component';
+import { PaginationComponent } from './components/pagination/pagination.component';
 
 @NgModule({
   declarations: [
     VerbsComponent,
     TableComponent,
     TabviewComponent,
-    SearchComponent
+    SearchComponent,
+    PaginationComponent
   ],
   imports: [
     SharedModule,
