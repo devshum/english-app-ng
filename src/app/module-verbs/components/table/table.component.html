@@ -8,7 +8,7 @@
   
     <ul class="table__body">
       <li class="table__body-row" 
-          *ngFor="let verb of verbs.slice(0, 5)">
+          *ngFor="let verb of verbs.slice(start, middle)">
         <span class="table__item">
           <span>{{ verb.infinitive }}</span>
         </span>
@@ -33,7 +33,7 @@
   
     <ul class="table__body">
       <li class="table__body-row" 
-          *ngFor="let verb of verbs.slice(5, 10)">
+          *ngFor="let verb of verbs.slice(middle, end)">
         <span class="table__item">
           <span>{{ verb.infinitive }}</span>
         </span>
@@ -49,3 +49,5 @@
     </ul>
   </div>
 </div>
+
+<app-pagination [verbs]="verbs" (sliceValues)="onSliceValues($event)"></app-pagination>
