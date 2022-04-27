@@ -48,6 +48,9 @@
       </li>
     </ul>
   </div>
-</div>
 
-<app-pagination [verbs]="verbs" (sliceValues)="onSliceValues($event)"></app-pagination>
+  <app-pagination [verbs]="verbs" 
+                  (sliceValues)="onSliceValues($event)"
+                  class="table-wrapper__pagination">
+  </app-pagination>
+</div>

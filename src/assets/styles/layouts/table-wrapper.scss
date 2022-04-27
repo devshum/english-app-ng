@@ -1,0 +1,11 @@
+.table-wrapper {
+  display: grid;
+  grid-gap: 3.2rem;
+  grid-template-columns: repeat(2, 1fr);
+
+  position: relative;
+
+  &__pagination {
+    grid-column: 1 / -1;
+  }
+}
