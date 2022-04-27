@@ -13,8 +13,8 @@ export class TableComponent {
   @Input() verbs: newVerb[];
 
   public start = 0;
-  public middle = 5;
-  public end = 10;
+  public middle = 10;
+  public end = 20;
 
   constructor() { }
 
