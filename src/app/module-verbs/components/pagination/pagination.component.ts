@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { newVerb } from 'src/app/interfaces/newVerb.interface';
 
 @Component({
@@ -6,18 +6,22 @@ import { newVerb } from 'src/app/interfaces/newVerb.interface';
   templateUrl: './pagination.component.html',
   styleUrls: ['./pagination.component.scss']
 })
-export class PaginationComponent {
+export class PaginationComponent implements OnInit {
   @Input() verbs: newVerb[];
   @Output() sliceValues: EventEmitter<[number, number, number]> = new EventEmitter<[number, number, number]>();
 
   public start = 0;
-  public middle = 5;
-  public end = 10;
+  public middle = 10;
+  public end = 20;
   public currentPage = 1;
-  public verbsPerPage = 10;
-  public pages = [...Array(this.verbsPerPage + this.verbsPerPage)].map((_, i) => i + 1);
+  public verbsPerPage = 20;
+  public pages: number[];
 
   constructor() { }
+
+  ngOnInit(): void {
+    this.pages = [...Array(this.verbs.length / this.verbsPerPage)].map((_, i) => i + 1);
+  }
 
   navigatePage(...arg: any): void {
     const [direction] = arg;
@@ -35,7 +39,7 @@ export class PaginationComponent {
     }
 
     if(direction === 'nextEnd') {
-      this.currentPage = this.verbsPerPage + this.verbsPerPage;
+      this.currentPage = this.pages.length;
     }
 
     this.start = (this.currentPage - 1) * this.verbsPerPage;
