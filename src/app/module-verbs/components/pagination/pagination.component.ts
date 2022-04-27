@@ -1,3 +1,4 @@
+import { PaginationService } from './../../../services/pagination.service';
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { newVerb } from 'src/app/interfaces/newVerb.interface';
 
@@ -17,9 +18,11 @@ export class PaginationComponent implements OnInit {
   public verbsPerPage = 20;
   public pages: number[];
 
-  constructor() { }
+  constructor(private _paginationService: PaginationService) { }
 
   ngOnInit(): void {
+    this.currentPage = this._paginationService.getPage() || this.currentPage;
+    this._calcSlice();
     this.pages = [...Array(this.verbs.length / this.verbsPerPage)].map((_, i) => i + 1);
   }
 
@@ -42,18 +45,23 @@ export class PaginationComponent implements OnInit {
       this.currentPage = this.pages.length;
     }
 
-    this.start = (this.currentPage - 1) * this.verbsPerPage;
-    this.end = this.start + this.verbsPerPage;
-    this.middle = (this.start + this.end) / 2;
+    this._calcSlice();
 
     this.sliceValues.emit([this.start, this.middle, this.end]);
+    this._paginationService.storePage(this.currentPage);
   }
 
-  getPrevAllowed() {
+  getPrevAllowed(): boolean {
     return this.start > this.currentPage - 1;
   }
 
-  getNextAllowed() {
+  getNextAllowed(): boolean {
     return this.end < this.verbs.length;
+  }
+
+  private _calcSlice() {
+    this.start = (this.currentPage - 1) * this.verbsPerPage;
+    this.end = this.start + this.verbsPerPage;
+    this.middle = (this.start + this.end) / 2;
   }
 }
