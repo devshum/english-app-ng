@@ -1,0 +1,62 @@
+@use '../../../assets/styles/abstracts/variables' as styles;
+
+.paginator {
+  grid-column: 1 / -1;
+
+  .p-paginator {
+    .pi {
+      font-size: 1.4rem;
+    }
+
+    .p-link {
+      box-shadow: 0 0 0 0.2rem transparent;
+
+      &:focus-visible {
+        box-shadow: 0 0 0 0.2rem styles.$green;
+      }
+    }
+
+    .p-ripple {
+      transition: styles.$transition;
+
+      &.p-disabled {
+        cursor: not-allowed !important;
+        pointer-events: initial;
+      }
+    }
+  
+    .p-dropdown {
+      height: auto;
+      border: 0.1rem solid styles.$gray-1;
+
+      &:hover {
+        border: 0.1rem solid styles.$gray-5;
+      }
+
+      &:not(.p-disabled).p-focus {
+        box-shadow: 0 1rem 2rem rgba(styles.$black, 0.1);
+        border: 0.1rem solid styles.$gray-5;
+      }
+
+      &-item {
+        display: flex;
+        justify-content: center;
+        font-size: styles.$default-font-size;
+      }
+
+      &-trigger {
+        display: none;
+      }
+
+      .p-dropdown-label {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        font-size: styles.$default-font-size;
+        padding: 0.8rem 1.6rem;
+        width: 9rem;
+      }
+    }
+  }
+}

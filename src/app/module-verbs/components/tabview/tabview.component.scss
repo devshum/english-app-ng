@@ -10,13 +10,12 @@
   max-width: 42rem;
 
   &__button {
-    font-size: inherit;
+    font-size: 1.8rem;
     outline: none;
     border: none;
-    padding: 0.8rem;
+    padding: 1rem;
     cursor: pointer;
     background-color: styles.$gray-5;
-    border-bottom: 0.3rem solid transparent;
 
     span {
       display: inline-block;
@@ -29,7 +28,7 @@
 
     &--active {
       background-color: styles.$gray-5;
-      border-bottom: 0.3rem solid styles.$gray;
+      box-shadow: inset 0.5rem 0 0 0 styles.$green;
     }
   }
 

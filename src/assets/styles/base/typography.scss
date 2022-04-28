@@ -2,7 +2,7 @@
 
 body {
   font-family: styles.$font-inter;
-  font-size: 1.6rem;
+  font-size: styles.$default-font-size;
   font-weight: 400;
   color: styles.$gray;
   height: 100vh;
