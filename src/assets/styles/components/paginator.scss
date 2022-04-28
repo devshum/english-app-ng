@@ -4,6 +4,7 @@
   grid-column: 1 / -1;
 
   .p-paginator {
+
     .pi {
       font-size: 1.4rem;
     }
@@ -56,6 +57,16 @@
         font-size: styles.$default-font-size;
         padding: 0.8rem 1.6rem;
         width: 9rem;
+      }
+    }
+
+    .p-paginator {
+      &-prev {
+        margin-left: 0.8rem;
+      }
+
+      &-next {
+        margin-right: 0.8rem;
       }
     }
   }
