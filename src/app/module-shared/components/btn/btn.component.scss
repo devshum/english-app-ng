@@ -8,7 +8,7 @@
   border-radius: 10rem;
   border: unset;
   cursor: pointer;
-  font-size: 1.6rem;
+  font-size: styles.$default-font-size;
   transition: styles.$transition-slow;
 
   &:focus-visible,

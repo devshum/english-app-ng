@@ -11,6 +11,7 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "~12.2.0",
+    "@angular/cdk": "^13.3.4",
     "@angular/common": "~12.2.0",
     "@angular/compiler": "~12.2.0",
     "@angular/core": "~12.2.0",
@@ -24,7 +25,7 @@
     "ng-inline-svg-2": "^14.0.1",
     "ngx-perfect-scrollbar": "^10.1.1",
     "primeicons": "^5.0.0",
-    "primeng": "^13.2.0",
+    "primeng": "^13.3.3",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

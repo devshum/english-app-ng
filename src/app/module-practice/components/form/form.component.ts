@@ -1,7 +1,6 @@
 // Services
 import { HttpService } from '../../../services/http.service';
 import { LoaderService } from '../../../services/loader.service';
-import { BookmarksStorageService } from '../../../services/bookmarksStorage.service';
 import { AnswersStorageService } from './../../../services/answersStorage.service';
 import { VerbStorageService } from './../../../services/verbStorage.service';
 import { ErrorService } from './../../../services/error.service';

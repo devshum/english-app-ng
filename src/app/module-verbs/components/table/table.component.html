@@ -49,8 +49,12 @@
     </ul>
   </div>
 
-  <app-pagination [verbs]="verbs" 
-                  (sliceValues)="onSliceValues($event)"
-                  class="table-wrapper__pagination">
-  </app-pagination>
+  <p-paginator class="paginator"
+               [first]="currentPage - 1" 
+               [rows]="rowsValue" 
+               [totalRecords]="verbs.length / verbsPerPage" 
+               (onPageChange)="navigatePage($event)"
+               [showJumpToPageDropdown]="true" 
+               [showPageLinks]="false">
+  </p-paginator>
 </div>
