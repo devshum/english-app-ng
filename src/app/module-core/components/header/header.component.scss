@@ -36,9 +36,6 @@
 
   &__nav {
     transition: styles.$transition;
-    & > *  {
-      height: 100%;
-    }
 
     button {
       padding: 0.8rem 2rem;
@@ -48,6 +45,7 @@
       font-size: inherit;
       color: styles.$white;
       background: unset;
+      height: 5.6rem;
 
       &.active,
       &:active,
