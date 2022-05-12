@@ -7,10 +7,7 @@ const routes: Routes = [
     pathMatch: 'full',
     redirectTo: 'practice'
   },
-  { path: 'practice', loadChildren: () => import('./module-practice/practice.module').then(m => {
-    console.log(m);
-    return m.PracticeModule;
-  }) },
+  { path: 'practice', loadChildren: () => import('./module-practice/practice.module').then(m => m.PracticeModule) },
   { path: 'verbs', loadChildren: () => import('./module-verbs/verbs.module').then(m => m.VerbsModule) },
   { path: 'bookmarks', loadChildren: () => import('./module-bookmarks/bookmarks.module').then(m => m.BookmarksModule) },
   {
